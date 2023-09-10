@@ -7,7 +7,7 @@ Customized template for caddy file_server. Compared to caddy's default [browse.h
 - play videos with VTT and SRT subtitles support
 - markdown preview using [marked](https://github.com/markedjs/marked)
 - code highlighting for common source file formats using [highlight](https://github.com/highlightjs/highlight.js)
-- retains list/grid mode on navigation
+- retain list/grid mode on navigation
 
 ### Usage
 
