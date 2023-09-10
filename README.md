@@ -11,7 +11,7 @@ Customized template for caddy file_server with extra features:
 
 ### Usage
 
-In your `Caddyfile` set the `browse` directive under `file_server` to point to the custom `browse.html` file:
+In your `Caddyfile` set the [**`browse`**](https://caddyserver.com/docs/caddyfile/directives/file_server#syntax) directive under `file_server` to point to the custom `browse.html` file:
 
 ```Caddyfile
 file_server {
