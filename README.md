@@ -3,6 +3,7 @@
 Customized template for caddy file_server. Compared to caddy's default [browse.html](https://github.com/caddyserver/caddy/blob/master/modules/caddyhttp/fileserver/browse.html) template offers the following extra features:
 
 - play all audios inline (with automatic sequential autoplay)
+- keyboard navigation for images and content files with Left/Right keys
 - dynamic preview mode for images, video, HTML and source code files without page reload
 - play videos with VTT and SRT subtitles support
 - markdown preview using [marked](https://github.com/markedjs/marked)
