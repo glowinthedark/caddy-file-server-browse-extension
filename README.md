@@ -8,3 +8,14 @@ Customized template for caddy file_server with extra features:
 - markdown preview using [marked](https://github.com/markedjs/marked)
 - code highlighting for common source file formats using [highlight](https://github.com/highlightjs/highlight.js)
 - retains list/grid mode on navigation
+
+### Usage
+
+In your `Caddyfile` set the `browse` directive under `file_server` to point to the custom `browse.html` file:
+
+```Caddyfile
+file_server {
+    root /path/to/my/server/root
+    browse /path/to/folder/caddy/templates/browse.html
+}
+```
