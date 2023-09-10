@@ -1,41 +1,297 @@
 {{- define "icon"}}
 	{{- if .IsDir}}
-		{{- if .IsSymlink}}folder-symlink
-		{{- else}}folder
+		{{- if .IsSymlink}}
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-folder-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+						<path stroke="none" d="M 0,0 H 24 V 24 H 0 Z" fill="none"/>
+						<path d="M 9,3 A 1,1 0 0 1 9.608,3.206 L 9.708,3.293 12.414,6 H 19 a 3,3 0 0 1 2.995,2.824 L 22,9 v 8 a 3,3 0 0 1 -2.824,2.995 L 19,20 H 5 A 3,3 0 0 1 2.005,17.176 L 2,17 V 6 A 3,3 0 0 1 4.824,3.005 L 5,3 Z" stroke-width="0" fill="#ffb900"/>
+						<path fill="#000000" d="m 2.7945263,17.305795 c 0,-2.374234 1.7927873,-4.314008 4.0781323,-4.537358 v -1.104508 c 0,-0.342673 0.4099548,-0.517069 0.6516446,-0.272303 l 2.4505503,2.492538 c 0.052008,0.05303 0.052008,0.134622 0,0.187655 L 7.5243032,16.564357 C 7.2826134,16.809123 6.8726586,16.633707 6.8726586,16.292054 V 15.238539 C 4.9840112,15.536338 3.4369927,16.629628 3.055592,18.499032 2.8801885,18.119644 2.7945263,17.721898 2.7945263,17.305795 Z" style="stroke-width:0.127478" />		  
+		</svg>
+		{{- else}}
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-folder-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M9 3a1 1 0 0 1 .608 .206l.1 .087l2.706 2.707h6.586a3 3 0 0 1 2.995 2.824l.005 .176v8a3 3 0 0 1 -2.824 2.995l-.176 .005h-14a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-11a3 3 0 0 1 2.824 -2.995l.176 -.005h4z" stroke-width="0" fill="currentColor"></path>
+	</svg>
 	{{- end}}
-	{{- else if or (eq .Name "LICENSE") (eq .Name "README")}}license
-	{{- else if .HasExt ".jpg" ".jpeg" ".png" ".gif" ".webp" ".tiff" ".bmp" ".heif" ".heic" ".svg"}}image
-	{{- else if .HasExt ".mp4" ".mov" ".mpeg" ".mpg" ".avi" ".ogg" ".webm" ".mkv" ".vob" ".gifv" ".3gp"}}video
-	{{- else if .HasExt ".mp3" ".m4a" ".aac" ".ogg" ".flac" ".wav" ".wma" ".midi" ".cda"}}audio
-	{{- else if .HasExt ".pdf"}}pdf
-	{{- else if .HasExt ".csv" ".tsv"}}csv
-	{{- else if .HasExt ".txt" ".doc" ".docx" ".odt" ".fodt" ".rtf"}}doc
-	{{- else if .HasExt ".xls" ".xlsx" ".ods" ".fods"}}sheet
-	{{- else if .HasExt ".ppt" ".pptx" ".odp" ".fodp"}}ppt
-	{{- else if .HasExt ".zip" ".gz" ".xz" ".tar" ".7z" ".rar" ".xz" ".zst"}}archive
-	{{- else if .HasExt ".deb" ".dpkg"}}deb
-	{{- else if .HasExt ".rpm" ".exe" ".flatpak" ".appimage" ".jar" ".msi" ".apk"}}dist
-	{{- else if .HasExt ".ps1"}}ps1
-	{{- else if .HasExt ".py" ".pyc" ".pyo"}}py
-	{{- else if .HasExt ".bash" ".sh" ".com" ".bat" ".dll" ".so"}}sh
-	{{- else if .HasExt ".dmg"}}dmg
-	{{- else if .HasExt ".iso" ".img"}}iso
-	{{- else if .HasExt ".md" ".mdown" ".markdown"}}md
-	{{- else if .HasExt ".ttf" ".otf" ".woff" ".woff2" ".eof"}}font
-	{{- else if .HasExt ".go"}}go
-	{{- else if .HasExt ".html" ".htm"}}html
-	{{- else if .HasExt ".js"}}js
-	{{- else if .HasExt ".css"}}css
-	{{- else if .HasExt ".json" ".json5" ".jsonc"}}json
-	{{- else if .HasExt ".ts"}}ts
-	{{- else if .HasExt ".sql"}}sql
-	{{- else if .HasExt ".db" ".sqlite" ".bak" ".mdb"}}db
-	{{- else if .HasExt ".eml" ".email" ".mailbox" ".mbox" ".msg"}}email
-	{{- else if .HasExt ".crt" ".pem" ".x509" ".cer" ".ca-bundle"}}cert
-	{{- else if .HasExt ".key" ".keystore" ".jks" ".p12" ".pfx" ".pub"}}keystore
+	{{- else if or (eq .Name "LICENSE") (eq .Name "README")}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-license" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M15 21h-9a3 3 0 0 1 -3 -3v-1h10v2a2 2 0 0 0 4 0v-14a2 2 0 1 1 2 2h-2m2 -4h-11a3 3 0 0 0 -3 3v11"></path>
+		<path d="M9 7l4 0"></path>
+		<path d="M9 11l4 0"></path>
+	</svg>
+	{{- else if .HasExt ".jpg" ".jpeg" ".png" ".gif" ".webp" ".tiff" ".bmp" ".heif" ".heic" ".svg"}}
+		{{- if eq .Tpl.Layout "grid"}}
+		<img loading="lazy" src="{{html .Name}}">
+		{{- else}}
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-photo" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+			<path d="M15 8h.01"></path>
+			<path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z"></path>
+			<path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5"></path>
+			<path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3"></path>
+		</svg>
+	{{- end}}
+	{{- else if .HasExt ".mp4" ".mov" ".mpeg" ".mpg" ".avi" ".ogg" ".webm" ".mkv" ".vob" ".gifv" ".3gp"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-movie" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+		<path d="M8 4l0 16"></path>
+		<path d="M16 4l0 16"></path>
+		<path d="M4 8l4 0"></path>
+		<path d="M4 16l4 0"></path>
+		<path d="M4 12l16 0"></path>
+		<path d="M16 8l4 0"></path>
+		<path d="M16 16l4 0"></path>
+	</svg>
+	{{- else if .HasExt ".mp3" ".m4a" ".aac" ".ogg" ".flac" ".wav" ".wma" ".midi" ".cda"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-music" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M6 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+		<path d="M16 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+		<path d="M9 17l0 -13l10 0l0 13"></path>
+		<path d="M9 8l10 0"></path>
+	</svg>
+	{{- else if .HasExt ".pdf"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-type-pdf" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+		<path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"></path>
+		<path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6"></path>
+		<path d="M17 18h2"></path>
+		<path d="M20 15h-3v6"></path>
+		<path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z"></path>
+	</svg>
+	{{- else if .HasExt ".csv" ".tsv"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-type-csv" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+		<path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"></path>
+		<path d="M7 16.5a1.5 1.5 0 0 0 -3 0v3a1.5 1.5 0 0 0 3 0"></path>
+		<path d="M10 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75"></path>
+		<path d="M16 15l2 6l2 -6"></path>
+	</svg>
+	{{- else if .HasExt ".txt" ".doc" ".docx" ".odt" ".fodt" ".rtf"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-text" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+		<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+		<path d="M9 9l1 0"></path>
+		<path d="M9 13l6 0"></path>
+		<path d="M9 17l6 0"></path>
+	</svg>
+	{{- else if .HasExt ".xls" ".xlsx" ".ods" ".fods"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-spreadsheet" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+		<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+		<path d="M8 11h8v7h-8z"></path>
+		<path d="M8 15h8"></path>
+		<path d="M11 11v7"></path>
+	</svg>
+	{{- else if .HasExt ".ppt" ".pptx" ".odp" ".fodp"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-presentation-analytics" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M9 12v-4"></path>
+		<path d="M15 12v-2"></path>
+		<path d="M12 12v-1"></path>
+		<path d="M3 4h18"></path>
+		<path d="M4 4v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-10"></path>
+		<path d="M12 16v4"></path>
+		<path d="M9 20h6"></path>
+	</svg>
+	{{- else if .HasExt ".zip" ".gz" ".xz" ".tar" ".7z" ".rar" ".xz" ".zst"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-zip" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M6 20.735a2 2 0 0 1 -1 -1.735v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-1"></path>
+		<path d="M11 17a2 2 0 0 1 2 2v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-2a2 2 0 0 1 2 -2z"></path>
+		<path d="M11 5l-1 0"></path>
+		<path d="M13 7l-1 0"></path>
+		<path d="M11 9l-1 0"></path>
+		<path d="M13 11l-1 0"></path>
+		<path d="M11 13l-1 0"></path>
+		<path d="M13 15l-1 0"></path>
+	</svg>
+	{{- else if .HasExt ".deb" ".dpkg"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-debian" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M12 17c-2.397 -.943 -4 -3.153 -4 -5.635c0 -2.19 1.039 -3.14 1.604 -3.595c2.646 -2.133 6.396 -.27 6.396 3.23c0 2.5 -2.905 2.121 -3.5 1.5c-.595 -.621 -1 -1.5 -.5 -2.5"></path>
+		<path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+	</svg>
+	{{- else if .HasExt ".rpm" ".exe" ".flatpak" ".appimage" ".jar" ".msi" ".apk"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-package" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5"></path>
+		<path d="M12 12l8 -4.5"></path>
+		<path d="M12 12l0 9"></path>
+		<path d="M12 12l-8 -4.5"></path>
+		<path d="M16 5.25l-8 4.5"></path>
+	</svg>
+	{{- else if .HasExt ".ps1"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-powershell" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M4.887 20h11.868c.893 0 1.664 -.665 1.847 -1.592l2.358 -12c.212 -1.081 -.442 -2.14 -1.462 -2.366a1.784 1.784 0 0 0 -.385 -.042h-11.868c-.893 0 -1.664 .665 -1.847 1.592l-2.358 12c-.212 1.081 .442 2.14 1.462 2.366c.127 .028 .256 .042 .385 .042z"></path>
+		<path d="M9 8l4 4l-6 4"></path>
+		<path d="M12 16h3"></path>
+	</svg>
+	{{- else if .HasExt ".py" ".pyc" ".pyo"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-python" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M12 9h-7a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h3"></path>
+		<path d="M12 15h7a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-3"></path>
+		<path d="M8 9v-4a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-4a2 2 0 0 0 -2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4"></path>
+		<path d="M11 6l0 .01"></path>
+		<path d="M13 18l0 .01"></path>
+	</svg>
+	{{- else if .HasExt ".bash" ".sh" ".com" ".bat" ".dll" ".so"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-script" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M17 20h-11a3 3 0 0 1 0 -6h11a3 3 0 0 0 0 6h1a3 3 0 0 0 3 -3v-11a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v8"></path>
+	</svg>
+	{{- else if .HasExt ".dmg"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-finder" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M3 4m0 1a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1z"></path>
+		<path d="M7 8v1"></path>
+		<path d="M17 8v1"></path>
+		<path d="M12.5 4c-.654 1.486 -1.26 3.443 -1.5 9h2.5c-.19 2.867 .094 5.024 .5 7"></path>
+		<path d="M7 15.5c3.667 2 6.333 2 10 0"></path>
+	</svg>
+	{{- else if .HasExt ".iso" ".img"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-disc" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+		<path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+		<path d="M7 12a5 5 0 0 1 5 -5"></path>
+		<path d="M12 17a5 5 0 0 0 5 -5"></path>
+	</svg>
+	{{- else if .HasExt ".md" ".mdown" ".markdown"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-markdown" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
+		<path d="M7 15v-6l2 2l2 -2v6"></path>
+		<path d="M14 13l2 2l2 -2m-2 2v-6"></path>
+	</svg>
+	{{- else if .HasExt ".ttf" ".otf" ".woff" ".woff2" ".eof"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-typography" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+		<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+		<path d="M11 18h2"></path>
+		<path d="M12 18v-7"></path>
+		<path d="M9 12v-1h6v1"></path>
+	</svg>
+	{{- else if .HasExt ".go"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-golang" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M15.695 14.305c1.061 1.06 2.953 .888 4.226 -.384c1.272 -1.273 1.444 -3.165 .384 -4.226c-1.061 -1.06 -2.953 -.888 -4.226 .384c-1.272 1.273 -1.444 3.165 -.384 4.226z"></path>
+		<path d="M12.68 9.233c-1.084 -.497 -2.545 -.191 -3.591 .846c-1.284 1.273 -1.457 3.165 -.388 4.226c1.07 1.06 2.978 .888 4.261 -.384a3.669 3.669 0 0 0 1.038 -1.921h-2.427"></path>
+		<path d="M5.5 15h-1.5"></path>
+		<path d="M6 9h-2"></path>
+		<path d="M5 12h-3"></path>
+	</svg>
+	{{- else if .HasExt ".html" ".htm"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-type-html" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+		<path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"></path>
+		<path d="M2 21v-6"></path>
+		<path d="M5 15v6"></path>
+		<path d="M2 18h3"></path>
+		<path d="M20 15v6h2"></path>
+		<path d="M13 21v-6l2 3l2 -3v6"></path>
+		<path d="M7.5 15h3"></path>
+		<path d="M9 15v6"></path>
+	</svg>
+	{{- else if .HasExt ".js"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-type-js" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+		<path d="M3 15h3v4.5a1.5 1.5 0 0 1 -3 0"></path>
+		<path d="M9 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75"></path>
+		<path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-1"></path>
+	</svg>
+	{{- else if .HasExt ".css"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-type-css" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+		<path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"></path>
+		<path d="M8 16.5a1.5 1.5 0 0 0 -3 0v3a1.5 1.5 0 0 0 3 0"></path>
+		<path d="M11 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75"></path>
+		<path d="M17 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75"></path>
+	</svg>
+	{{- else if .HasExt ".json" ".json5" ".jsonc"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-json" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M20 16v-8l3 8v-8"></path>
+		<path d="M15 8a2 2 0 0 1 2 2v4a2 2 0 1 1 -4 0v-4a2 2 0 0 1 2 -2z"></path>
+		<path d="M1 8h3v6.5a1.5 1.5 0 0 1 -3 0v-.5"></path>
+		<path d="M7 15a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-2a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1h1a1 1 0 0 1 1 1"></path>
+	</svg>
+	{{- else if .HasExt ".ts"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-type-ts" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+		<path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-1"></path>
+		<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+		<path d="M9 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75"></path>
+		<path d="M3.5 15h3"></path>
+		<path d="M5 15v6"></path>
+	</svg>
+	{{- else if .HasExt ".sql"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-type-sql" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+		<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+		<path d="M5 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75"></path>
+		<path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"></path>
+		<path d="M18 15v6h2"></path>
+		<path d="M13 15a2 2 0 0 1 2 2v2a2 2 0 1 1 -4 0v-2a2 2 0 0 1 2 -2z"></path>
+		<path d="M14 20l1.5 1.5"></path>
+	</svg>
+	{{- else if .HasExt ".db" ".sqlite" ".bak" ".mdb"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-database" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0"></path>
+		<path d="M4 6v6a8 3 0 0 0 16 0v-6"></path>
+		<path d="M4 12v6a8 3 0 0 0 16 0v-6"></path>
+	</svg>
+	{{- else if .HasExt ".eml" ".email" ".mailbox" ".mbox" ".msg"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"></path>
+		<path d="M3 7l9 6l9 -6"></path>
+	</svg>
+	{{- else if .HasExt ".crt" ".pem" ".x509" ".cer" ".ca-bundle"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-certificate" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M15 15m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+		<path d="M13 17.5v4.5l2 -1.5l2 1.5v-4.5"></path>
+		<path d="M10 19h-5a2 2 0 0 1 -2 -2v-10c0 -1.1 .9 -2 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -1 1.73"></path>
+		<path d="M6 9l12 0"></path>
+		<path d="M6 12l3 0"></path>
+		<path d="M6 15l2 0"></path>
+	</svg>
+	{{- else if .HasExt ".key" ".keystore" ".jks" ".p12" ".pfx" ".pub"}}
+	<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-key" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+		<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+		<path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z"></path>
+		<path d="M15 9h.01"></path>
+	</svg>
 	{{- else}}
-		{{- if .IsSymlink}}symlink
-		{{- else}}generic
+		{{- if .IsSymlink}}
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-symlink" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+			<path d="M4 21v-4a3 3 0 0 1 3 -3h5"></path>
+			<path d="M9 17l3 -3l-3 -3"></path>
+			<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+			<path d="M5 11v-6a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-9.5"></path>
+		</svg>
+		{{- else}}
+		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+			<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+			<path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
+			<path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
+		</svg>
 		{{- end}}
 	{{- end}}
 {{- end}}
@@ -46,9 +302,17 @@
 		<meta charset="utf-8">
 		<meta name="color-scheme" content="light dark">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 		<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.8.0/styles/default.min.css">
 		<script src="https://unpkg.com/@highlightjs/cdn-assets@11.8.0/highlight.min.js"></script>
+
 		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+
+		<!-- THIS WORKS FINE TOO -->
+		<!-- <link rel="stylesheet" href="/larch/css/hljs.11.8.0.min.css"> -->
+		<!-- <script async src="/larch/js/highlight.min-11.8.0.js"></script> -->
+		<!-- <script src="/larch/js/marked.min.js"></script> -->
 <style>
 * { padding: 0; margin: 0; box-sizing: border-box; }
 
@@ -103,6 +367,14 @@ header,
 td a {
 	color: #006ed3;
 	text-decoration: none;
+}
+
+td a.nowPlaying {
+	color: #ee9a00 !important;
+}
+
+td a.nowPlaying::before {
+	content: '‣';
 }
 
 td a:hover {
@@ -686,135 +958,123 @@ div audio#aplayer {
 {{- end}}
 
 <script>
-function findNextLink(link) {
-  let tr = findClosest(link, "TR", "file") || findClosest(link, "DIV", "entry");
-  if (tr && tr.nextElementSibling) {
-    return tr.nextElementSibling.querySelector("a");
-  }
-}
 
-function findPrevLink(link) {
-  let tr = findClosest(link, "TR", "file") || findClosest(link, "DIV", "entry");
-  if (tr && tr.previousElementSibling) {
-    return tr.previousElementSibling.querySelector("a");
-  }
-}
+	function findNextPrevLink(link, regex, isBackwards) {
+		let item = findClosest(link, 'TR', 'file') || findClosest(link, 'DIV', 'entry');
 
-// keyboard navigation
-document.onkeydown = function (e) {
-  const v = document.querySelector(".popup video");
-  const img = document.querySelector(".popup img");
+		while(item = isBackwards ? item.previousElementSibling : item.nextElementSibling) {
+			const a = item.querySelector('a');
 
-  switch (e.which) {
-    case 27: // = Escape
-      hideModal();
-      break;
-    case 37: // left
-      if (v) {
-        if (!v.paused) {
-          v.pause();
-          v.currentTime = v.currentTime - 5.0;
-          if (v.paused) {
-            v.play();
-          }
+			if (a && regex.test(a.getAttribute('href'))) {
+				return a;
+			}
+		}
+	}
+
+	// keyboard navigation
+	document.onkeydown = function (e) {
+        const v = document.querySelector('.popup video');
+		const img = document.querySelector('.popup img');
+
+        switch (e.which) {
+			case 27:  // = Escape
+				hideModal();
+				break;
+            case 37: // left
+				if (v){
+					if (!v.paused) {
+						v.pause();
+						v.currentTime = v.currentTime - 5.0;
+						if (v.paused) {
+							v.play();
+						}
+					}
+				} else if (window.currentLink && (img || !v || (v && v.paused && v.currentTime == 0))) {
+					const prev = findNextPrevLink(window.currentLink, REGEX_TYPE_CAN_PREVIEW, true);
+					if (prev) {
+						onLinkClicked(prev);
+					}
+				}
+                break;
+
+            case 32: // Space
+				if(e.which == 32){  
+				// stops default behaviour of space bar. Stop page scrolling down
+					e.preventDefault();  
+					if (v.paused) {
+						v.play();
+					} else {
+						v.pause();
+					}
+				}
+				break;
+            case 39: // Right
+				if (v && e.which != 32){
+					if (!v.paused) {
+						v.pause();
+						v.currentTime = v.currentTime + 5.0;
+						if (v.paused) {
+							v.play();
+						}
+					}
+				}
+				if (window.currentLink && (img || !v || (v && v.ended)) ) {
+					const next = findNextPrevLink(window.currentLink, REGEX_TYPE_CAN_PREVIEW);
+					if (next) {
+						onLinkClicked(next);
+					}
+				}
+
+                break;
+            case 70: // f-key
+                if (!(e.shiftKey || e.ctrlKey || e.altKey || e.metaKey)) {
+                    if (!window.isFs) {
+                        window.isFs = true;
+                        fullscreenOn(v || img || document);
+                    } else {
+                        window.isFs = false;
+                        fullscreenOff(v || img || document);
+                    }
+                }
+                break;
         }
-      } else if (
-        window.currentLink &&
-        (img || !v || (v && v.paused && v.currentTime == 0))
-      ) {
-        const prev = findPrevLink(window.currentLink);
-        if (prev) {
-          onLinkClicked(prev);
-        }
-      }
-      break;
+    };
 
-    case 32: // Space
-      if (e.which == 32) {
-        // stops default behaviour of space bar. Stop page scrolling down
-        e.preventDefault();
-        if (v.paused) {
-          v.play();
-        } else {
-          v.pause();
-        }
-      }
-      break;
-    case 39: // Right
-      if (v && e.which != 32) {
-        if (!v.paused) {
-          v.pause();
-          v.currentTime = v.currentTime + 5.0;
-          if (v.paused) {
-            v.play();
-          }
-        }
-      }
-      if (window.currentLink && (img || !v || (v && v.ended))) {
-        const next = findNextLink(window.currentLink);
-        if (next) {
-          onLinkClicked(next);
-        }
-      }
+	function fullscreenOn(p) {
+		var fs = p.requestFullscreen || p.webkitRequestFullscreen || p.mozRequestFullScreen || p.oRequestFullscreen || p.msRequestFullscreen;
+		fs.call(p);
+	}
 
-      break;
-    case 70: // f-key
-      if (!(e.shiftKey || e.ctrlKey || e.altKey || e.metaKey)) {
-        if (!window.isFs) {
-          window.isFs = true;
-          fullscreenOn(v || img || document);
-        } else {
-          window.isFs = false;
-          fullscreenOff(v || img || document);
-        }
-      }
-      break;
-  }
-};
+	function fullscreenOff(p) {
+		var fsx = p.exitFullScreen || p.webkitExitFullScreen || p.mozExitFullScreen || p.oExitFullScreen || p.msExitFullScreen;
+		fsx.call(p);
+	}
 
-function fullscreenOn(p) {
-  var fs =
-    p.requestFullscreen ||
-    p.webkitRequestFullscreen ||
-    p.mozRequestFullScreen ||
-    p.oRequestFullscreen ||
-    p.msRequestFullscreen;
-  fs.call(p);
-}
-
-function fullscreenOff(p) {
-  var fsx =
-    p.exitFullScreen ||
-    p.webkitExitFullScreen ||
-    p.mozExitFullScreen ||
-    p.oExitFullScreen ||
-    p.msExitFullScreen;
-  fsx.call(p);
-}
 
 async function loadSubtitle(subUrl) {
-  const url = new URL(subUrl);
-  let src;
-  if (url.pathname.toLowerCase().endsWith(".srt")) {
-    try {
-      const resp = await fetch(subUrl);
-      if (!resp.ok) {
-        throw new Error(`Failed to fetch subtitle from ${subUrl}!`);
-      }
-      const vtt = srtToVttBlob(await resp.text());
-      src = URL.createObjectURL(vtt);
-    } catch (error) {
-      console.error(error);
-    }
-  } else {
-    src = subUrl;
-  }
+      const url = new URL(subUrl);
 
-  return src;
+      let src;
+      if (url.pathname.toLowerCase().endsWith(".srt")) {
+        try {
+          const resp = await fetch(subUrl);
+          if (!resp.ok) {
+            throw new Error(`Failed to fetch subtitle from ${subUrl}!`);
+          }
+          const vtt = srtToVttBlob(await resp.text());
+          src = URL.createObjectURL(vtt);
+        } catch (error) {
+          console.error(error);
+        }
+      } else {
+        src = subUrl;
+      }
+
+      return src;
 }
 
 function srtToVttBlob(srtData) {
-  const VTT_HEAD = `WEBVTT
+	const VTT_HEAD = `WEBVTT
 
 STYLE
 ::cue {font-size: 3vh; color:#ffffff; border:3px solid black; text-align:center;text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5), 2px 2px 3px rgba(206,89,55,0)}
@@ -822,226 +1082,257 @@ STYLE
 ::cue(i) {color: #00bafd;}
 ::cue(u) {color: #ff00ee;}
 `;
-  // Replace line breaks with \n
-  let subtitles = srtData.replace(/\r\n|\r|\n/g, "\n");
-  // commas -> dots in timestamps
-  subtitles = subtitles.replace(/(\d\d:\d\d:\d\d),(\d\d\d)/g, "$1.$2");
-  // map SRT font colors to VTT cue span classes
-  var colorMap = {};
+	// Replace line breaks with \n
+	let subtitles = srtData.replace(/\r\n|\r|\n/g, "\n");
+	// commas -> dots in timestamps
+	subtitles = subtitles.replace(/(\d\d:\d\d:\d\d),(\d\d\d)/g, "$1.$2");
+	// map SRT font colors to VTT cue span classes
+	var colorMap = {};
 
-  // font tags -> ::cue span tags
-  subtitles = subtitles.replace(
-    /<font color="([^"]+)">([\s\S]*?)<\/font>/g,
-    function (_match, color, text) {
-      let key =
-        "c_" + color.replace(/^rgb/, "").replace(/\W/g, "").toLowerCase();
-      colorMap[key] = color;
-      return `<c.${key}>${text.replace("\n", "").trim()}</c>`;
-    },
-  );
-  subtitles = subtitles.replace(/<br\s*\/?>/g, "\n");
+	// font tags -> ::cue span tags
+	subtitles = subtitles.replace(
+	/<font color="([^"]+)">([\s\S]*?)<\/font>/g,
+	function (_match, color, text) {
+		let key =
+		"c_" + color.replace(/^rgb/, "").replace(/\W/g, "").toLowerCase();
+		colorMap[key] = color;
+		return `<c.${key}>${text.replace("\n", "").trim()}</c>`;
+	}
+	);
+	subtitles = subtitles.replace(/<br\s*\/?>/g, "\n");
 
-  let vttSubtitles = VTT_HEAD;
+	let vttSubtitles = VTT_HEAD;
 
-  if (Object.keys(colorMap).length) {
-    let vttStyles = "";
+	if (Object.keys(colorMap).length) {
+	let vttStyles = "";
 
-    for (let cssClass in colorMap) {
-      let color = colorMap[cssClass];
-      // add cue style declaration
-      vttStyles += `::cue(.${cssClass}) {color: ${color};}\n`;
-    }
-    vttSubtitles += vttStyles;
-  }
-  vttSubtitles += "\n"; // an empty line MUST separate styles from subs
-  vttSubtitles += subtitles;
+	for (let cssClass in colorMap) {
+		let color = colorMap[cssClass];
+		// add cue style declaration
+		vttStyles += `::cue(.${cssClass}) {color: ${color};}\n`;
+	}
+	vttSubtitles += vttStyles;
+	}
+	vttSubtitles += "\n"; // an empty line MUST separate styles from subs
+	vttSubtitles += subtitles;
 
-  return new Blob([vttSubtitles], { type: "text/vtt" });
+	return new Blob([vttSubtitles], { type: "text/vtt" });
 }
 
 function findClosest(el, tagName, className) {
-  if (
-    (el.tagName === tagName && !className) ||
-    el.classList.contains(className)
-  ) {
-    return el;
-  } else if (el.parentElement) {
-    return findClosest(el.parentElement, tagName, className);
-  }
-  return null;
+	if (el.tagName === tagName && !className || el.classList.contains(className)) {
+		return el;
+	} else if (el.parentElement) {
+		return findClosest(el.parentElement, tagName, className);
+	}
+	return null;
 }
 
 function onDocumentClickHandler(e) {
-  const el = e.target;
-  let link = el;
+	const el = e.target;
+	
+	let link = el;
 
-  if (link.tagName !== "A") {
-    link = findClosest(link, "A");
-  }
-
-  if (
-    link &&
-    link.getAttribute("href") &&
-    link.getAttribute("href") != "#" &&
-    !link.href.startsWith("javascript:")
-  ) {
-    onLinkClicked(link, e);
-  } else if (!link && !document.querySelector("#popup1 .popup").contains(el)) {
-    hideModal();
-  }
+	if (link.tagName !== 'A') {
+		link = findClosest(link, 'A');
+	}
+	
+	if (link && link.getAttribute("href") && link.getAttribute("href") != '#' && !link.href.startsWith('javascript:')) {
+		onLinkClicked(link, e);
+	} else if (!link && !document.querySelector('#popup1 .popup').contains(el)) {
+		hideModal();
+	}
 }
 
 const REGEX_TYPE_AUDIO = /\.(mp3|m4a|aac|flac|ape|wav|ogg|oga|webm)$/i;
 const REGEX_TYPE_VIDEO = /\.(mp4|m4v|avi|mov|mpg|mpeg|ogv|ogm|opus|mkv)$/i;
-const REGEX_TYPE_IMAGE =
-  /\.(gif|jpe?g|a?png|tiff?|bmp|eps|pcx|webp|ico|psd|xpm|wmf|svg|heic)$/i;
-const REGEX_TYPE_CODE =
-  /\.(asp|txt|memo|kt|go|ics|rst?|rb|dart|php|js|tsx?|py|cue|ipynb|z?sh|xml|plist|bat|css|json|java|c|cpp|h|m|hpp|conf|ini|pl|yaml|yml|groovy|swift|properties|gradle|srt|sql|lua|m3u8?)$/i;
+const REGEX_TYPE_IMAGE = /\.(gif|jpe?g|a?png|tiff?|bmp|webp|ico|wmf|avif|svg)$/i;
+const REGEX_TYPE_CODE = /\.(asp|txt|memo|kt|go|ics|rst?|rb|dart|php|js|tsx?|py|cue|ipynb|z?sh|xml|plist|bat|css|json|java|c|cpp|h|m|hpp|conf|ini|pl|yaml|yml|groovy|swift|properties|gradle|srt|sql|lua|m3u8?)$/i;
 const REGEX_TYPE_HTML = /\.(html?)$/i;
 const REGEX_TYPE_MARKDOWN = /\.(md)$/i;
+const REGEX_TYPE_CAN_PREVIEW = /\.(mp4|m4v|avi|mov|mpg|mpeg|ogv|ogm|opus|mkv|md|html?|gif|jpe?g|a?png|tiff?|bmp|webp|ico|wmf|avif|svg|asp|txt|memo|kt|go|ics|rst?|rb|dart|php|js|tsx?|py|cue|ipynb|z?sh|xml|plist|bat|css|json|java|c|cpp|h|m|hpp|conf|ini|pl|yaml|yml|groovy|swift|properties|gradle|srt|sql|lua|m3u8?)$/i;
 
 function escapeRegex(string) {
-  return string.replace(/[/\-\\^$*+?.()|[\]{}]/g, "\\$&");
+    return string.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
 }
 
-function showModal(popup, popupThemeClass) {
-  window.lastScrollOffset = window.pageYOffset;
-  document.body.classList.add("modal-open");
-  document.body.style.top = `-${window.lastScrollOffsetllY}px`;
+function showModal (popup, popupThemeClass) {
+	// https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/
+	// https://codepen.io/geoffgraham/pen/LogERe
+	window.lastScrollOffset = window.pageYOffset;
+	document.body.classList.add('modal-open');
+	document.body.style.top = `-${window.lastScrollOffsetllY}px`;
 
-  var popup = popup || document.querySelector("#popup1");
-  popup.style.display = "block";
+	var popup = popup || document.querySelector('#popup1');
+	popup.style.display = 'block';
 
-  popup.classList.remove(popupThemeClass === "day" ? "night" : "day");
-  popup.classList.add(popupThemeClass);
+	popup.classList.remove(popupThemeClass === 'day' ? 'night' : 'day');
+	popup.classList.add(popupThemeClass);
 }
 
-function hideModal(popup) {
-  var popup = popup || document.querySelector("#popup1");
+function hideModal (popup) {
+	var popup = popup || document.querySelector('#popup1');
 
-  if (popup.style.display !== "none") {
-    popup.style.display = "none";
-    popup.querySelector(".content").innerHTML = "";
+	if (popup.style.display !== 'none') {
+		popup.style.display = 'none';
+		popup.querySelector('.content').innerHTML = '';
 
-    document.body.classList.remove("modal-open");
+		document.body.classList.remove('modal-open');
 
-    if (window.lastScrollOffset) {
-      window.scrollTo(0, window.lastScrollOffset);
-    }
-  }
+		if (window.lastScrollOffset){
+			window.scrollTo(0, window.lastScrollOffset);
+		}
+	}
 }
-function toggleRestoreModal(popup) {
-  var popup = popup || document.querySelector("#popup1");
-  if (popup.style.display !== "none") {
-    popup.querySelector(".popup").classList.toggle("maximized");
-  }
+function toggleRestoreModal (popup) {
+	var popup = popup || document.querySelector('#popup1');
+	if (popup.style.display !== 'none') {
+		popup.querySelector('.popup').classList.toggle('maximized');
+	}
+}
+
+function onAudioEnded(el) {
+	if (el && window.currentLink) {
+		window.currentLink.classList.remove('nowPlaying');
+		let nextLink;
+
+		while(nextLink = findNextPrevLink(window.currentLink, REGEX_TYPE_AUDIO)) {
+			const href = nextLink.getAttribute('href');
+
+			if (REGEX_TYPE_AUDIO.test(href)) {
+				window.currentLink = nextLink;
+				el.src = href;
+				el.play();
+				el.title = decodeURIComponent(href);
+				nextLink.classList.add('nowPlaying');
+				nextLink.scrollIntoView(
+					{
+						behavior: "smooth",
+						block: "center"
+					}
+				);
+
+				break;
+			}
+		}
+	}
 }
 
 function onLinkClicked(link, evt) {
-  var href = link.getAttribute("href");
-  window.currentLink = link;
+	if (window.currentLink) {
+			window.currentLink.classList.remove('nowPlaying');
+	}
+	var href = link.getAttribute("href");
+	window.currentLink = link;
 
-  const event = evt || new Event("click");
+	const event = evt || new Event('click');
 
-  const fileName = href.split("/").pop();
-  const baseName = fileName.split(".")[0];
+	const fileName = href.split('/').pop();
+	const baseName = fileName.split('.')[0];
 
-  var popup = document.querySelector("#popup1");
-  var content = popup.querySelector(".content");
-  popup.querySelector(".info").textContent = decodeURIComponent(fileName);
+	var popup = document.querySelector('#popup1');
+	var content = popup.querySelector('.content');
+	popup.querySelector('.info').textContent = decodeURIComponent(fileName);
 
-  if (REGEX_TYPE_VIDEO.test(href)) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
+	if (REGEX_TYPE_VIDEO.test(href)) {
+		event.preventDefault();
+		event.stopImmediatePropagation();
 
-    const audioPlayer = document.getElementById("aplayer");
-    if (audioPlayer && !audioPlayer.paused) {
-      audioPlayer.pause();
-      audioPlayer.style.display = "none";
-    }
+		const audioPlayer = document.getElementById('aplayer');
+		if (audioPlayer && !audioPlayer.paused) {
+			audioPlayer.pause();
+			audioPlayer.style.display = 'none';
+		}
 
-    const video = document.createElement("video");
-    video.setAttribute("autoplay", true);
-    video.setAttribute("controls", "controls");
-    video.setAttribute("preload", "auto");
-    video.setAttribute("tabIndex", "-1");
+		const video = document.createElement('video');
+		video.setAttribute('autoplay', true);
+		video.setAttribute('controls', 'controls');
+		video.setAttribute('preload', 'auto');
+		video.setAttribute('tabIndex', "-1");
 
-    const source = document.createElement("source");
-    source.src = href;
-    video.appendChild(source);
+		const source = document.createElement('source');
 
-    document.querySelectorAll("a").forEach((link) => {
-      if (new RegExp(`${baseName}\.?.*\.(vtt|srt)`, "i").test(link.href)) {
-        const track = document.createElement("track");
-        loadSubtitle(link.href).then((url) => {
-          track.src = url;
-          track.kind = "subtitles";
-          track.label = decodeURIComponent(link.href.split("/").pop());
-          track.srclang = "en";
+		source.src = href;
+		video.appendChild(source);
 
-          if (!video.hasDefaultSubs) {
-            track.default = true;
-            video.hasDefaultSubs = true;
-          }
+		document.querySelectorAll('a').forEach((link) => {
+			if (new RegExp(`${baseName}\.?.*\.(vtt|srt)`, 'i').test(link.href)) {
+				const track = document.createElement('track');
+				loadSubtitle(link.href)
+					.then(url => {
+						track.src = url;
+						track.kind = 'subtitles';
+						track.label = decodeURIComponent(link.href.split('/').pop());
+						track.srclang = 'en';
 
-          video.appendChild(track);
-        });
-      }
-    });
+						if (!video.hasDefaultSubs) {
+							track.default = true;
+							video.hasDefaultSubs = true;
+						}
 
-    content.innerHTML = "";
-    content.appendChild(video);
-    showModal(popup, "night");
-  } else if (REGEX_TYPE_AUDIO.test(href)) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    const audioPlayer = document.getElementById("aplayer");
-    audioPlayer.style.display = "block";
-    audioPlayer.src = href;
-    audioPlayer.play();
-  }
-  // special treatment by extension
-  else if (
-    REGEX_TYPE_MARKDOWN.test(href) ||
-    REGEX_TYPE_CODE.test(href) ||
-    REGEX_TYPE_HTML.test(href)
-  ) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    fetch(href)
-      .then(function (response) {
-        if (response.ok) {
-          return response.text();
-        } else {
-          throw new Error(response.statusText);
-        }
-      })
-      .then(function (text) {
-        showModal(popup, "day");
-        var content = popup.querySelector(".content");
-        // check marked js
-        if (href.match(REGEX_TYPE_MARKDOWN) && window.marked) {
-          content.innerHTML = marked.parse(text);
-        } else if (href.match(REGEX_TYPE_HTML)) {
-          content.innerHTML = text;
-        } else {
-          content.innerHTML = `<pre><code>${text}</code></pre>`;
-          window.hljs ? window.hljs.highlightAll() : console.error("nohljs!");
-        }
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-  } else if (REGEX_TYPE_IMAGE.test(href)) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    content.innerHTML = `<img src="${href}">`;
-    showModal(popup, "night");
-  } else if (window.location.search) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    document.location.href = `${link.href}${window.location.search}`;
-  }
+						video.appendChild(track);
+					})
+			}
+		});
+
+		content.innerHTML = '';
+		content.appendChild(video);
+		showModal(popup, 'night');
+
+	}else if (REGEX_TYPE_AUDIO.test(href)) {
+		event.preventDefault();
+		event.stopImmediatePropagation();
+		const audioPlayer = document.getElementById('aplayer');
+		audioPlayer.style.display = 'block';
+		audioPlayer.src = href;
+		audioPlayer.title = decodeURIComponent(href);
+		audioPlayer.play();
+		link.classList.add('nowPlaying');
+	}
+	// special treatment by extension
+	else if (REGEX_TYPE_MARKDOWN.test(href)
+		|| REGEX_TYPE_CODE.test(href)
+		|| REGEX_TYPE_HTML.test(href)) {
+		event.preventDefault();
+		event.stopImmediatePropagation();
+		fetch(href)
+			.then(function (response) {
+				if (response.ok) {
+					return response.text();
+				} else {
+					throw new Error(response.statusText);
+				}
+			})
+			.then(function (text) {
+
+				showModal(popup, 'day');
+				var content = popup.querySelector('.content');
+				// Check if the window has marked library
+				if (href.match(REGEX_TYPE_MARKDOWN) && window.marked) {
+					// Parse the markdown text as HTML and set it as the popup innerHTML
+					content.innerHTML = marked.parse(text);
+				} else if (href.match(REGEX_TYPE_HTML)) {
+					content.innerHTML = text;
+				}
+				else {
+					content.innerHTML = `<pre><code>${text}</code></pre>`;
+					window.hljs ? window.hljs.highlightAll() : console.error('nohljs!')
+				}
+			})
+			.catch(function (error) {
+				console.error(error);
+			});
+	} else if (REGEX_TYPE_IMAGE.test(href)) {
+		event.preventDefault();
+		event.stopImmediatePropagation();
+		content.innerHTML = `<img src="${href}">`;
+		showModal(popup, 'night');
+	} else if (window.location.search) { // regular click
+		event.preventDefault();
+		event.stopImmediatePropagation();
+		document.location.href = `${link.href}${window.location.search}`;
+	}
+
 }
 document.onclick = onDocumentClickHandler;
 
@@ -1049,300 +1340,6 @@ document.onclick = onDocumentClickHandler;
 
 </head>
 <body onload="initPage()">
-    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="color: red;">
-        <defs>
-        <g id="go-up">
-            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-            <path d="M18 18h-6a3 3 0 0 1 -3 -3v-10l-4 4m8 0l-4 -4"></path>
-        </g>
-        
-        <g id="folder">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M9 3a1 1 0 0 1 .608 .206l.1 .087l2.706 2.707h6.586a3 3 0 0 1 2.995 2.824l.005 .176v8a3 3 0 0 1 -2.824 2.995l-.176 .005h-14a3 3 0 0 1 -2.995 -2.824l-.005 -.176v-11a3 3 0 0 1 2.824 -2.995l.176 -.005h4z" stroke-width="0" fill="#ffb900"></path>
-        </g>
-        
-		<g id="folder-symlink">
-			<path stroke="none" d="M 0,0 H 24 V 24 H 0 Z" fill="none"/>
-			<path d="M 9,3 A 1,1 0 0 1 9.608,3.206 L 9.708,3.293 12.414,6 H 19 a 3,3 0 0 1 2.995,2.824 L 22,9 v 8 a 3,3 0 0 1 -2.824,2.995 L 19,20 H 5 A 3,3 0 0 1 2.005,17.176 L 2,17 V 6 A 3,3 0 0 1 4.824,3.005 L 5,3 Z" stroke-width="0" fill="#ffb900"/>
-			<path fill="#000000" d="m 2.7945263,17.305795 c 0,-2.374234 1.7927873,-4.314008 4.0781323,-4.537358 v -1.104508 c 0,-0.342673 0.4099548,-0.517069 0.6516446,-0.272303 l 2.4505503,2.492538 c 0.052008,0.05303 0.052008,0.134622 0,0.187655 L 7.5243032,16.564357 C 7.2826134,16.809123 6.8726586,16.633707 6.8726586,16.292054 V 15.238539 C 4.9840112,15.536338 3.4369927,16.629628 3.055592,18.499032 2.8801885,18.119644 2.7945263,17.721898 2.7945263,17.305795 Z" style="stroke-width:0.127478" />		  
-		</g>
-        
-        <g id="symlink">
-         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-         <path d="M4 21v-4a3 3 0 0 1 3 -3h5"></path>
-         <path d="M9 17l3 -3l-3 -3"></path>
-         <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-         <path d="M5 11v-6a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-9.5"></path>
-        </g>
-        
-        <g id="generic">
-         <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-         <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-         <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-        </g>
-        
-        <g id="license">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M15 21h-9a3 3 0 0 1 -3 -3v-1h10v2a2 2 0 0 0 4 0v-14a2 2 0 1 1 2 2h-2m2 -4h-11a3 3 0 0 0 -3 3v11"></path>
-          <path d="M9 7l4 0"></path>
-          <path d="M9 11l4 0"></path>
-        </g>
-        
-        <g id="image">
-           <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-           <path d="M15 8h.01"></path>
-           <path d="M3 6a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3v-12z"></path>
-           <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5"></path>
-           <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3"></path>
-          </g>
-        
-        <g id="video">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
-          <path d="M8 4l0 16"></path>
-          <path d="M16 4l0 16"></path>
-          <path d="M4 8l4 0"></path>
-          <path d="M4 16l4 0"></path>
-          <path d="M4 12l16 0"></path>
-          <path d="M16 8l4 0"></path>
-          <path d="M16 16l4 0"></path>
-        </g>
-        
-        <g id="audio">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M6 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-          <path d="M16 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-          <path d="M9 17l0 -13l10 0l0 13"></path>
-          <path d="M9 8l10 0"></path>
-        </g>
-        
-        <g id="pdf">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-          <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"></path>
-          <path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6"></path>
-          <path d="M17 18h2"></path>
-          <path d="M20 15h-3v6"></path>
-          <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1z"></path>
-        </g>
-        
-        <g id="csv">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-          <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"></path>
-          <path d="M7 16.5a1.5 1.5 0 0 0 -3 0v3a1.5 1.5 0 0 0 3 0"></path>
-          <path d="M10 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75"></path>
-          <path d="M16 15l2 6l2 -6"></path>
-        </g>
-        
-        <g id="doc">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-          <path d="M9 9l1 0"></path>
-          <path d="M9 13l6 0"></path>
-          <path d="M9 17l6 0"></path>
-        </g>
-        
-        <g id="sheet">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-          <path d="M8 11h8v7h-8z"></path>
-          <path d="M8 15h8"></path>
-          <path d="M11 11v7"></path>
-        </g>
-        
-        <g id="ppt">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M9 12v-4"></path>
-          <path d="M15 12v-2"></path>
-          <path d="M12 12v-1"></path>
-          <path d="M3 4h18"></path>
-          <path d="M4 4v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-10"></path>
-          <path d="M12 16v4"></path>
-          <path d="M9 20h6"></path>
-        </g>
-        
-        <g id="archive">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M6 20.735a2 2 0 0 1 -1 -1.735v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-1"></path>
-          <path d="M11 17a2 2 0 0 1 2 2v2a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-2a2 2 0 0 1 2 -2z"></path>
-          <path d="M11 5l-1 0"></path>
-          <path d="M13 7l-1 0"></path>
-          <path d="M11 9l-1 0"></path>
-          <path d="M13 11l-1 0"></path>
-          <path d="M11 13l-1 0"></path>
-          <path d="M13 15l-1 0"></path>
-        </g>
-        
-        <g id="deb">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M12 17c-2.397 -.943 -4 -3.153 -4 -5.635c0 -2.19 1.039 -3.14 1.604 -3.595c2.646 -2.133 6.396 -.27 6.396 3.23c0 2.5 -2.905 2.121 -3.5 1.5c-.595 -.621 -1 -1.5 -.5 -2.5"></path>
-          <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-        </g>
-        
-        <g id="dist">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M12 3l8 4.5l0 9l-8 4.5l-8 -4.5l0 -9l8 -4.5"></path>
-          <path d="M12 12l8 -4.5"></path>
-          <path d="M12 12l0 9"></path>
-          <path d="M12 12l-8 -4.5"></path>
-          <path d="M16 5.25l-8 4.5"></path>
-        </g>
-        
-        <g id="ps1">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M4.887 20h11.868c.893 0 1.664 -.665 1.847 -1.592l2.358 -12c.212 -1.081 -.442 -2.14 -1.462 -2.366a1.784 1.784 0 0 0 -.385 -.042h-11.868c-.893 0 -1.664 .665 -1.847 1.592l-2.358 12c-.212 1.081 .442 2.14 1.462 2.366c.127 .028 .256 .042 .385 .042z"></path>
-          <path d="M9 8l4 4l-6 4"></path>
-          <path d="M12 16h3"></path>
-        </g>
-        
-        <g id="py">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M12 9h-7a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h3"></path>
-          <path d="M12 15h7a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-3"></path>
-          <path d="M8 9v-4a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v5a2 2 0 0 1 -2 2h-4a2 2 0 0 0 -2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2 -2v-4"></path>
-          <path d="M11 6l0 .01"></path>
-          <path d="M13 18l0 .01"></path>
-        </g>
-        
-        <g id="sh">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M17 20h-11a3 3 0 0 1 0 -6h11a3 3 0 0 0 0 6h1a3 3 0 0 0 3 -3v-11a2 2 0 0 0 -2 -2h-10a2 2 0 0 0 -2 2v8"></path>
-        </g>
-        
-        <g id="dmg">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M3 4m0 1a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1z"></path>
-          <path d="M7 8v1"></path>
-          <path d="M17 8v1"></path>
-          <path d="M12.5 4c-.654 1.486 -1.26 3.443 -1.5 9h2.5c-.19 2.867 .094 5.024 .5 7"></path>
-          <path d="M7 15.5c3.667 2 6.333 2 10 0"></path>
-        </g>
-        
-        <g id="iso">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
-          <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
-          <path d="M7 12a5 5 0 0 1 5 -5"></path>
-          <path d="M12 17a5 5 0 0 0 5 -5"></path>
-        </g>
-        
-        <g id="md">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z"></path>
-          <path d="M7 15v-6l2 2l2 -2v6"></path>
-          <path d="M14 13l2 2l2 -2m-2 2v-6"></path>
-        </g>
-        
-        <g id="font">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-          <path d="M11 18h2"></path>
-          <path d="M12 18v-7"></path>
-          <path d="M9 12v-1h6v1"></path>
-        </g>
-        
-        <g id="go">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M15.695 14.305c1.061 1.06 2.953 .888 4.226 -.384c1.272 -1.273 1.444 -3.165 .384 -4.226c-1.061 -1.06 -2.953 -.888 -4.226 .384c-1.272 1.273 -1.444 3.165 -.384 4.226z"></path>
-          <path d="M12.68 9.233c-1.084 -.497 -2.545 -.191 -3.591 .846c-1.284 1.273 -1.457 3.165 -.388 4.226c1.07 1.06 2.978 .888 4.261 -.384a3.669 3.669 0 0 0 1.038 -1.921h-2.427"></path>
-          <path d="M5.5 15h-1.5"></path>
-          <path d="M6 9h-2"></path>
-          <path d="M5 12h-3"></path>
-        </g>
-        
-        <g id="html">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-          <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"></path>
-          <path d="M2 21v-6"></path>
-          <path d="M5 15v6"></path>
-          <path d="M2 18h3"></path>
-          <path d="M20 15v6h2"></path>
-          <path d="M13 21v-6l2 3l2 -3v6"></path>
-          <path d="M7.5 15h3"></path>
-          <path d="M9 15v6"></path>
-        </g>
-        
-        <g id="js">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-          <path d="M3 15h3v4.5a1.5 1.5 0 0 1 -3 0"></path>
-          <path d="M9 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75"></path>
-          <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-1"></path>
-        </g>
-        
-        <g id="css">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-          <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"></path>
-          <path d="M8 16.5a1.5 1.5 0 0 0 -3 0v3a1.5 1.5 0 0 0 3 0"></path>
-          <path d="M11 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75"></path>
-          <path d="M17 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75"></path>
-        </g>
-        
-        <g id="json">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M20 16v-8l3 8v-8"></path>
-          <path d="M15 8a2 2 0 0 1 2 2v4a2 2 0 1 1 -4 0v-4a2 2 0 0 1 2 -2z"></path>
-          <path d="M1 8h3v6.5a1.5 1.5 0 0 1 -3 0v-.5"></path>
-          <path d="M7 15a1 1 0 0 0 1 1h1a1 1 0 0 0 1 -1v-2a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1h1a1 1 0 0 1 1 1"></path>
-        </g>
-        
-        <g id="ts">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-          <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-1"></path>
-          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-          <path d="M9 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75"></path>
-          <path d="M3.5 15h3"></path>
-          <path d="M5 15v6"></path>
-        </g>
-        
-        <g id="sql">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-          <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-          <path d="M5 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75"></path>
-          <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4"></path>
-          <path d="M18 15v6h2"></path>
-          <path d="M13 15a2 2 0 0 1 2 2v2a2 2 0 1 1 -4 0v-2a2 2 0 0 1 2 -2z"></path>
-          <path d="M14 20l1.5 1.5"></path>
-        </g>
-        
-        <g id="db">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M12 6m-8 0a8 3 0 1 0 16 0a8 3 0 1 0 -16 0"></path>
-          <path d="M4 6v6a8 3 0 0 0 16 0v-6"></path>
-          <path d="M4 12v6a8 3 0 0 0 16 0v-6"></path>
-        </g>
-        
-        <g id="email">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"></path>
-          <path d="M3 7l9 6l9 -6"></path>
-        </g>
-        
-        <g id="cert">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M15 15m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
-          <path d="M13 17.5v4.5l2 -1.5l2 1.5v-4.5"></path>
-          <path d="M10 19h-5a2 2 0 0 1 -2 -2v-10c0 -1.1 .9 -2 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -1 1.73"></path>
-          <path d="M6 9l12 0"></path>
-          <path d="M6 12l3 0"></path>
-          <path d="M6 15l2 0"></path>
-        </g>
-        
-        <g id="keystore">
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M16.555 3.843l3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1 -4.069 0l-.301 -.301l-6.558 6.558a2 2 0 0 1 -1.239 .578l-.175 .008h-1.172a1 1 0 0 1 -.993 -.883l-.007 -.117v-1.172a2 2 0 0 1 .467 -1.284l.119 -.13l.414 -.414h2v-2h2v-2l2.144 -2.144l-.301 -.301a2.877 2.877 0 0 1 0 -4.069l2.643 -2.643a2.877 2.877 0 0 1 4.069 0z"></path>
-          <path d="M15 9h.01"></path>
-        </g>
-        </defs>
-    </svg>    
 	<header>
 		<div class="wrapper">
 			<div class="breadcrumbs" style="text-align: justify;">Folder Path</div>
@@ -1351,7 +1348,7 @@ document.onclick = onDocumentClickHandler;
 				</h1>
 				{{if eq $.Layout "grid"}}
 					<h1 style="float: right;">
-						<audio controls id="aplayer" src=""></audio>
+						<audio controls id="aplayer" src="" onended="onAudioEnded(this)"></audio>
 					</h1>
 				{{end}}
 			</div>
@@ -1397,13 +1394,7 @@ document.onclick = onDocumentClickHandler;
 				{{- range .Items}}
 				<div class="entry">
 					<a href="{{html .URL}}" title='{{html (.HumanModTime "January 2, 2006 at 15:04:05")}}'>
-						{{- if .HasExt ".jpg" ".jpeg" ".png" ".gif" ".webp" ".tiff" ".bmp" ".heif" ".heic" ".svg"}}
-							<img loading="lazy" src="{{html .Name}}">
-						{{- else}}
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-								<use xlink:href="#{{template "icon" .}}" class="{css_class_svg}"></use>
-							</svg>
-						{{- end}}
+						{{template "icon" .}}
 						<div class="name">{{html .Name}}</div>
 						<div class="size">{{.HumanSize}}</div>
 					</a>
@@ -1469,7 +1460,7 @@ document.onclick = onDocumentClickHandler;
 								<input type="search" placeholder="Search" id="filter">
 							</div>
 							<div style="float: right;">
-								<audio controls id="aplayer" src=""></audio>
+								<audio controls id="aplayer" src="" onended="onAudioEnded(this)"></audio>
 							</div>
 						</th>
 						<th>
@@ -1544,9 +1535,7 @@ document.onclick = onDocumentClickHandler;
 						<td></td>
 						<td>
 							<a href="{{html .URL}}">
-								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-									<use xlink:href="#{{template "icon" .}}" class="{css_class_svg}"></use>
-								</svg>
+								{{template "icon" .}}
 								<span class="name">{{html .Name}}</span>
 							</a>
 						</td>
@@ -1587,7 +1576,6 @@ document.onclick = onDocumentClickHandler;
 				console.log(`Key "${e.key}" released [event: keyup]`);
 				filter();
 
-				
 				if (e.keyCode == 13 && e.target.value) { // Enter
 					e.preventDefault();
 					e.stopImmediatePropagation();
@@ -1618,6 +1606,7 @@ document.onclick = onDocumentClickHandler;
 						sizebar.style.width = `${size/largest * 100}%`;
 					}
 				});
+
 			}
 
 			function filter() {
@@ -1637,6 +1626,7 @@ document.onclick = onDocumentClickHandler;
 					}
 				});
 			}
+
 
 			function queryParam(k, v) {
 				const qs = new URLSearchParams(window.location.search);
