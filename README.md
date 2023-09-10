@@ -1,6 +1,6 @@
 ### caddy file_server custom `browse.html` template with media extensions
 
-Customized template for caddy file_server with extra features:
+Customized template for caddy file_server. Compared to caddy's default [browse.html](https://github.com/caddyserver/caddy/blob/master/modules/caddyhttp/fileserver/browse.html) template offers the following extra features:
 
 - play all audios inline
 - preview mode for images, video, HTML and source code files
