@@ -981,11 +981,6 @@ div audio#aplayer {
 
 	// keyboard navigation
 	document.onkeydown = function (e) {
-        if ([27,37, 39,  32, 70].indexOf(e.which) !== -1) {
-            // e.preventDefault();
-            // e.stopImmediatePropagation();
-        }
-
         const v = document.querySelector('.popup video');
 		const img = document.querySelector('.popup img');
 
@@ -1009,9 +1004,6 @@ div audio#aplayer {
 					}
 				}
                 break;
-            // case 38: // up
-            //     p.currentTime = p.currentTime + 2.0;
-            //     break;
             case 32: // Space
 				if(e.which == 32){  
 				// stops default behaviour of space bar. Stop page scrolling down
@@ -1041,15 +1033,6 @@ div audio#aplayer {
 				}
 
                 break;
-            // case 40: // down
-            //     p.currentTime = p.currentTime - 2.0;
-            //     break;
-            // case 32: // space
-            //     // chrome OOTB handles play/pause on space when the element is focused
-            //     if (!window.chrome || document.activeElement !== p) {
-            //         p.paused ? p.play() : p.pause();
-            //     }
-            //     break;
             case 70: // f-key
                 if (!(e.shiftKey || e.ctrlKey || e.altKey || e.metaKey)) {
                     if (!window.isFs) {
@@ -1077,10 +1060,6 @@ div audio#aplayer {
 
 async function loadSubtitle(subUrl) {
       const url = new URL(subUrl);
-    //   const label = url.pathname
-    //     .split("/")
-    //     .pop()
-    //     .replace(/\.[^/.]+$/, "");
       let src;
       if (url.pathname.toLowerCase().endsWith(".srt")) {
         try {
@@ -1158,7 +1137,6 @@ function findClosest(el, tagName, className) {
 function onDocumentClickHandler(e) {
 	const el = e.target;
 	
-	// if (window.location.search ) {
 	let link = el;
 
 	if (link.tagName !== 'A') {
@@ -1174,7 +1152,6 @@ function onDocumentClickHandler(e) {
 
 const REGEX_TYPE_AUDIO = /\.(mp3|m4a|aac|flac|ape|wav|ogg|oga|webm)$/i;
 const REGEX_TYPE_VIDEO = /\.(mp4|m4v|avi|mov|mpg|mpeg|ogv|ogm|opus|mkv)$/i;
-// const REGEX_TYPE_AUDIO_VIDEO = /(mp3|m4a|aac|flac|ape|wav|ogg|oga|ogv|mp4|m4v|avi|mov|mpg|mpeg|webm|mkv)$/i;
 const REGEX_TYPE_IMAGE = /\.(gif|jpe?g|a?png|tiff?|bmp|webp|ico|wmf|avif|svg)$/i;
 const REGEX_TYPE_CODE = /\.(asp|txt|memo|kt|go|ics|rst?|rb|dart|php|js|tsx?|py|cue|ipynb|z?sh|xml|plist|bat|css|json|java|c|cpp|h|m|hpp|conf|ini|pl|yaml|yml|groovy|swift|properties|gradle|srt|sql|lua|m3u8?)$/i;
 const REGEX_TYPE_HTML = /\.(html?)$/i;
@@ -1186,8 +1163,6 @@ function escapeRegex(string) {
 }
 
 function showModal (popup, popupThemeClass) {
-	// https://css-tricks.com/prevent-page-scrolling-when-a-modal-is-open/
-	// https://codepen.io/geoffgraham/pen/LogERe
 	window.lastScrollOffset = window.pageYOffset;
 	document.body.classList.add('modal-open');
 	document.body.style.top = `-${window.lastScrollOffsetllY}px`;
@@ -1351,7 +1326,6 @@ function onLinkClicked(link, evt) {
 				}
 			})
 			.catch(function (error) {
-				// Log the error to the console
 				console.error(error);
 			});
 	} else if (REGEX_TYPE_IMAGE.test(href)) {
@@ -1672,10 +1646,6 @@ document.onclick = onDocumentClickHandler;
 				} else {
 					window.location = window.location.pathname;
 				}
-
-				// if (k == 'layout') {
-				// 	localStorage.setItem('layout', v);
-				// }
 			}
 
 			function localizeDatetime(e, index, ar) {
