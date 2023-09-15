@@ -49,10 +49,6 @@
 		<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.8.0/styles/default.min.css">
 		<script src="https://unpkg.com/@highlightjs/cdn-assets@11.8.0/highlight.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-		<!-- <link rel="stylesheet" href="/larch/css/hljs.11.8.0.min.css"> -->
-		<!-- <script async src="/larch/js/highlight.min-11.8.0.js"></script> -->
-		<!-- <script src="/larch/js/marked.min.js"></script> -->
 <style>
 * { padding: 0; margin: 0; box-sizing: border-box; }
 
@@ -712,6 +708,9 @@ video::cue {
 	#R circle {
 		stroke: #ccc !important;
 	}
+	.fixedplayer {
+		background-color: #333;
+	}
 }
 
 </style>
@@ -758,9 +757,9 @@ video::cue {
 				}
 				break;
 			case 32: // Space
-				if(e.which == 32){	
+				if(e.which == 32){
 				// stops default behaviour of space bar. Stop page scrolling down
-					e.preventDefault();	
+					e.preventDefault();
 					if (v.paused) {
 						v.play();
 					} else {
@@ -889,13 +888,13 @@ function findClosest(el, tagName, className) {
 
 function onDocumentClickHandler(e) {
 	const el = e.target;
-	
+
 	let link = el;
 
 	if (link.tagName !== 'A') {
 		link = findClosest(link, 'A');
 	}
-	
+
 	if (link && (link.matches(".file a, .entry a, h1 a"))) {
 		onLinkClicked(link, e);
 	} else if (!link && !document.querySelector('#popup1 .popup').contains(el)) {
@@ -968,7 +967,7 @@ function onAudioEnded(el) {
 					}
 					);
 				window.currentLink = nextLink;
-				
+
 				break;
 			}
 		}
@@ -1098,7 +1097,7 @@ function onLinkClicked(link, evt) {
 		event.stopImmediatePropagation();
 		content.innerHTML = `<img src="${href}">`;
 		showModal(popup, 'night');
-	} else if (window.location.search) { // regular click
+	} else if (window.location.search && !link.href.includes(window.location.search)) { // regular click
 		event.preventDefault();
 		event.stopImmediatePropagation();
 		document.location.href = `${link.href}${window.location.search}`;
@@ -1122,7 +1121,7 @@ document.onclick = onDocumentClickHandler;
 					{{range $i, $crumb := .Breadcrumbs}}<a href="{{html $crumb.Link}}">{{html $crumb.Text}}</a>{{if ne $i 0}}/{{end}}{{end}}
 				</h1>
 			</div>
-		
+
 		</header>
 		<div class="wrapper">
 			<main>
@@ -1204,7 +1203,7 @@ document.onclick = onDocumentClickHandler;
 								</svg>
 							</a>
 							{{- end}}
-							
+
 							{{- if and (eq .Sort "name") (ne .Order "desc")}}
 							<a href="?sort=name&order=desc{{if ne 0 .Limit}}&limit={{.Limit}}{{end}}{{if ne 0 .Offset}}&offset={{.Offset}}{{end}}">
 								<span class="hidecol">
@@ -1357,7 +1356,7 @@ document.onclick = onDocumentClickHandler;
 				console.log(`Key "${e.key}" released [event: keyup]`);
 				filter();
 
-				
+
 				if (e.keyCode == 13 && e.target.value) { // Enter
 					e.preventDefault();
 					e.stopImmediatePropagation();
@@ -1383,7 +1382,7 @@ document.onclick = onDocumentClickHandler;
 				document.querySelectorAll('.size').forEach(el => {
 					const size = Number(el.dataset.size);
 					const sizebar = el.querySelector('.sizebar-bar');
-					
+
 					if (sizebar) {
 						sizebar.style.width = `${size/largest * 100}%`;
 					}
