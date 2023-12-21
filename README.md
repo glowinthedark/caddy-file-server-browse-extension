@@ -22,3 +22,13 @@ http:// {
     }
 }
 ```
+### Screenshots
+
+##### inline audio player 
+![](img/caddy_file_server.png)
+
+##### markdown renderer
+![](img/caddy_file_server_markdown.png)
+
+##### source file highlighter
+![](img/caddy_file_server_highlight.png)
