@@ -720,6 +720,9 @@ video::cue {
 
 <script>
 	function findNextPrevLink(link, regex, isBackwards) {
+		if (!link) {
+			return;
+		}
 		let item = findClosest(link, 'TR', 'file') || findClosest(link, 'DIV', 'entry');
 
 		while(item = isBackwards ? item.previousElementSibling : item.nextElementSibling) {
@@ -950,26 +953,21 @@ function toggleRestoreModal (popup) {
 function onAudioEnded(el) {
 	if (el && window.currentLink) {
 		window.currentLink.classList.remove('nowPlaying');
-		let nextLink;
+		let nextLink= findNextPrevLink(window.currentLink, REGEX_TYPE_AUDIO);
+		const href = nextLink.getAttribute('href');
 
-		while(nextLink = findNextPrevLink(window.currentLink, REGEX_TYPE_AUDIO)) {
-			const href = nextLink.getAttribute('href');
-
-			if (REGEX_TYPE_AUDIO.test(href)) {
-				el.src = href;
-				el.play();
-				el.title = decodeURIComponent(href);
-				nextLink.classList.add('nowPlaying');
-				nextLink.scrollIntoView(
-					{
-						behavior: "smooth",
-						block: "center"
-					}
-					);
-				window.currentLink = nextLink;
-
-				break;
-			}
+		if (REGEX_TYPE_AUDIO.test(href)) {
+			el.src = href;
+			el.play();
+			el.title = decodeURIComponent(href);
+			nextLink.classList.add('nowPlaying');
+			nextLink.scrollIntoView(
+				{
+					behavior: "smooth",
+					block: "center"
+				}
+				);
+			window.currentLink = nextLink;
 		}
 	}
 }
