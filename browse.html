@@ -909,7 +909,6 @@ const REGEX_TYPE_AUDIO = /\.(mp3|m4a|aac|flac|ape|wav|ogg|oga|webm)$/i;
 const REGEX_TYPE_VIDEO = /\.(mp4|m4v|avi|mov|mpg|mpeg|ogv|ogm|opus|mkv)$/i;
 const REGEX_TYPE_IMAGE = /\.(gif|jpe?g|a?png|tiff?|bmp|webp|ico|wmf|avif|svg)$/i;
 const REGEX_TYPE_CODE = /\.(asp|txt|memo|kt|go|ics|rst?|rb|dart|php|js|tsx?|py|cue|ipynb|z?sh|xml|plist|bat|css|json|java|c|cpp|h|m|hpp|conf|ini|pl|yaml|yml|groovy|swift|properties|gradle|srt|sql|lua|m3u8|log?)$/i;
-const REGEX_TYPE_HTML = /\.(html?)$/i;
 const REGEX_TYPE_MARKDOWN = /\.(md)$/i;
 const REGEX_TYPE_CAN_PREVIEW = /\.(mp4|m4v|avi|mov|mpg|mpeg|ogv|ogm|opus|mkv|md|html?|gif|jpe?g|a?png|tiff?|bmp|webp|ico|wmf|avif|svg|asp|txt|memo|kt|go|ics|rst?|rb|dart|php|js|tsx?|py|cue|ipynb|z?sh|xml|plist|bat|css|json|java|c|cpp|h|m|hpp|conf|ini|pl|yaml|yml|groovy|swift|properties|gradle|srt|sql|lua|m3u8?)$/i;
 
@@ -1058,9 +1057,7 @@ function onLinkClicked(link, evt) {
 		link.classList.add('nowPlaying');
 	}
 	// special treatment by extension
-	else if (REGEX_TYPE_MARKDOWN.test(href)
-		|| REGEX_TYPE_CODE.test(href)
-		|| REGEX_TYPE_HTML.test(href)) {
+	else if (REGEX_TYPE_MARKDOWN.test(href) || REGEX_TYPE_CODE.test(href)) {
 		event.preventDefault();
 		event.stopImmediatePropagation();
 		fetch(href)
@@ -1079,10 +1076,7 @@ function onLinkClicked(link, evt) {
 				if (href.match(REGEX_TYPE_MARKDOWN) && window.marked) {
 					// Parse the markdown text as HTML and set it as the popup innerHTML
 					content.innerHTML = marked.parse(text);
-				} else if (href.match(REGEX_TYPE_HTML)) {
-					content.innerHTML = text;
-				}
-				else {
+				} else {
 					content.innerHTML = `<pre><code>${text}</code></pre>`;
 					window.hljs ? window.hljs.highlightAll() : console.error('nohljs!')
 				}

@@ -4,7 +4,7 @@ Customized template for caddy [**`file_server`**](https://caddyserver.com/docs/c
 
 - play all audios inline (with automatic sequential autoplay)
 - dynamic preview mode for images, video, HTML and source code files without page reload
-- keyboard navigation for images and content files with :arrow_left: & :arrow_right: keys
+- image gallery mode with easy navigation using :arrow_left: & :arrow_right: keys
 - play videos with VTT and SRT subtitles support
 - markdown preview using [marked](https://github.com/markedjs/marked)
 - code highlighting for common source file formats using [highlight](https://github.com/highlightjs/highlight.js)
@@ -22,3 +22,13 @@ http:// {
     }
 }
 ```
+### Screenshots
+
+##### inline audio player 
+![](img/caddy_file_server.png)
+
+##### markdown renderer
+![](img/caddy_file_server_markdown.png)
+
+##### source file highlighter
+![](img/caddy_file_server_highlight.png)
