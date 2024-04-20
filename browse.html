@@ -5,7 +5,7 @@
 		{{- end}}
 	{{- else if or (eq .Name "LICENSE") (eq .Name "README")}}license
 	{{- else if .HasExt ".jpg" ".jpeg" ".png" ".gif" ".webp" ".tiff" ".bmp" ".heif" ".heic" ".svg"}}image
-	{{- else if .HasExt ".mp4" ".mov" ".mpeg" ".mpg" ".avi" ".ogg" ".webm" ".mkv" ".vob" ".gifv" ".3gp"}}video
+	{{- else if .HasExt ".mp4" ".mov" ".mpeg" ".mpg" ".avi" ".ogv" ".webm" ".mkv" ".vob" ".gifv" ".3gp"}}video
 	{{- else if .HasExt ".mp3" ".m4a" ".aac" ".ogg" ".flac" ".wav" ".wma" ".midi" ".cda"}}audio
 	{{- else if .HasExt ".pdf"}}pdf
 	{{- else if .HasExt ".csv" ".tsv"}}csv
