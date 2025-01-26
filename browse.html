@@ -5,7 +5,7 @@
 		{{- end}}
 	{{- else if or (eq .Name "LICENSE") (eq .Name "README")}}license
 	{{- else if .HasExt ".jpg" ".jpeg" ".png" ".gif" ".webp" ".tiff" ".bmp" ".heif" ".heic" ".svg"}}image
-	{{- else if .HasExt ".mp4" ".mov" ".mpeg" ".mpg" ".avi" ".ogv" ".webm" ".mkv" ".vob" ".gifv" ".3gp"}}video
+	{{- else if .HasExt ".mp4" ".mov" ".mpeg" ".mpg" ".avi" ".ogg" ".webm" ".mkv" ".vob" ".gifv" ".3gp"}}video
 	{{- else if .HasExt ".mp3" ".m4a" ".aac" ".ogg" ".flac" ".wav" ".wma" ".midi" ".cda"}}audio
 	{{- else if .HasExt ".pdf"}}pdf
 	{{- else if .HasExt ".csv" ".tsv"}}csv
@@ -46,8 +46,16 @@
 		<meta charset="utf-8">
 		<meta name="color-scheme" content="light dark">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/glowinthedark/caddy-file-server-browse-extension/css/atelier-estuary-light.min.css">
-		<script src="https://unpkg.com/@highlightjs/cdn-assets@11.8.0/highlight.min.js"></script>
+		<link rel="stylesheet" 
+			href="https://cdn.jsdelivr.net/gh/glowinthedark/caddy-file-server-browse-extension/css/atelier-estuary-light.min.css">
+		<!-- SEE all available styles: https://unpkg.com/browse/@highlightjs/cdn-assets@11.11.1/styles/ -->
+		<link rel="stylesheet" 
+			href="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/styles/panda-syntax-light.css"
+			media="screen and (prefers-color-scheme: light)">
+		<link rel="stylesheet" 
+			href="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/styles/panda-syntax-dark.min.css"
+			media="screen and (prefers-color-scheme: dark)">
+		<script src="https://unpkg.com/@highlightjs/cdn-assets@11.11.1/highlight.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
 * { padding: 0; margin: 0; box-sizing: border-box; }
@@ -415,8 +423,7 @@ footer {
 }
 
 .popup,
-#popup1.day .popup,
-#popup1.night .popup {
+#popup1 .popup {
 	margin: 3em auto;
 	padding: 20px;
 	border-radius: 5px;
@@ -426,11 +433,11 @@ footer {
 	transition: all 1s ease-in-out;
 }
 
-#popup1.day .popup {
+#popup1 .popup {
 	background: #fff;
 }
 
-#popup1.night .popup {
+#popup1.darkForced .popup {
 	background: #000;
 }
 
@@ -478,26 +485,19 @@ footer {
 	position:absolute;
 }
 
-#popup1.day .popup .close, 
-#popup1.day .popup .max {
+#popup1 .popup .close, 
+#popup1 .popup .max {
 	color: #333;
 }
 
-#popup1.night .popup .close, 
-#popup1.night .popup .max {
-	color: #e1e0e0;
-}
 
 .popup .content {
 	height: 100%;
 	overflow: auto;
 }
 
-#popup1.night .popup {
-	background-color: black;
-}
 
-#popup1.day .popup {
+#popup1 .popup {
 	background-color: white;
 }
 
@@ -711,6 +711,14 @@ video::cue {
 	.fixedplayer {
 		background-color: #333;
 	}
+
+	#popup1 .popup {
+		background: #000;
+	}
+	#popup1 .popup .close, 
+	#popup1 .popup .max {
+		color: #e1e0e0;
+	}
 }
 
 </style>
@@ -719,99 +727,105 @@ video::cue {
 {{- end}}
 
 <script>
-	function findNextPrevLink(link, regex, isBackwards) {
-		if (!link) {
-			return;
-		}
-		let item = findClosest(link, 'TR', 'file') || findClosest(link, 'DIV', 'entry');
+const REGEX_TYPE_AUDIO = /\.(mp3|m4a|aac|flac|ape|wav|ogg|oga|webm)$/i;
+const REGEX_TYPE_VIDEO = /\.(mp4|m4v|avi|mov|mpg|mpeg|ogv|ogm|opus|mkv)$/i;
+const REGEX_TYPE_IMAGE = /\.(gif|jpe?g|a?png|tiff?|bmp|webp|ico|wmf|avif|svg)$/i;
+const REGEX_TYPE_CODE = /\.(asp|txt|memo|kt|go|ics|rst?|rb|dart|php|js|tsx?|py|cue|ipynb|z?sh|xml|plist|bat|css|json|java|c|cpp|h|m|hpp|conf|ini|pl|yaml|yml|groovy|swift|properties|gradle|srt|sql|lua|m3u8|log?)$/i;
+const REGEX_TYPE_MARKDOWN = /\.(md)$/i;
+const REGEX_TYPE_CAN_PREVIEW = /\.(mp4|m4v|avi|mov|mpg|mpeg|ogv|ogm|opus|mkv|md|html?|gif|jpe?g|a?png|tiff?|bmp|webp|ico|wmf|avif|svg|asp|txt|memo|kt|go|ics|rst?|rb|dart|php|js|tsx?|py|cue|ipynb|z?sh|xml|plist|bat|css|json|java|c|cpp|h|m|hpp|conf|ini|pl|yaml|yml|groovy|swift|properties|gradle|srt|sql|lua|m3u8?)$/i;
 
-		while(item = isBackwards ? item.previousElementSibling : item.nextElementSibling) {
-			const a = item.querySelector('a');
+function findNextPrevLink(link, regex, isBackwards) {
+	if (!link) {
+		return;
+	}
+	let item = findClosest(link, 'TR', 'file') || findClosest(link, 'DIV', 'entry');
 
-			if (a && regex.test(a.getAttribute('href'))) {
-				return a;
-			}
+	while(item = isBackwards ? item.previousElementSibling : item.nextElementSibling) {
+		const a = item.querySelector('a');
+
+		if (a && regex.test(a.getAttribute('href'))) {
+			return a;
 		}
 	}
+}
 
-	// keyboard navigation
-	document.onkeydown = function (e) {
-		const v = document.querySelector('.popup video');
-		const img = document.querySelector('.popup img');
+// keyboard navigation
+document.onkeydown = function (e) {
+	const v = document.querySelector('.popup video');
+	const img = document.querySelector('.popup img');
 
-		switch (e.which) {
-			case 27:	// = Escape
-				hideModal();
-				break;
-			case 37: // left
-				if (v){
-					if (!v.paused) {
-						v.pause();
-						v.currentTime = v.currentTime - 5.0;
-						if (v.paused) {
-							v.play();
-						}
-					}
-				} else if (window.currentLink && (img || !v || (v && v.paused && v.currentTime == 0))) {
-					const prev = findNextPrevLink(window.currentLink, REGEX_TYPE_CAN_PREVIEW, true);
-					if (prev) {
-						onLinkClicked(prev);
-					}
-				}
-				break;
-			case 32: // Space
-				if(e.which == 32){
-				// stops default behaviour of space bar. Stop page scrolling down
-					e.preventDefault();
+	switch (e.which) {
+		case 27:	// = Escape
+			hideModal();
+			break;
+		case 37: // left
+			if (v){
+				if (!v.paused) {
+					v.pause();
+					v.currentTime = v.currentTime - 5.0;
 					if (v.paused) {
 						v.play();
-					} else {
-						v.pause();
 					}
 				}
-				break;
-			case 39: // Right
-				if (v && e.which != 32){
-					if (!v.paused) {
-						v.pause();
-						v.currentTime = v.currentTime + 5.0;
-						if (v.paused) {
-							v.play();
-						}
+			} else if (window.currentLink && (img || !v || (v && v.paused && v.currentTime == 0))) {
+				const prev = findNextPrevLink(window.currentLink, REGEX_TYPE_CAN_PREVIEW, true);
+				if (prev) {
+					onLinkClicked(prev);
+				}
+			}
+			break;
+		case 32: // Space
+			if(e.which == 32){
+			// stops default behaviour of space bar. Stop page scrolling down
+				e.preventDefault();
+				if (v.paused) {
+					v.play();
+				} else {
+					v.pause();
+				}
+			}
+			break;
+		case 39: // Right
+			if (v && e.which != 32){
+				if (!v.paused) {
+					v.pause();
+					v.currentTime = v.currentTime + 5.0;
+					if (v.paused) {
+						v.play();
 					}
 				}
-				if (window.currentLink && (img || !v || (v && v.ended)) ) {
-					const next = findNextPrevLink(window.currentLink, REGEX_TYPE_CAN_PREVIEW);
-					if (next) {
-						onLinkClicked(next);
-					}
+			}
+			if (window.currentLink && (img || !v || (v && v.ended)) ) {
+				const next = findNextPrevLink(window.currentLink, REGEX_TYPE_CAN_PREVIEW);
+				if (next) {
+					onLinkClicked(next);
 				}
+			}
 
-				break;
-			case 70: // f-key
-				if (!(e.shiftKey || e.ctrlKey || e.altKey || e.metaKey)) {
-					if (!window.isFs) {
-						window.isFs = true;
-						fullscreenOn(v || img || document);
-					} else {
-						window.isFs = false;
-						fullscreenOff(v || img || document);
-					}
+			break;
+		case 70: // f-key
+			if (!(e.shiftKey || e.ctrlKey || e.altKey || e.metaKey)) {
+				if (!window.isFs) {
+					window.isFs = true;
+					fullscreenOn(v || img || document);
+				} else {
+					window.isFs = false;
+					fullscreenOff(v || img || document);
 				}
-				break;
-		}
-	};
-
-	function fullscreenOn(p) {
-		var fs = p.requestFullscreen || p.webkitRequestFullscreen || p.mozRequestFullScreen || p.oRequestFullscreen || p.msRequestFullscreen;
-		fs.call(p);
+			}
+			break;
 	}
+};
 
-	function fullscreenOff(p) {
-		var fsx = p.exitFullScreen || p.webkitExitFullScreen || p.mozExitFullScreen || p.oExitFullScreen || p.msExitFullScreen;
-		fsx.call(p);
-	}
+function fullscreenOn(p) {
+	var fs = p.requestFullscreen || p.webkitRequestFullscreen || p.mozRequestFullScreen || p.oRequestFullscreen || p.msRequestFullscreen;
+	fs.call(p);
+}
 
+function fullscreenOff(p) {
+	var fsx = p.exitFullScreen || p.webkitExitFullScreen || p.mozExitFullScreen || p.oExitFullScreen || p.msExitFullScreen;
+	fsx.call(p);
+}
 
 async function loadSubtitle(subUrl) {
 		const url = new URL(subUrl);
@@ -905,31 +919,25 @@ function onDocumentClickHandler(e) {
 	}
 }
 
-const REGEX_TYPE_AUDIO = /\.(mp3|m4a|aac|flac|ape|wav|ogg|oga|webm)$/i;
-const REGEX_TYPE_VIDEO = /\.(mp4|m4v|avi|mov|mpg|mpeg|ogv|ogm|opus|mkv)$/i;
-const REGEX_TYPE_IMAGE = /\.(gif|jpe?g|a?png|tiff?|bmp|webp|ico|wmf|avif|svg)$/i;
-const REGEX_TYPE_CODE = /\.(asp|txt|memo|kt|go|ics|rst?|rb|dart|php|js|tsx?|py|cue|ipynb|z?sh|xml|plist|bat|css|json|java|c|cpp|h|m|hpp|conf|ini|pl|yaml|yml|groovy|swift|properties|gradle|srt|sql|lua|m3u8|log?)$/i;
-const REGEX_TYPE_MARKDOWN = /\.(md)$/i;
-const REGEX_TYPE_CAN_PREVIEW = /\.(mp4|m4v|avi|mov|mpg|mpeg|ogv|ogm|opus|mkv|md|html?|gif|jpe?g|a?png|tiff?|bmp|webp|ico|wmf|avif|svg|asp|txt|memo|kt|go|ics|rst?|rb|dart|php|js|tsx?|py|cue|ipynb|z?sh|xml|plist|bat|css|json|java|c|cpp|h|m|hpp|conf|ini|pl|yaml|yml|groovy|swift|properties|gradle|srt|sql|lua|m3u8?)$/i;
-
 function escapeRegex(string) {
 	return string.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&');
 }
 
-function showModal (popup, popupThemeClass) {
+function showModal (popup, isForcedDark) {
 	window.lastScrollOffset = window.pageYOffset;
 	document.body.classList.add('modal-open');
 	document.body.style.top = `-${window.lastScrollOffsetllY}px`;
-
-	var popup = popup || document.querySelector('#popup1');
+	popup = popup || document.querySelector('#popup1');
+	if (isForcedDark) {
+		popup.classList.add('darkForced');
+	} else {
+		popup.classList.remove('darkForced');
+	}
 	popup.style.display = 'block';
-
-	popup.classList.remove(popupThemeClass === 'day' ? 'night' : 'day');
-	popup.classList.add(popupThemeClass);
 }
 
 function hideModal (popup) {
-	var popup = popup || document.querySelector('#popup1');
+	popup = popup || document.querySelector('#popup1');
 
 	if (popup.style.display !== 'none') {
 		popup.style.display = 'none';
@@ -1047,7 +1055,7 @@ function onLinkClicked(link, evt) {
 
 		content.innerHTML = '';
 		content.appendChild(video);
-		showModal(popup, 'night');
+		showModal(popup, true);
 
 	}else if (REGEX_TYPE_AUDIO.test(href)) {
 		event.preventDefault();
@@ -1069,8 +1077,7 @@ function onLinkClicked(link, evt) {
 				}
 			})
 			.then(function (text) {
-
-				showModal(popup, 'day');
+				showModal(popup);
 				var content = popup.querySelector('.content');
 				// Check if the window has marked library
 				if (href.match(REGEX_TYPE_MARKDOWN) && window.marked) {
@@ -1088,7 +1095,7 @@ function onLinkClicked(link, evt) {
 		event.preventDefault();
 		event.stopImmediatePropagation();
 		content.innerHTML = `<img src="${href}">`;
-		showModal(popup, 'night');
+		showModal(popup, true);
 	} else if (window.location.search && !link.href.includes(window.location.search)) { // regular click
 		event.preventDefault();
 		event.stopImmediatePropagation();
