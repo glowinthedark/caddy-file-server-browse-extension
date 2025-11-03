@@ -817,6 +817,101 @@ document.onkeydown = function (e) {
 	}
 };
 
+// touch swipe detection for mobile
+let touchStartX = null;
+let touchStartY = null;
+let touchEndX = null;
+let touchEndY = null;
+const minSwipeDistance = 50;
+
+function handleTouchStart(e) {
+	const popup = document.querySelector('#popup1');
+	if (!popup || popup.style.display === 'none') {
+		return;
+	}
+	
+	const touch = e.touches[0];
+	touchStartX = touch.clientX;
+	touchStartY = touch.clientY;
+}
+
+function handleTouchMove(e) {
+	// Allow default behavior for scrolling, etc., but track position
+	const touch = e.touches[0];
+	touchEndX = touch.clientX;
+	touchEndY = touch.clientY;
+}
+
+function handleTouchEnd(e) {
+	if (touchStartX === null || touchStartY === null) {
+		return;
+	}
+	
+	const popup = document.querySelector('#popup1');
+	if (!popup || popup.style.display === 'none') {
+		return;
+	}
+	
+	const touch = e.changedTouches[0];
+	touchEndX = touch.clientX;
+	touchEndY = touch.clientY;
+	
+	const deltaX = touchEndX - touchStartX;
+	const deltaY = touchEndY - touchStartY;
+	const absDeltaX = Math.abs(deltaX);
+	const absDeltaY = Math.abs(deltaY);
+	
+	// Reset touch coordinates
+	touchStartX = null;
+	touchStartY = null;
+	
+	// Only process if swipe distance is sufficient and primarily horizontal or vertical
+	if (absDeltaX < minSwipeDistance && absDeltaY < minSwipeDistance) {
+		return;
+	}
+	
+	// Determine if swipe is primarily horizontal or vertical
+	const isHorizontal = absDeltaX > absDeltaY;
+	
+	if (isHorizontal && absDeltaX >= minSwipeDistance) {
+		// Horizontal swipe
+		const v = document.querySelector('.popup video');
+		const img = document.querySelector('.popup img');
+		
+		if (deltaX > 0) {
+			// Swipe right - next item (like right arrow)
+			if (window.currentLink && (img || !v || (v && v.ended))) {
+				const next = findNextPrevLink(window.currentLink, REGEX_TYPE_CAN_PREVIEW);
+				if (next) {
+					onLinkClicked(next);
+				}
+			}
+		} else {
+			// Swipe left - previous item (like left arrow)
+			if (window.currentLink && (img || !v || (v && v.paused && v.currentTime == 0))) {
+				const prev = findNextPrevLink(window.currentLink, REGEX_TYPE_CAN_PREVIEW, true);
+				if (prev) {
+					onLinkClicked(prev);
+				}
+			}
+		}
+		e.preventDefault();
+	} else if (!isHorizontal && absDeltaY >= minSwipeDistance) {
+		// Vertical swipe
+		if (deltaY > 0) {
+			// Swipe down - close modal (like Escape)
+			hideModal();
+			e.preventDefault();
+		}
+		// Swipe up could be used for fullscreen, but might interfere with scrolling
+	}
+}
+
+// Add touch event listeners
+document.addEventListener('touchstart', handleTouchStart, { passive: true });
+document.addEventListener('touchmove', handleTouchMove, { passive: true });
+document.addEventListener('touchend', handleTouchEnd, { passive: false });
+
 function fullscreenOn(p) {
 	var fs = p.requestFullscreen || p.webkitRequestFullscreen || p.mozRequestFullScreen || p.oRequestFullscreen || p.msRequestFullscreen;
 	fs.call(p);
