@@ -274,7 +274,7 @@ dialog::backdrop{background:var(--scrim);backdrop-filter:blur(3px)}
 .v-track.no-snap{scroll-snap-type:none;scroll-behavior:auto}
 .v-slide{
 	flex:0 0 100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always;
-	display:grid;place-items:center;padding:3.4rem var(--s3) var(--s5);overflow:auto;overscroll-behavior:contain;
+	display:grid;place-items:center;padding:3.4rem var(--s3) var(--s5);overflow:clip;
 }
 /* touch-action restrictions are ADDITIVE down the tree — a descendant can never re-enable an
    axis an ancestor removed. `pan-x` on .v-track therefore made every doc/code/iframe preview
@@ -286,7 +286,18 @@ dialog::backdrop{background:var(--scrim);backdrop-filter:blur(3px)}
    - `.scrolls` slides (docs, iframes, zoomed images) get `auto`: native vertical scrolling.
    One rule the user can predict: content that scrolls, scrolls; content that does not, dismisses. */
 .v-slide{touch-action:pan-x pinch-zoom}
-.v-slide.scrolls{touch-action:auto}
+/* Second half of the same story, and the reason a finger still could not page after `touch-action`
+   was fixed: `overscroll-behavior:contain` on a scroll container swallows a pan it cannot consume
+   instead of chaining it to the ancestor. `.v-slide` was `overflow:auto` (a scroll container) with
+   no horizontal overflow, so the browser took the gesture — `pointercancel` fired, 14 touchmoves
+   arrived — and then dropped it: 0 scroll events on `.v-track`, `scrollLeft` stuck at 0. Measured.
+   Media slides therefore use `overflow:clip`, which (unlike `hidden`) creates NO scroll container
+   at all, so the pan chains straight to the track. Slides that genuinely scroll opt back in and
+   contain the VERTICAL axis only, leaving horizontal free to page — swiping to the next file must
+   work from a markdown/code preview exactly as it does from an image.
+   `.v-track` keeps two-axis `contain`: that is the boundary where chaining SHOULD stop, so a swipe
+   past the first/last slide never reaches the document (no pull-to-refresh, no back-swipe). */
+.v-slide.scrolls{touch-action:auto;overflow:auto;overscroll-behavior-y:contain}
 /* only the easing for the release of a drag; the transform/opacity themselves are set through
    CSSOM (no style= attributes under CSP) so a cancelled drag springs back. */
 .v-drag{transition:transform var(--dur) ease,opacity var(--dur) ease}
@@ -297,7 +308,9 @@ dialog::backdrop{background:var(--scrim);backdrop-filter:blur(3px)}
 .v-frame{width:min(100%,var(--wrap));height:100%;border:0;border-radius:var(--r1);background:#fff}
 .v-stub{color:#9dabbc;font-size:var(--f-1)}
 .v-doc{
-	width:min(100%,68rem);max-height:100%;overflow:auto;overscroll-behavior:contain;
+	/* y-only containment: two-axis `contain` here swallowed the horizontal pan that should page the
+	   carousel, because the doc has no horizontal overflow to spend it on (see .v-slide above). */
+	width:min(100%,68rem);max-height:100%;overflow:auto;overscroll-behavior-y:contain;
 	padding:var(--s5);background:var(--surface);color:var(--fg);
 	border-radius:var(--r2);box-shadow:var(--sh2);
 }

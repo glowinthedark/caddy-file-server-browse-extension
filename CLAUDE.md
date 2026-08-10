@@ -139,6 +139,22 @@ it send folders to the bottom.
       `.v-doc` and iframe slides, and toggled on images together with `.zoom` (a zoomed image
       overflows, so it hands both axes back). One predictable rule: **content that scrolls, scrolls;
       content that does not, dismisses.**
+  - **`overscroll-behavior:contain` swallows a pan the scroller cannot consume — it does NOT chain
+    it to the ancestor. This is the second, independent reason a finger could not page**, and it
+    survived the `touch-action` fix (the browser started the pan — `pointercancel` fired, 14
+    touchmoves arrived — then dropped it: **0 scroll events on `.v-track`, `scrollLeft` stuck at 0**,
+    measured over CDP). `.v-slide` was `overflow:auto`, i.e. a scroll container with no horizontal
+    overflow to spend the gesture on, and `.v-doc` had the same two-axis `contain`. Rules now:
+    - `.v-slide{overflow:clip}` — **`clip`, not `hidden`**: it creates no scroll container at all, so
+      the pan chains straight to the track. Media never needs to scroll (`max-width/height:100%`).
+    - `.v-slide.scrolls{overflow:auto;overscroll-behavior-y:contain}` and
+      `.v-doc{overscroll-behavior-y:contain}` — **y-only**. Vertical stays contained; horizontal is
+      left free, so swiping to the next file works from a markdown/code preview exactly as from an
+      image. Two-axis `contain` on either one silently kills paging on doc slides.
+    - `.v-track` keeps two-axis `contain`: that is the boundary where chaining *should* stop, so a
+      swipe past the first/last slide never reaches the document (no pull-to-refresh, no back-swipe).
+    Whenever a gesture "does nothing", check the whole ancestor chain for both `touch-action` **and**
+    `overscroll-behavior` — the two failure modes look identical from the outside.
   - **No synthetic left/right swipe detection — deliberately.** A `swiped-events`-style touchend
     threshold handler (see `tmp/swiped-events.js`) could only *replace* the snap track's native
     paging with a binary guess, and its `startEl !== e.target` bail breaks on our re-mounted slides.
@@ -206,8 +222,10 @@ adopt 7 upstream deltas (nonce'd CSP, `HumanTotalFileSize`, `SymlinkPath`, canon
 Post-rewrite fixes (2026-08-10), all documented above: the sticky cross-directory `filter` and dead
 Escape; invisible-but-clickable `.v-bar` children under `hide-ui`; the ancestor `touch-action:pan-x`
 that made every doc/code/iframe preview unscrollable on touch; `eatClick` leaking across viewer
-sessions; and the pointer-type polarity (only `"touch"` is special, so synthetic/unknown types get
-the hover-safe default).
+sessions; the pointer-type polarity (only `"touch"` is special, so synthetic/unknown types get
+the hover-safe default); and — found only once real touch input was driven over CDP — the
+`overscroll-behavior:contain` on `.v-slide`/`.v-doc` that swallowed every horizontal pan, so **swipe
+paging had never actually worked on a phone** in this fork or its ancestor.
 
 ## Conventions
 
@@ -248,7 +266,21 @@ No test suite ships in the repo. The scratchpad recipe used for the rewrite (rec
    dock, sandboxed iframe, srt→vtt, teardown, theme, help; plus icon paint, doc-scroll keys, and
    expanded mode (`imm`/`hide-ui`/idle/Esc two-step); plus the touch layer (`touch-action` per slide,
    tap-toggle, spring-back, axis lock, drag-dismiss, mouse backdrop-click). Last run **34 + 20 + 26 +
-   18 assertions, 0 fail, 0 console errors** across the four drivers.
+   18 assertions, 0 fail, 0 console errors** across the four drivers. These four use synthetic
+   events and therefore **cannot** catch a broken native pan — see step 5.
+5. **Real touch input via CDP — the only way to test native panning.** Synthetic `PointerEvent`s
+   never move a scroller, so drivers 1-4 all passed while a real finger could not page at all. Node
+   26 has a global `WebSocket`, so `scratchpad/cdp.js` speaks CDP with **zero dependencies**: launch
+   `chrome-headless-shell … --remote-debugging-port=PORT about:blank`, take `webSocketDebuggerUrl`
+   from `http://127.0.0.1:PORT/json/list`, then `Emulation.setDeviceMetricsOverride`
+   (390×844, `mobile:true`) + `Emulation.setTouchEmulationEnabled` + `Input.dispatchTouchEvent`
+   (`touchStart` → N `touchMove` → `touchEnd`, with advancing `timestamp`s so a fling is a fling).
+   Asserts: coarse-pointer media query, arrows hidden, track geometry, per-slide `touch-action`,
+   **swipe pages forward/back**, **swipe pages from a doc preview**, vertical flick dismisses,
+   tap toggles chrome without closing, finger-scrolls a doc. Last run **16 assertions, 0 fail**.
+   `scratchpad/probe.js` is the same rig in bisect form (reports `scrollEvents`/`scrollLeft`/
+   `pointercancel`/`slideScrollW`, then re-tests with candidate rules injected through
+   `styleSheets[0].insertRule` — CSSOM is CSP-legal, an injected `<style>` is not).
    Driver caveats:
    - synthetic `KeyboardEvent("Escape")` does not close a native `<dialog>` (click `.v-close`;
      dispatch a cancelable `Event("cancel")` to exercise the Esc handler);
