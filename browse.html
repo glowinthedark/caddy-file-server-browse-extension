@@ -268,7 +268,7 @@ dialog::backdrop{background:var(--scrim);backdrop-filter:blur(3px)}
 	grid-area:1/1;display:flex;height:100dvh;
 	overflow-x:auto;overflow-y:hidden;
 	scroll-snap-type:x mandatory;overscroll-behavior:contain;
-	touch-action:pan-x pinch-zoom;scrollbar-width:none;
+	scrollbar-width:none;
 }
 .v-track::-webkit-scrollbar{display:none}
 .v-track.no-snap{scroll-snap-type:none;scroll-behavior:auto}
@@ -276,6 +276,20 @@ dialog::backdrop{background:var(--scrim);backdrop-filter:blur(3px)}
 	flex:0 0 100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always;
 	display:grid;place-items:center;padding:3.4rem var(--s3) var(--s5);overflow:auto;overscroll-behavior:contain;
 }
+/* touch-action restrictions are ADDITIVE down the tree — a descendant can never re-enable an
+   axis an ancestor removed. `pan-x` on .v-track therefore made every doc/code/iframe preview
+   impossible to scroll with a finger (keyboard-only, i.e. desktop-only). The track overflows
+   horizontally only, so it declares nothing and each slide owns its axes:
+   - media slides keep pan-x, so the browser never starts a vertical pan and never
+     pointercancel's us → the vertical drag-to-dismiss is ours while the horizontal pan stays
+     100% native (momentum, rubber-band, snap-per-slide);
+   - `.scrolls` slides (docs, iframes, zoomed images) get `auto`: native vertical scrolling.
+   One rule the user can predict: content that scrolls, scrolls; content that does not, dismisses. */
+.v-slide{touch-action:pan-x pinch-zoom}
+.v-slide.scrolls{touch-action:auto}
+/* only the easing for the release of a drag; the transform/opacity themselves are set through
+   CSSOM (no style= attributes under CSP) so a cancelled drag springs back. */
+.v-drag{transition:transform var(--dur) ease,opacity var(--dur) ease}
 .v-slide>img,.v-slide>video{max-width:100%;max-height:100%;
 	border-radius:var(--r1);box-shadow:var(--sh2);background:rgb(0 0 0/.25)}
 .v-slide>img{object-fit:contain;cursor:zoom-in}
@@ -883,9 +897,11 @@ function slide(i,active,pend){
 		x.referrerPolicy="no-referrer";
 		if(it.kind==="frame")x.setAttribute("sandbox","");
 		x.src=it.href;s.appendChild(x);
+		s.classList.add("scrolls");/* the iframe scrolls itself — leave both axes to the browser */
 	}else{
 		/* load only once the host is in the document, never from the detached fragment */
 		x=document.createElement("div");x.className="v-doc";s.appendChild(x);pend.push([x,it]);
+		s.classList.add("scrolls");
 	}
 	return s;
 }
@@ -929,6 +945,9 @@ function openAt(href){
 	idx=-1;
 	for(var i=0;i<items.length;i++){if(items[i].href===href){idx=i;break;}}
 	if(idx<0){items=[{href:href,name:baseOf(href),kind:kindOf(href)}];idx=0;}
+	/* a drag-dismiss arms eatClick and then closes, so the flag must not survive into the next
+	   session — it would swallow the first tap after every dismissal */
+	drag=null;tActive=false;eatClick=false;
 	if(!dlg.open)dlg.showModal();
 	render();
 	if(imm)hideUI();else showUI();
@@ -941,13 +960,102 @@ function closeViewer(){
 }
 var sTimer=0;
 track.addEventListener("scroll",function(){
+	/* a finger is paging: get the interface out of the way immediately, before the first frame
+	   of movement, instead of letting it linger over the media for the rest of the idle timer. */
+	if(tActive)hideUI();
 	if("onscrollend" in window)return;
 	clearTimeout(sTimer);sTimer=setTimeout(settle,120);
 },{passive:true});
 track.addEventListener("scrollend",settle);
 track.addEventListener("click",function(e){
+	if(eatClick){eatClick=false;return;}/* the tail of a drag is not a tap */
+	if(lastPT==="touch"){
+		/* Touch has no hover, so the tap is the only "show me the controls" gesture there is —
+		   and it must toggle, or a tap meant to dismiss the interface would re-arm it. Taps on
+		   real controls are left alone. Backdrop-tap-to-close is deliberately NOT wired on touch:
+		   it collides with this toggle, and every mobile gallery closes via the button or a
+		   downward flick instead. */
+		if(e.target.closest("a,button,video,audio,iframe,input,select,textarea,summary"))return;
+		if(dlg.classList.contains("hide-ui"))showUI();else hideUI();
+		return;
+	}
 	if(e.target===track||e.target.classList.contains("v-slide"))closeViewer();
-	else if(e.target.tagName==="IMG")e.target.classList.toggle("zoom");
+	else if(e.target.tagName==="IMG"){
+		var z=e.target.classList.toggle("zoom"),sl=e.target.closest(".v-slide");
+		/* a zoomed image overflows, so hand both axes back to the browser while it is zoomed */
+		if(sl)sl.classList.toggle("scrolls",z);
+	}
+});
+
+/* ── touch gestures: native horizontal paging + vertical drag-to-dismiss ────────────────
+   There is deliberately NO synthetic left/right swipe detection: the horizontal axis belongs to
+   the scroll-snap track, which already gives finger-following movement, momentum, rubber-band and
+   one-slide-per-flick snapping — a touchend threshold handler could only replace all of that with
+   a binary guess. Vertical is ours by construction: `touch-action:pan-x` on a media slide leaves
+   the browser no vertical axis to claim, so it never takes over the pointer stream mid-gesture. */
+var DRAG_MIN=10,drag=null,tActive=false,eatClick=false,lastPT="mouse";
+function dragEnd(d,dismiss){
+	d.el.classList.add("v-drag");
+	if(d.s)d.s.style.overflow="";
+	if(dismiss){
+		d.el.style.transform="translate3d(0,"+(d.dy<0?-innerHeight:innerHeight)+"px,0)";
+		d.el.style.opacity="0";
+		/* a timer, never transitionend: a transition that never ticks must not strand the viewer */
+		setTimeout(closeViewer,200);
+	}else{
+		d.el.style.transform="";d.el.style.opacity="";
+		setTimeout(function(){d.el.classList.remove("v-drag");},200);
+	}
+}
+/* "touch" is the only special pointer type: it has no hover and no cursor, so it gets the
+   tap-toggle and the drag. Everything else — mouse, pen, and any synthetic event with an empty
+   pointerType — keeps hover semantics, which is the safe default (controls stay reachable). */
+track.addEventListener("pointerdown",function(e){
+	lastPT=e.pointerType||"mouse";
+	if(lastPT!=="touch")return;
+	tActive=true;
+	if(drag){dragEnd(drag,false);drag=null;return;}/* a second finger: it is a pinch, not a drag */
+	if(!e.isPrimary||!dlg.open)return;
+	var s=$('.v-slide[data-i="'+idx+'"]',track);
+	if(!s||s.classList.contains("scrolls"))return;/* scrollable content owns its own vertical axis */
+	if(window.visualViewport&&visualViewport.scale>1.01)return;/* pinched in: let them pan it */
+	var el=s.querySelector("img,video");
+	if(!el)return;/* never transform the slide itself — it is the snap area */
+	el.classList.remove("v-drag");
+	drag={el:el,s:s,x:e.clientX,y:e.clientY,t:Date.now(),dy:0,on:false};
+},{passive:true});
+track.addEventListener("pointermove",function(e){
+	if(!drag||!e.isPrimary)return;
+	var dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+	if(!drag.on){
+		/* first movement past the threshold locks the axis for the whole gesture, so a sloppy
+		   diagonal flick can never both page and dismiss */
+		if(Math.abs(dx)>DRAG_MIN&&Math.abs(dx)>=Math.abs(dy)){drag=null;return;}
+		if(Math.abs(dy)<DRAG_MIN)return;
+		drag.on=true;
+		hideUI();/* the gesture is confirmed: nothing should sit over the media while it moves */
+		drag.s.style.overflow="hidden";/* the translated child must not become scrollable overflow */
+	}
+	drag.dy=dy;
+	var k=Math.min(1,Math.abs(dy)/(innerHeight*.5));
+	drag.el.style.transform="translate3d(0,"+dy+"px,0) scale("+(1-k*.12).toFixed(3)+")";
+	drag.el.style.opacity=(1-k*.65).toFixed(3);
+},{passive:true});
+track.addEventListener("pointerup",function(){
+	tActive=false;
+	if(!drag)return;
+	var d=drag;drag=null;
+	if(!d.on)return;/* it was a tap: leave it to the click handler */
+	eatClick=true;
+	var dt=Math.max(1,Date.now()-d.t);
+	/* distance OR velocity, so a short fast flick dismisses as readily as a long slow pull */
+	dragEnd(d,Math.abs(d.dy)>Math.max(80,innerHeight*.18)||(Math.abs(d.dy)/dt>.5&&Math.abs(d.dy)>40));
+});
+track.addEventListener("pointercancel",function(){
+	tActive=false;
+	if(!drag)return;
+	var d=drag;drag=null;
+	if(d.on){eatClick=true;dragEnd(d,false);}
 });
 vPrev.addEventListener("click",function(){go(-1);});
 vNext.addEventListener("click",function(){go(1);});
@@ -975,8 +1083,13 @@ vFs.addEventListener("click",function(){setImm(!imm);});
 /* hovering the bar pins it; leaving restarts the idle countdown */
 bar.addEventListener("pointerenter",function(){barHot=true;if(uiT){clearTimeout(uiT);uiT=0;}});
 bar.addEventListener("pointerleave",function(){barHot=false;showUI();});
-dlg.addEventListener("pointermove",function(){if(!barHot)showUI();});
-dlg.addEventListener("pointerdown",showUI);
+/* Mouse only. A touch pointerdown/pointermove is the START of a swipe, so revealing on it made
+   the bar flash in over the media on every single page — the exact annoyance this avoids. On
+   touch the reveal is the tap (see the track click handler); touching a control still keeps the
+   bar alive, so reaching for a second button never races the idle timer. */
+dlg.addEventListener("pointermove",function(e){if(e.pointerType!=="touch"&&!barHot)showUI();});
+dlg.addEventListener("pointerdown",function(e){if(e.pointerType!=="touch")showUI();});
+bar.addEventListener("pointerdown",function(){showUI();});
 /* Esc: while expanded the first press only restores the interface (cancel is cancelable),
    so one keypress never loses your place in a long gallery. A second press closes. */
 dlg.addEventListener("cancel",function(e){
