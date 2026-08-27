@@ -37,7 +37,7 @@ git checkout heic
 git clone --branch heic https://github.com/glowinthedark/caddy-file-server-browse-extension.git
 ```
 
-Move the files from `./sidecar` folder to caddy's SERVE_ROOT/.assets as described in the [**`README.md`**](https://github.com/glowinthedark/caddy-file-server-browse-extension/blob/heic/README.md)
+Move the files from `./sidecar` folder to caddy's `SERVE_ROOT/.assets` as described in the [**`README.md`**](https://github.com/glowinthedark/caddy-file-server-browse-extension/blob/heic/README.md)
 
 
 ## Screenshots
