@@ -10,6 +10,32 @@ Customized template for caddy [**`file_server`**](https://caddyserver.com/docs/c
 - code highlighting for common source file formats using [highlight](https://github.com/highlightjs/highlight.js)
 - retain list/grid mode on navigation
 
+### NOTE: Experimental HEIC preview branch
+
+If you already use Safari on macOS or iOS, HEIC preview works OOTB in the master branch — you DO NOT NEED TO USE THIS BRANCH.
+This branch is ONLY meant for non Safari browsers on non-Apple platforms. It does HEIC decoding in javascipt 
+and is therefore SLOWER than native HEIC.
+
+To enable HEIC preview the following files must be copied to caddy's `SERVER_ROOT/.assets`:
+
+```sh
+heic.js
+heic.worker.js
+libheif-bundle.js
+libheif.wasm
+```
+To automate the copy, edit the supplied `Makefile` and set the folder that is configured in caddy as the server root (exposed as `/`) and then run:
+
+```sh
+make copy
+```
+Depending on your specific Caddyfile you might need to modify lines 52..53 in `browse.html` to be resolvable to the actual files:
+
+```
+{{- $heicJS := "/.assets/heic.js"}}
+{{- $heicFile := "heic.js"}}
+```
+
 ### Usage
 
 In your `Caddyfile` set the [**`browse`**](https://caddyserver.com/docs/caddyfile/directives/file_server#syntax) subdirective under `file_server` to point to the custom `browse.html` ([view source](https://github.com/glowinthedark/caddy-file-server-browse-extension/blob/master/browse.html)) file:
