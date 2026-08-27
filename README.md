@@ -1,4 +1,4 @@
-### caddy file_server custom `browse.html` template with media extensions
+# caddy `file_server` customized `browse.html` template with media extensions
 
 Customized template for caddy [**`file_server`**](https://caddyserver.com/docs/caddyfile/directives/file_server). Compared to caddy's default [browse.html](https://github.com/caddyserver/caddy/blob/master/modules/caddyhttp/fileserver/browse.html) this template offers the following extra features:
 
@@ -10,9 +10,9 @@ Customized template for caddy [**`file_server`**](https://caddyserver.com/docs/c
 - code highlighting for common source file formats using [highlight](https://github.com/highlightjs/highlight.js)
 - retain list/grid mode on navigation
 
-### Usage
+## Usage
 
-In your `Caddyfile` set the [**`browse`**](https://caddyserver.com/docs/caddyfile/directives/file_server#syntax) subdirective under `file_server` to point to the custom `browse.html` ([view source](https://github.com/glowinthedark/caddy-file-server-browse-extension/blob/master/browse.html)) file:
+In your **`Caddyfile`** set the [**`browse`**](https://caddyserver.com/docs/caddyfile/directives/file_server#syntax) subdirective under **`file_server`** to point to the custom **`browse.html`** ([view source](https://github.com/glowinthedark/caddy-file-server-browse-extension/blob/master/browse.html)) file:
 
 ```Caddyfile
 http:// {
@@ -22,7 +22,26 @@ http:// {
     }
 }
 ```
-### Screenshots
+## HEIC Preview Support
+Preview for HEIC images works natively for Safari browsers on iOS and macOS. No other browsers can render HEIC natively.
+
+An experimental branch with slower Javascript-based HEIC decoding for non-Apple browsers is available in this repo in the [**`heic`**](https://github.com/glowinthedark/caddy-file-server-browse-extension/tree/heic) branch.
+
+If you want to experiment:
+
+```sh
+# clone master branch and switch
+git clone https://github.com/glowinthedark/caddy-file-server-browse-extension.git
+git checkout heic
+
+# OR clone the heic branch directly
+git clone --branch heic https://github.com/glowinthedark/caddy-file-server-browse-extension.git
+```
+
+Move the files from `./sidecar` folder to caddy's SERVE_ROOT/.assets as described in the [**`README.md`**](https://github.com/glowinthedark/caddy-file-server-browse-extension/blob/heic/README.md)
+
+
+## Screenshots
 
 ##### inline audio player 
 ![](img/caddy_file_server.png)
