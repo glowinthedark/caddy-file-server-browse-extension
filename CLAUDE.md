@@ -84,10 +84,38 @@ it send folders to the bottom.
     inherits into the shadow tree, and a path's own presentation attribute (the folder's
     `fill="#ffb900"`) still beats the inherited value. New `<g>`s therefore need **no** paint
     attributes, and must not carry a full-canvas `M0 0h24v24H0z` path (all 35 were removed).
-- **φ design system**: every token defined once via CSS `light-dark()`; space scale on φ=1.618,
-  type scale on √φ=1.272, grid tiles `aspect-ratio: var(--phi)`. Theme override flips
-  `color-scheme` through `data-theme` on `<html>`, set pre-paint by a tiny nonce'd script from
-  `localStorage["cfs-theme"]` (no flash). Do not add a second dark-mode mechanism.
+- **Quantized φ design system** (recalibrated 2026-08-24): every token defined once via CSS
+  `light-dark()`. **Layout quantum q = 2px (.125rem): every space/radius/control/icon token is an
+  integer multiple of it**, so 1px hairlines and 2px icon strokes land on whole device pixels at
+  1x/2x/3x. Do not "restore" the old fractional φ-powers — they rendered at 6.4/10.4/16.8/27.2/71.2px
+  and bottomed the type scale out at an illegible **9.888px**.
+  - **Space + radii — Fibonacci×2** (`--s1..7` = 4 6 10 16 26 42 68; `--r1..3` = 6 10 16). Fibonacci
+    is the integer sequence whose successive ratio *is* φ, and consecutive terms sum to the next —
+    which is what makes the concentric-radius law hold **identically**, not by luck:
+    `r2 = r1 + s1` (10 = 6+4), `r3 = r2 + s2` (16 = 10+6). The grid card relies on this: `.entry a`
+    has `--r2` + `--s1` padding around a `--r1` thumbnail, so `.entry .name`/`.entry .m` must carry
+    **no** padding of their own (adding it doubles the inset to 8px and the text stops aligning
+    with the thumbnail edge).
+  - **Type — φ at display sizes, damped (~1.14) at UI sizes** (`--f-2..3` = 12 14 16 20 26 42).
+    The top (16→26→42) is φ; the bottom is damped because retinal acuity is a hard floor.
+    **Nothing renders below 12px.** `--lh 1.618` is prose-only; `--lh-ui 1.5` (16×1.5 = 24, integer)
+    is for rows/labels/chips; `--lh-tight 1.272`.
+  - **Control heights — a separate ergonomic ladder** (`--c1..3` = 28 36 44 ≈ 44÷φⁿ). Mixing control
+    height into the spacing scale is what made the chips 32.9px, under every touch-target guideline.
+    44 is the Apple HIG / WCAG 2.5.5 target and is the list row height; `@media (pointer:coarse)`
+    promotes chips and `#filter` from `--c2` to `--c3`.
+  - **Icon sizes are locked to the 24-unit SVG viewBox** (`--i1..4` = 16 20 24 48 — the only permitted
+    values). A `stroke-width:2` then rasterizes at 1.33/1.67/2/4px, i.e. whole device pixels at 2x;
+    the old `22px` glyph put every stroke at 1.833px, permanently soft.
+  - **Measure** `--read:68ch` (was ~82ch, over the 45-75ch optimum); `--wrap 79.5rem`; `--tile 13rem`.
+  - **`.chips` rail**: the sort/layout chips live in their own `<div class="chips">` inside `.tools`
+    so that under `@media (max-width:40rem)` they become a single `flex-wrap:nowrap;overflow-x:auto`
+    rail (scrollbar hidden, `.v-track` idiom) while `.tools` stacks column-wise with a full-width
+    `#filter`. The wrapper is structural — chips cannot be a nested scroller without it; no JS
+    selects `.tools` or depends on its child structure.
+  - Grid tiles keep `aspect-ratio: var(--phi)`. Theme override flips `color-scheme` through
+    `data-theme` on `<html>`, set pre-paint by a tiny nonce'd script from `localStorage["cfs-theme"]`
+    (no flash). Do not add a second dark-mode mechanism.
 - **Layout**: breadcrumb header → sticky `.bar` toolbar (stats, `#filter`, sort chips, folders-first,
   list/grid, theme, help) → `main.panel` (empty state | grid | 3-column table) → `.pager` →
   `.dock` audio player → `#viewer` dialog → `#keys` dialog → one IIFE.

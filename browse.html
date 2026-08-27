@@ -1,282 +1,846 @@
 {{- define "icon"}}
-	{{- if .IsDir}}
-		{{- if .IsSymlink}}folder-symlink
-		{{- else}}folder
-		{{- end}}
-	{{- else if or (eq .Name "LICENSE") (eq .Name "README")}}license
-	{{- else if .HasExt ".jpg" ".jpeg" ".png" ".apng" ".gif" ".webp" ".avif" ".tiff" ".tif" ".bmp" ".ico" ".heif" ".heic" ".svg"}}image
-	{{- else if .HasExt ".mp4" ".m4v" ".mov" ".mpeg" ".mpg" ".avi" ".ogv" ".ogm" ".webm" ".mkv" ".vob" ".gifv" ".3gp"}}video
-	{{- else if .HasExt ".mp3" ".m4a" ".aac" ".oga" ".ogg" ".opus" ".flac" ".ape" ".wav" ".weba" ".wma" ".midi" ".mid" ".cda"}}audio
-	{{- else if .HasExt ".pdf"}}pdf
-	{{- else if .HasExt ".csv" ".tsv"}}csv
-	{{- else if .HasExt ".txt" ".doc" ".docx" ".odt" ".fodt" ".rtf"}}doc
-	{{- else if .HasExt ".xls" ".xlsx" ".ods" ".fods"}}sheet
-	{{- else if .HasExt ".ppt" ".pptx" ".odp" ".fodp"}}ppt
-	{{- else if .HasExt ".zip" ".gz" ".bz2" ".xz" ".tar" ".tgz" ".7z" ".rar" ".zst" ".lz4"}}archive
-	{{- else if .HasExt ".deb" ".dpkg"}}deb
-	{{- else if .HasExt ".rpm" ".exe" ".flatpak" ".appimage" ".jar" ".msi" ".apk"}}dist
-	{{- else if .HasExt ".ps1"}}ps1
-	{{- else if .HasExt ".py" ".pyw" ".pyc" ".pyo"}}py
-	{{- else if .HasExt ".bash" ".sh" ".zsh" ".fish" ".com" ".bat" ".cmd" ".dll" ".so" ".dylib"}}sh
-	{{- else if .HasExt ".dmg"}}dmg
-	{{- else if .HasExt ".iso" ".img"}}iso
-	{{- else if .HasExt ".md" ".mdown" ".markdown"}}md
-	{{- else if .HasExt ".ttf" ".otf" ".woff" ".woff2" ".eot"}}font
-	{{- else if .HasExt ".go" ".mod" ".sum"}}go
-	{{- else if .HasExt ".html" ".htm" ".xhtml"}}html
-	{{- else if .HasExt ".js" ".mjs" ".cjs" ".jsx"}}js
-	{{- else if .HasExt ".css" ".scss" ".sass" ".less"}}css
-	{{- else if .HasExt ".json" ".json5" ".jsonc" ".ndjson"}}json
-	{{- else if .HasExt ".ts" ".tsx" ".mts"}}ts
-	{{- else if .HasExt ".sql"}}sql
-	{{- else if .HasExt ".db" ".sqlite" ".sqlite3" ".bak" ".mdb"}}db
-	{{- else if .HasExt ".eml" ".email" ".mailbox" ".mbox" ".msg"}}email
-	{{- else if .HasExt ".crt" ".pem" ".x509" ".cer" ".ca-bundle"}}cert
-	{{- else if .HasExt ".key" ".keystore" ".jks" ".p12" ".pfx" ".pub"}}keystore
-	{{- else}}
-		{{- if .IsSymlink}}symlink
-		{{- else}}generic
-		{{- end}}
-	{{- end}}
+{{- if .IsDir}}
+{{- if .IsSymlink}}folder-symlink
+{{- else}}folder
+{{- end}}
+{{- else if or (eq .Name "LICENSE") (eq .Name "README")}}license
+{{- else if .HasExt ".jpg" ".jpeg" ".png" ".apng" ".gif" ".webp" ".avif" ".tiff" ".tif" ".bmp" ".ico" ".heif" ".heic"
+".svg"}}image
+{{- else if .HasExt ".mp4" ".m4v" ".mov" ".mpeg" ".mpg" ".avi" ".ogv" ".ogm" ".webm" ".mkv" ".vob" ".gifv" ".3gp"}}video
+{{- else if .HasExt ".mp3" ".m4a" ".aac" ".oga" ".ogg" ".opus" ".flac" ".ape" ".wav" ".weba" ".wma" ".midi" ".mid"
+".cda"}}audio
+{{- else if .HasExt ".pdf"}}pdf
+{{- else if .HasExt ".csv" ".tsv"}}csv
+{{- else if .HasExt ".txt" ".doc" ".docx" ".odt" ".fodt" ".rtf"}}doc
+{{- else if .HasExt ".xls" ".xlsx" ".ods" ".fods"}}sheet
+{{- else if .HasExt ".ppt" ".pptx" ".odp" ".fodp"}}ppt
+{{- else if .HasExt ".zip" ".gz" ".bz2" ".xz" ".tar" ".tgz" ".7z" ".rar" ".zst" ".lz4"}}archive
+{{- else if .HasExt ".deb" ".dpkg"}}deb
+{{- else if .HasExt ".rpm" ".exe" ".flatpak" ".appimage" ".jar" ".msi" ".apk"}}dist
+{{- else if .HasExt ".ps1"}}ps1
+{{- else if .HasExt ".py" ".pyw" ".pyc" ".pyo"}}py
+{{- else if .HasExt ".bash" ".sh" ".zsh" ".fish" ".com" ".bat" ".cmd" ".dll" ".so" ".dylib"}}sh
+{{- else if .HasExt ".dmg"}}dmg
+{{- else if .HasExt ".iso" ".img"}}iso
+{{- else if .HasExt ".md" ".mdown" ".markdown"}}md
+{{- else if .HasExt ".ttf" ".otf" ".woff" ".woff2" ".eot"}}font
+{{- else if .HasExt ".go" ".mod" ".sum"}}go
+{{- else if .HasExt ".html" ".htm" ".xhtml"}}html
+{{- else if .HasExt ".js" ".mjs" ".cjs" ".jsx"}}js
+{{- else if .HasExt ".css" ".scss" ".sass" ".less"}}css
+{{- else if .HasExt ".json" ".json5" ".jsonc" ".ndjson"}}json
+{{- else if .HasExt ".ts" ".tsx" ".mts"}}ts
+{{- else if .HasExt ".sql"}}sql
+{{- else if .HasExt ".db" ".sqlite" ".sqlite3" ".bak" ".mdb"}}db
+{{- else if .HasExt ".eml" ".email" ".mailbox" ".mbox" ".msg"}}email
+{{- else if .HasExt ".crt" ".pem" ".x509" ".cer" ".ca-bundle"}}cert
+{{- else if .HasExt ".key" ".keystore" ".jks" ".p12" ".pfx" ".pub"}}keystore
+{{- else}}
+{{- if .IsSymlink}}symlink
+{{- else}}generic
+{{- end}}
+{{- end}}
 {{- end}}
 {{- $nonce := uuidv4}}
 {{- $n := print "nonce=" (quote $nonce)}}
 {{/* To disable the Content-Security-Policy, set this to false */}}{{- $enableCsp := true}}
 {{- if $enableCsp}}
-	{{- $csp := "default-src 'none'; img-src 'self' data:; media-src 'self' blob:; frame-src 'self'; connect-src 'self'; font-src 'self'; style-src 'nonce-%s'; script-src 'nonce-%s'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'"}}
-	{{- .RespHeader.Set "Content-Security-Policy" (printf $csp $nonce $nonce)}}
+{{- $csp := "default-src 'none'; img-src 'self' data:; media-src 'self' blob:; frame-src 'self'; connect-src 'self'; font-src 'self'; style-src 'nonce-%s'; script-src 'nonce-%s'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'"}}
+{{- .RespHeader.Set "Content-Security-Policy" (printf $csp $nonce $nonce)}}
 {{- end}}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="color-scheme" content="light dark">
-<meta name="robots" content="noindex, nofollow">
-<title>{{html .Name}}</title>
-<link rel="canonical" href="{{html .Path}}/">
-<script {{$n}}>try{var t=localStorage.getItem("cfs-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<style {{$n}}>
-/* ── golden-ratio token system ─────────────────────────────────────────────
-   φ = 1.618 drives every space step (×φ) and √φ = 1.272 every type step.   */
-:root{
-	color-scheme:light dark;
-	--phi:1.618;
-	/* space: 4px × φⁿ */
-	--s1:.25rem; --s2:.4rem; --s3:.65rem; --s4:1.05rem; --s5:1.7rem; --s6:2.75rem; --s7:4.45rem;
-	/* type: 1rem × √φⁿ */
-	--f-2:.618rem; --f-1:.786rem; --f0:1rem; --f1:1.272rem; --f2:1.618rem; --f3:2.058rem;
-	--lh:1.618; --lh-tight:1.272;
-	--r1:.4rem; --r2:.65rem; --r3:1.05rem; --r-pill:9999px;
-	--wrap:79.5rem; --tile:12.36rem; --read:41.2rem;
-	--dur:.13s; --dur2:.21s; --ease:cubic-bezier(.32,.72,0,1);
-	--bg:light-dark(#eff2f5,#0d1116);
-	--bg2:light-dark(#e4e9ef,#121820);
-	--surface:light-dark(#fff,#161d26);
-	--surface2:light-dark(#f7f9fb,#1c242f);
-	--line:light-dark(#e1e7ee,#26303c);
-	--line2:light-dark(#cfd8e2,#334050);
-	--fg:light-dark(#17212b,#e3e9f0);
-	--fg2:light-dark(#53657a,#9dabbc);
-	--fg3:light-dark(#8496a8,#6d7d90);
-	--accent:light-dark(#0a5fc2,#5aa9ff);
-	--accent-bg:light-dark(#e8f1fd,#122334);
-	--visited:light-dark(#7a1fa0,#c88ce0);
-	--warn:light-dark(#a35a00,#f0a839);
-	--folder:light-dark(#f0a712,#f5bb3c);
-	--bar:light-dark(#d5e8ff,#1e3550);
-	--focus:light-dark(#0b7ad8,#6cb6ff);
-	--sh1:0 1px 2px light-dark(rgb(16 24 32/.07),rgb(0 0 0/.4)),0 2px 8px light-dark(rgb(16 24 32/.05),rgb(0 0 0/.28));
-	--sh2:0 4px 12px light-dark(rgb(16 24 32/.10),rgb(0 0 0/.45)),0 18px 44px light-dark(rgb(16 24 32/.13),rgb(0 0 0/.5));
-	--scrim:rgb(6 9 13/.86);
-	--code-c:light-dark(#7a8796,#6f8090);
-	--code-s:light-dark(#0b7a5a,#67d5a5);
-	--code-n:light-dark(#a3562a,#e0a06a);
-	--code-k:light-dark(#8b2fa8,#d18bf0);
-}
-:root[data-theme=light]{color-scheme:light}
-:root[data-theme=dark]{color-scheme:dark}
-*,*::before,*::after{box-sizing:border-box}
-[hidden]{display:none!important}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-html:has(dialog[open]){overflow:hidden}
-body{
-	margin:0;padding:0 0 var(--s6);min-height:100dvh;
-	font:var(--f0)/var(--lh) -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-	font-synthesis:none;color:var(--fg);
-	background:var(--bg) linear-gradient(180deg,var(--bg2),var(--bg) 38.2vh) no-repeat;
-	overflow-wrap:break-word;
-}
-body.has-dock{padding-bottom:var(--s7)}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:var(--r1)}
-:where(button,input,a){font:inherit;color:inherit}
-svg{flex:none;pointer-events:none}
-.sprite{position:absolute;width:0;height:0;overflow:hidden}
-.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--s4)}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="color-scheme" content="light dark">
+	<meta name="robots" content="noindex, nofollow">
+	<title>{{html .Name}}</title>
+	<link rel="canonical" href="{{html .Path}}/">
+	<script
+		{{$n}}>try { var t = localStorage.getItem("cfs-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t } catch (e) { }</script>
+	<style {{$n}}>
+		/* ── quantized golden token system ────────────────────────────────────────────
+   Layout quantum q = 2px (.125rem): every dimension is an integer multiple of it,
+   so 1px hairlines and 2px icon strokes land on whole device pixels at 1x/2x/3x.
+   φ is obtained exactly rather than approximately — Fibonacci is the integer
+   sequence whose successive ratio IS φ, and consecutive terms sum to the next,
+   which is what makes the concentric-radius law (outer = inner + padding) hold
+   identically instead of by luck. Three ladders, one ratio: space (Fibonacci×2),
+   control heights (44 ÷ φⁿ, the touch target), icons (locked to the 24 viewBox). */
+		:root {
+			color-scheme: light dark;
+			--phi: 1.618;
+			/* space — Fibonacci×2: 4 6 10 16 26 42 68 px (ratios → φ within 1.5% from s3) */
+			--s1: .25rem;
+			--s2: .375rem;
+			--s3: .625rem;
+			--s4: 1rem;
+			--s5: 1.625rem;
+			--s6: 2.625rem;
+			--s7: 4.25rem;
+			/* type — 12 14 16 20 26 42 px. 16/26/42 is φ; the small end is damped to ~1.14
+	   because acuity is a hard floor (√φ downward from 16px bottoms out at 9.9px). */
+			--f-2: .75rem;
+			--f-1: .875rem;
+			--f0: 1rem;
+			--f1: 1.25rem;
+			--f2: 1.625rem;
+			--f3: 2.625rem;
+			--lh: 1.618;
+			--lh-ui: 1.5;
+			--lh-tight: 1.272;
+			/* radii — same ladder, so r2 = r1+s1 (10=6+4) and r3 = r2+s2 (16=10+6) */
+			--r1: .375rem;
+			--r2: .625rem;
+			--r3: 1rem;
+			--r-pill: 9999px;
+			/* control heights — 44÷φ, 44÷√φ, 44 (WCAG 2.5.5 / HIG touch target) */
+			--c1: 1.75rem;
+			--c2: 2.25rem;
+			--c3: 2.75rem;
+			/* icon sizes — multiples/simple fractions of the 24-unit viewBox: a 2px stroke
+	   scaled to 22px rendered at 1.833px, i.e. permanently soft. */
+			--i1: 16px;
+			--i2: 20px;
+			--i3: 24px;
+			--i4: 48px;
+			--wrap: 79.5rem;
+			--tile: 13rem;
+			--read: 68ch;
+			--dur: .13s;
+			--dur2: .21s;
+			--ease: cubic-bezier(.32, .72, 0, 1);
+			--bg: light-dark(#eff2f5, #0d1116);
+			--bg2: light-dark(#e4e9ef, #121820);
+			--surface: light-dark(#fff, #161d26);
+			--surface2: light-dark(#f7f9fb, #1c242f);
+			--line: light-dark(#e1e7ee, #26303c);
+			--line2: light-dark(#cfd8e2, #334050);
+			--fg: light-dark(#17212b, #e3e9f0);
+			--fg2: light-dark(#53657a, #9dabbc);
+			--fg3: light-dark(#8496a8, #6d7d90);
+			--accent: light-dark(#0a5fc2, #5aa9ff);
+			--accent-bg: light-dark(#e8f1fd, #122334);
+			--visited: light-dark(#7a1fa0, #c88ce0);
+			--warn: light-dark(#a35a00, #f0a839);
+			--folder: light-dark(#f0a712, #f5bb3c);
+			--bar: light-dark(#d5e8ff, #1e3550);
+			--focus: light-dark(#0b7ad8, #6cb6ff);
+			--sh1: 0 1px 2px light-dark(rgb(16 24 32/.07), rgb(0 0 0/.4)), 0 2px 6px light-dark(rgb(16 24 32/.05), rgb(0 0 0/.28));
+			--sh2: 0 4px 10px light-dark(rgb(16 24 32/.10), rgb(0 0 0/.45)), 0 16px 42px light-dark(rgb(16 24 32/.13), rgb(0 0 0/.5));
+			--scrim: rgb(6 9 13/.86);
+			--code-c: light-dark(#7a8796, #6f8090);
+			--code-s: light-dark(#0b7a5a, #67d5a5);
+			--code-n: light-dark(#a3562a, #e0a06a);
+			--code-k: light-dark(#8b2fa8, #d18bf0);
+		}
 
-/* ── header ─────────────────────────────────────────────────────────── */
-header{padding:var(--s5) 0 var(--s4)}
-.crumbs{
-	font-size:var(--f1);line-height:var(--lh-tight);font-weight:600;letter-spacing:-.01em;
-	display:flex;flex-wrap:wrap;align-items:baseline;
-}
-.crumbs a{color:var(--fg2);padding:0 .1em;border-radius:var(--r1)}
-.crumbs a:last-of-type{color:var(--fg);font-weight:700}
-.crumbs a:hover{color:var(--accent)}
-.sep{color:var(--fg3);padding:0 .05em}
+		:root[data-theme=light] {
+			color-scheme: light
+		}
 
-/* ── toolbar ────────────────────────────────────────────────────────── */
-.bar{
-	position:sticky;top:0;z-index:5;
-	display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;justify-content:space-between;
-	padding:var(--s3) var(--s4);margin:0 auto var(--s4);max-width:var(--wrap);
-	background:light-dark(rgb(255 255 255/.82),rgb(22 29 38/.82));
-	backdrop-filter:blur(12px) saturate(1.4);
-	border:1px solid var(--line);border-radius:var(--r3);box-shadow:var(--sh1);
-}
-.stats{display:flex;gap:var(--s3);flex-wrap:wrap;font-size:var(--f-1);color:var(--fg2)}
-.stats b{color:var(--fg);font-variant-numeric:tabular-nums}
-.tools{display:flex;gap:var(--s2);align-items:center;flex-wrap:wrap}
-.search{position:relative;display:flex;align-items:center}
-.search svg{position:absolute;left:var(--s3);width:16px;height:16px;color:var(--fg3)}
-#filter{
-	width:16.18rem;max-width:42vw;padding:var(--s2) var(--s3) var(--s2) var(--s5);
-	background:var(--surface);border:1px solid var(--line2);border-radius:var(--r-pill);
-	font-size:var(--f-1);transition:border-color var(--dur),box-shadow var(--dur);
-}
-#filter:focus{outline:none;border-color:var(--focus);box-shadow:0 0 0 3px light-dark(rgb(11 122 216/.16),rgb(108 182 255/.2))}
-#filter::-webkit-search-cancel-button{filter:grayscale(1)}
-.fcount{font-size:var(--f-2);color:var(--fg3);font-variant-numeric:tabular-nums;min-width:0}
-.chip{
-	display:inline-flex;align-items:center;gap:var(--s1);
-	height:2.058rem;padding:0 var(--s3);
-	background:var(--surface);border:1px solid var(--line2);border-radius:var(--r-pill);
-	font-size:var(--f-1);color:var(--fg2);cursor:pointer;white-space:nowrap;
-	transition:background var(--dur),color var(--dur),border-color var(--dur);
-}
-.chip:hover{background:var(--accent-bg);border-color:var(--accent);color:var(--accent);text-decoration:none}
-.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
-.chip svg{width:16px;height:16px}
-.chip.ico-only{width:2.058rem;padding:0;justify-content:center}
-.caret{width:0;height:0;border:.3em solid transparent;border-top-color:currentColor;margin-top:.3em}
-.caret.up{border-top-color:transparent;border-bottom-color:currentColor;margin-top:-.3em}
-.chip:not(.on) .caret{display:none}
+		:root[data-theme=dark] {
+			color-scheme: dark
+		}
 
-/* ── list ───────────────────────────────────────────────────────────── */
-.panel{
-	max-width:var(--wrap);margin:0 auto;background:var(--surface);
-	border:1px solid var(--line);border-radius:var(--r3);box-shadow:var(--sh1);overflow:hidden;
-}
-table{width:100%;border-collapse:collapse;table-layout:fixed}
-thead th{
-	position:relative;padding:var(--s2) var(--s3);text-align:left;
-	font-size:var(--f-2);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fg3);
-	background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
-}
-thead th:nth-child(2){width:7.5rem;text-align:right}
-thead th:nth-child(3){width:12rem}
-thead a{display:inline-flex;align-items:center;gap:var(--s1);color:inherit}
-thead a:hover{color:var(--accent);text-decoration:none}
-thead th[aria-sort] a{color:var(--fg)}
-thead th:not([aria-sort]) .caret{display:none}
-tbody tr{
-	border-bottom:1px solid var(--line);
-	content-visibility:auto;contain-intrinsic-size:auto 2.75rem;
-}
-tbody tr:last-child{border-bottom:0}
-tbody tr:hover{background:var(--surface2)}
-tbody tr.now{background:var(--accent-bg)}
-td{padding:0;font-size:var(--f-1);vertical-align:middle}
-td.n{position:relative}
-td.n a{
-	display:flex;align-items:center;gap:var(--s3);
-	min-height:2.75rem;padding:var(--s2) var(--s3);
-	color:var(--fg);font-size:var(--f0);
-}
-td.n a:hover{text-decoration:none;color:var(--accent)}
-td.n a:visited .name{color:var(--visited)}
-tr.now td.n a{color:var(--accent);font-weight:600}
-/* paint must be declared on the *referencing* svg: the sprite root's presentation
+		*,
+		*::before,
+		*::after {
+			box-sizing: border-box
+		}
+
+		[hidden] {
+			display: none !important
+		}
+
+		html {
+			-webkit-text-size-adjust: 100%;
+			scroll-behavior: smooth
+		}
+
+		html:has(dialog[open]) {
+			overflow: hidden
+		}
+
+		body {
+			margin: 0;
+			padding: 0 0 var(--s6);
+			min-height: 100dvh;
+			font: var(--f0)/var(--lh-ui) -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+			font-synthesis: none;
+			color: var(--fg);
+			background: var(--bg) linear-gradient(180deg, var(--bg2), var(--bg) 38.2vh) no-repeat;
+			overflow-wrap: break-word;
+		}
+
+		body.has-dock {
+			padding-bottom: var(--s7)
+		}
+
+		a {
+			color: var(--accent);
+			text-decoration: none
+		}
+
+		a:hover {
+			text-decoration: underline
+		}
+
+		:focus-visible {
+			outline: 2px solid var(--focus);
+			outline-offset: 2px;
+			border-radius: var(--r1)
+		}
+
+		:where(button, input, a) {
+			font: inherit;
+			color: inherit
+		}
+
+		svg {
+			flex: none;
+			pointer-events: none
+		}
+
+		.sprite {
+			position: absolute;
+			width: 0;
+			height: 0;
+			overflow: hidden
+		}
+
+		.wrap {
+			max-width: var(--wrap);
+			margin: 0 auto;
+			padding: 0 var(--s4)
+		}
+
+		/* ── header ─────────────────────────────────────────────────────────── */
+		header {
+			padding: var(--s5) 0 var(--s4)
+		}
+
+		.crumbs {
+			font-size: var(--f0);
+			line-height: var(--lh-tight);
+			font-weight: 600;
+			letter-spacing: -.015em;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: baseline;
+			padding: .64em 0;
+		}
+
+		.crumbs a {
+			color: var(--fg2);
+			padding: 0 .1em;
+			border-radius: var(--r1)
+		}
+
+		.crumbs a:last-of-type {
+			color: var(--fg);
+			font-weight: 700
+		}
+
+		.crumbs a:hover {
+			color: var(--accent)
+		}
+
+		.sep {
+			color: var(--fg3);
+			padding: 0 .05em
+		}
+
+		/* ── toolbar ────────────────────────────────────────────────────────── */
+		.bar {
+			position: sticky;
+			top: 0;
+			z-index: 5;
+			display: flex;
+			flex-wrap: wrap;
+			gap: var(--s3);
+			align-items: center;
+			justify-content: space-between;
+			padding: var(--s3) var(--s4);
+			margin: 0 auto var(--s4);
+			max-width: var(--wrap);
+			background: light-dark(rgb(255 255 255/.82), rgb(22 29 38/.82));
+			backdrop-filter: blur(12px) saturate(1.4);
+			border: 1px solid var(--line);
+			border-radius: var(--r3);
+			box-shadow: var(--sh1);
+		}
+
+		.stats {
+			display: flex;
+			gap: var(--s3);
+			flex-wrap: wrap;
+			font-size: var(--f-1);
+			color: var(--fg2)
+		}
+
+		.stats b {
+			color: var(--fg);
+			font-variant-numeric: tabular-nums
+		}
+
+		.tools {
+			display: flex;
+			gap: var(--s2);
+			align-items: center;
+			flex-wrap: wrap
+		}
+
+		.search {
+			position: relative;
+			display: flex;
+			align-items: center
+		}
+
+		.search svg {
+			position: absolute;
+			left: var(--s3);
+			width: var(--i1);
+			height: var(--i1);
+			color: var(--fg3)
+		}
+
+		#filter {
+			width: 16rem;
+			max-width: 42vw;
+			height: var(--c2);
+			padding: 0 var(--s4) 0 calc(var(--s3)*2 + var(--i1));
+			background: var(--surface);
+			border: 1px solid var(--line2);
+			border-radius: var(--r-pill);
+			font-size: var(--f-1);
+			transition: border-color var(--dur), box-shadow var(--dur);
+		}
+
+		#filter:focus {
+			outline: none;
+			border-color: var(--focus);
+			box-shadow: 0 0 0 3px light-dark(rgb(11 122 216/.16), rgb(108 182 255/.2))
+		}
+
+		#filter::-webkit-search-cancel-button {
+			filter: grayscale(1)
+		}
+
+		.fcount {
+			font-size: var(--f-2);
+			color: var(--fg3);
+			font-variant-numeric: tabular-nums;
+			min-width: 0
+		}
+
+		.chip {
+			display: inline-flex;
+			align-items: center;
+			gap: var(--s2);
+			height: var(--c2);
+			padding: 0 var(--s4);
+			line-height: var(--lh-ui);
+			background: var(--surface);
+			border: 1px solid var(--line2);
+			border-radius: var(--r-pill);
+			font-size: var(--f-1);
+			color: var(--fg2);
+			cursor: pointer;
+			white-space: nowrap;
+			transition: background var(--dur), color var(--dur), border-color var(--dur);
+		}
+
+		.chip:hover {
+			background: var(--accent-bg);
+			border-color: var(--accent);
+			color: var(--accent);
+			text-decoration: none
+		}
+
+		.chip.on {
+			background: var(--accent);
+			border-color: var(--accent);
+			color: #fff
+		}
+
+		.chip svg {
+			width: var(--i1);
+			height: var(--i1)
+		}
+
+		.chip.ico-only {
+			width: var(--c2);
+			padding: 0;
+			justify-content: center
+		}
+
+		.caret {
+			width: 0;
+			height: 0;
+			border: .3em solid transparent;
+			border-top-color: currentColor;
+			margin-top: .3em
+		}
+
+		.caret.up {
+			border-top-color: transparent;
+			border-bottom-color: currentColor;
+			margin-top: -.3em
+		}
+
+		.chip:not(.on) .caret {
+			display: none
+		}
+
+		/* the chip rail: on a phone the tools wrapped into a ragged second row, so the
+   search takes its own full-width line and the chips become one no-wrap scroller
+   (same hidden-scrollbar idiom as .v-track). Targets grow to 44px on touch. */
+		.chips {
+			display: flex;
+			gap: var(--s2);
+			align-items: center;
+			flex-wrap: wrap
+		}
+
+		@media (pointer:coarse) {
+			.chip {
+				height: var(--c3)
+			}
+
+			.chip.ico-only {
+				width: var(--c3)
+			}
+
+			#filter {
+				height: var(--c3)
+			}
+		}
+
+		@media (max-width:40rem) {
+			.bar {
+				gap: var(--s2);
+				padding: var(--s3)
+			}
+
+			.stats {
+				gap: var(--s3);
+				font-size: var(--f-2)
+			}
+
+			.tools {
+				flex: 1 1 100%;
+				flex-direction: column;
+				align-items: stretch;
+				gap: var(--s2)
+			}
+
+			#filter {
+				width: 100%;
+				max-width: none
+			}
+
+			.chips {
+				flex-wrap: nowrap;
+				overflow-x: auto;
+				scrollbar-width: none
+			}
+
+			.chips::-webkit-scrollbar {
+				display: none
+			}
+
+			.chips>* {
+				flex: none
+			}
+		}
+
+		/* ── list ───────────────────────────────────────────────────────────── */
+		.panel {
+			max-width: var(--wrap);
+			margin: 0 auto;
+			background: var(--surface);
+			border: 1px solid var(--line);
+			border-radius: var(--r3);
+			box-shadow: var(--sh1);
+			overflow: hidden;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			table-layout: fixed
+		}
+
+		thead th {
+			position: relative;
+			padding: var(--s3);
+			text-align: left;
+			font-size: var(--f-2);
+			font-weight: 600;
+			letter-spacing: .06em;
+			text-transform: uppercase;
+			color: var(--fg3);
+			background: var(--surface2);
+			border-bottom: 1px solid var(--line);
+			white-space: nowrap;
+		}
+
+		thead th:nth-child(2) {
+			width: 5.5rem;
+			text-align: right
+		}
+
+		thead th:nth-child(3) {
+			width: 10.5rem
+		}
+
+		thead a {
+			display: inline-flex;
+			align-items: center;
+			gap: var(--s1);
+			color: inherit
+		}
+
+		thead a:hover {
+			color: var(--accent);
+			text-decoration: none
+		}
+
+		thead th[aria-sort] a {
+			color: var(--fg)
+		}
+
+		thead th:not([aria-sort]) .caret {
+			display: none
+		}
+
+		tbody tr {
+			border-bottom: 1px solid var(--line);
+			content-visibility: auto;
+			contain-intrinsic-size: auto var(--c3);
+		}
+
+		tbody tr:last-child {
+			border-bottom: 0
+		}
+
+		tbody tr:hover {
+			background: var(--surface2)
+		}
+
+		tbody tr.now {
+			background: var(--accent-bg)
+		}
+
+		td {
+			padding: 0;
+			font-size: var(--f-1);
+			vertical-align: middle
+		}
+
+		td.n {
+			position: relative
+		}
+
+		td.n a {
+			display: flex;
+			align-items: center;
+			gap: var(--s3);
+			min-height: var(--c3);
+			padding: var(--s2) var(--s3);
+			color: var(--fg);
+			font-size: var(--f0);
+		}
+
+		td.n a:hover {
+			text-decoration: none;
+			color: var(--accent)
+		}
+
+		td.n a:visited .name {
+			color: var(--visited)
+		}
+
+		tr.now td.n a {
+			color: var(--accent);
+			font-weight: 600
+		}
+
+		/* paint must be declared on the *referencing* svg: the sprite root's presentation
    attributes are not ancestors of the cloned <use> shadow content, so without these
    every icon inherits the default fill:black. Inherited values lose to a path's own
    presentation attribute, so the folder's fill="#ffb900" still wins. */
-.ic{width:22px;height:22px;color:var(--fg3);fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.ic.d{color:var(--folder)}
-.name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
-.lnk{color:var(--fg3);font-size:var(--f-1)}
-td.s{
-	padding-right:var(--s3);text-align:right;color:var(--fg2);
-	font-variant-numeric:tabular-nums;white-space:nowrap;
-}
-/* size bar: painted with a CSS var set from JS (no inline style attributes) */
-td.s{background:linear-gradient(90deg,transparent calc(100% - var(--w,0%)),var(--bar) 0)}
-td.t{padding-right:var(--s3);color:var(--fg3);font-size:var(--f-2);white-space:nowrap;font-variant-numeric:tabular-nums}
-@media (max-width:52rem){
-	thead th:nth-child(3),td.t{display:none}
-	thead th:nth-child(2){width:5.5rem}
-}
+		.ic {
+			width: var(--i2);
+			height: var(--i2);
+			color: var(--fg3);
+			fill: none;
+			stroke: currentColor;
+			stroke-width: 2;
+			stroke-linecap: round;
+			stroke-linejoin: round
+		}
 
-/* ── grid ───────────────────────────────────────────────────────────── */
-.grid{
-	display:grid;gap:var(--s4);padding:var(--s4);
-	grid-template-columns:repeat(auto-fill,minmax(var(--tile),1fr));
-}
-.entry{contain:layout paint style}
-.entry a{
-	display:flex;flex-direction:column;gap:var(--s2);height:100%;
-	padding:var(--s2);border-radius:var(--r2);color:var(--fg);
-	transition:background var(--dur),transform var(--dur) var(--ease);
-}
-.entry a:hover{background:var(--surface2);text-decoration:none;transform:translateY(-2px)}
-.entry .box{
-	display:grid;place-items:center;aspect-ratio:var(--phi);overflow:hidden;
-	background:var(--surface2);border:1px solid var(--line);border-radius:var(--r1);
-}
-.entry .th{width:100%;height:100%;object-fit:cover;display:block;background:var(--surface2)}
-.entry .ic{width:38.2%;height:auto;aspect-ratio:1}
-.entry .name{white-space:normal;font-size:var(--f-1);line-height:var(--lh-tight);
-	display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.entry .m{font-size:var(--f-2);color:var(--fg3);display:flex;gap:var(--s2);justify-content:space-between}
+		.ic.d {
+			color: var(--folder)
+		}
 
-/* ── empty / pager ──────────────────────────────────────────────────── */
-.empty{padding:var(--s7) var(--s4);text-align:center;color:var(--fg3);font-size:var(--f1)}
-.pager{display:flex;gap:var(--s3);justify-content:center;align-items:center;
-	max-width:var(--wrap);margin:var(--s4) auto;font-size:var(--f-1);color:var(--fg2)}
+		.name {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			min-width: 0
+		}
 
-/* ── dock (audio) ───────────────────────────────────────────────────── */
-.dock{
-	position:fixed;inset:auto 0 0;z-index:20;
-	display:flex;gap:var(--s3);align-items:center;
-	padding:var(--s2) var(--s3);padding-bottom:max(var(--s2),env(safe-area-inset-bottom));
-	background:light-dark(rgb(255 255 255/.94),rgb(22 29 38/.94));
-	backdrop-filter:blur(14px);border-top:1px solid var(--line);box-shadow:var(--sh2);
-}
-.dock-title{flex:1 1 8rem;min-width:0;font-size:var(--f-1);font-weight:600;
-	overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.dock audio{flex:2 1 24rem;height:2.75rem;min-width:0}
-.dock .chip{flex:none}
-@media (max-width:40rem){.dock{flex-wrap:wrap}.dock audio{flex:1 1 100%;order:3}}
+		.lnk {
+			color: var(--fg3);
+			font-size: var(--f-1)
+		}
 
-/* ── viewer ─────────────────────────────────────────────────────────── */
-dialog{border:0;padding:0;background:none;color:var(--fg);max-width:none;max-height:none}
-dialog::backdrop{background:var(--scrim);backdrop-filter:blur(3px)}
-#viewer{width:100vw;height:100dvh;margin:0;color:#f2f5f8;background:transparent}
-#viewer[open]{display:grid}
-.v-track{
-	grid-area:1/1;display:flex;height:100dvh;
-	overflow-x:auto;overflow-y:hidden;
-	scroll-snap-type:x mandatory;overscroll-behavior:contain;
-	scrollbar-width:none;
-}
-.v-track::-webkit-scrollbar{display:none}
-.v-track.no-snap{scroll-snap-type:none;scroll-behavior:auto}
-.v-slide{
-	flex:0 0 100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always;
-	display:grid;place-items:center;padding:3.4rem var(--s3) var(--s5);overflow:clip;
-}
-/* touch-action restrictions are ADDITIVE down the tree — a descendant can never re-enable an
+		td.s {
+			padding-right: var(--s3);
+			text-align: right;
+			color: var(--fg2);
+			font-variant-numeric: tabular-nums;
+			white-space: nowrap;
+		}
+
+		/* size bar: painted with a CSS var set from JS (no inline style attributes) */
+		td.s {
+			background: linear-gradient(90deg, transparent calc(100% - var(--w, 0%)), var(--bar) 0)
+		}
+
+		td.t {
+			padding-right: var(--s3);
+			color: var(--fg3);
+			font-size: var(--f-2);
+			white-space: nowrap;
+			font-variant-numeric: tabular-nums
+		}
+
+		@media (max-width:52rem) {
+
+			thead th:nth-child(3),
+			td.t {
+				display: none
+			}
+
+			thead th:nth-child(2) {
+				width: 4.5rem
+			}
+		}
+
+		/* ── grid ───────────────────────────────────────────────────────────── */
+		.grid {
+			display: grid;
+			gap: var(--s4);
+			padding: var(--s4);
+			grid-template-columns: repeat(auto-fill, minmax(var(--tile), 1fr));
+		}
+
+		.entry {
+			contain: layout paint style
+		}
+
+		.entry a {
+			display: flex;
+			flex-direction: column;
+			gap: var(--s2);
+			height: 100%;
+			padding: var(--s1);
+			border: 1px solid var(--line);
+			border-radius: var(--r2);
+			background: var(--surface);
+			color: var(--fg);
+			transition: background var(--dur), border-color var(--dur), box-shadow var(--dur), transform var(--dur) var(--ease);
+		}
+
+		/* the whole anchor is the card; the thumbnail nests inside it concentrically
+   (r2 = r1 + s1), which is why the corners no longer pinch. */
+		.entry a:hover {
+			background: var(--surface2);
+			border-color: var(--line2);
+			box-shadow: var(--sh1);
+			text-decoration: none;
+			transform: translateY(-2px)
+		}
+
+		.entry .box {
+			display: grid;
+			place-items: center;
+			aspect-ratio: var(--phi);
+			overflow: hidden;
+			background: var(--surface2);
+			border-radius: var(--r1);
+		}
+
+		.entry .th {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+			background: var(--surface2)
+		}
+
+		.entry .ic {
+			width: var(--i4);
+			height: var(--i4)
+		}
+
+		.entry .name {
+			white-space: normal;
+			font-size: var(--f-1);
+			line-height: var(--lh-tight);
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden
+		}
+
+		.entry .m {
+			font-size: var(--f-2);
+			color: var(--fg3);
+			display: flex;
+			gap: var(--s2);
+			justify-content: space-between
+		}
+
+		@media (max-width:40rem) {
+			.grid {
+				grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+				gap: var(--s3);
+				padding: var(--s3)
+			}
+		}
+
+		/* ── empty / pager ──────────────────────────────────────────────────── */
+		.empty {
+			padding: var(--s7) var(--s4);
+			text-align: center;
+			color: var(--fg3);
+			font-size: var(--f1)
+		}
+
+		.pager {
+			display: flex;
+			gap: var(--s3);
+			justify-content: center;
+			align-items: center;
+			max-width: var(--wrap);
+			margin: var(--s4) auto;
+			font-size: var(--f-1);
+			color: var(--fg2)
+		}
+
+		/* ── dock (audio) ───────────────────────────────────────────────────── */
+		.dock {
+			position: fixed;
+			inset: auto 0 0;
+			z-index: 20;
+			display: flex;
+			gap: var(--s3);
+			align-items: center;
+			padding: var(--s2) var(--s3);
+			padding-bottom: max(var(--s2), env(safe-area-inset-bottom));
+			background: light-dark(rgb(255 255 255/.94), rgb(22 29 38/.94));
+			backdrop-filter: blur(14px);
+			border-top: 1px solid var(--line);
+			box-shadow: var(--sh2);
+		}
+
+		.dock-title {
+			flex: 1 1 8rem;
+			min-width: 0;
+			font-size: var(--f-1);
+			font-weight: 600;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap
+		}
+
+		.dock audio {
+			flex: 2 1 24rem;
+			height: var(--c3);
+			min-width: 0
+		}
+
+		.dock .chip {
+			flex: none
+		}
+
+		@media (max-width:40rem) {
+			.dock {
+				flex-wrap: wrap
+			}
+
+			.dock audio {
+				flex: 1 1 100%;
+				order: 3
+			}
+		}
+
+		/* ── viewer ─────────────────────────────────────────────────────────── */
+		dialog {
+			border: 0;
+			padding: 0;
+			background: none;
+			color: var(--fg);
+			max-width: none;
+			max-height: none
+		}
+
+		dialog::backdrop {
+			background: var(--scrim);
+			backdrop-filter: blur(3px)
+		}
+
+		#viewer {
+			width: 100vw;
+			height: 100dvh;
+			margin: 0;
+			color: #f2f5f8;
+			background: transparent
+		}
+
+		#viewer[open] {
+			display: grid
+		}
+
+		.v-track {
+			grid-area: 1/1;
+			display: flex;
+			height: 100dvh;
+			overflow-x: auto;
+			overflow-y: hidden;
+			scroll-snap-type: x mandatory;
+			overscroll-behavior: contain;
+			scrollbar-width: none;
+		}
+
+		.v-track::-webkit-scrollbar {
+			display: none
+		}
+
+		.v-track.no-snap {
+			scroll-snap-type: none;
+			scroll-behavior: auto
+		}
+
+		.v-slide {
+			flex: 0 0 100%;
+			height: 100%;
+			scroll-snap-align: center;
+			scroll-snap-stop: always;
+			display: grid;
+			place-items: center;
+			padding: var(--s6) var(--s3) var(--s5);
+			overflow: clip;
+		}
+
+		/* touch-action restrictions are ADDITIVE down the tree — a descendant can never re-enable an
    axis an ancestor removed. `pan-x` on .v-track therefore made every doc/code/iframe preview
    impossible to scroll with a finger (keyboard-only, i.e. desktop-only). The track overflows
    horizontally only, so it declares nothing and each slide owns its axes:
@@ -285,8 +849,11 @@ dialog::backdrop{background:var(--scrim);backdrop-filter:blur(3px)}
      100% native (momentum, rubber-band, snap-per-slide);
    - `.scrolls` slides (docs, iframes, zoomed images) get `auto`: native vertical scrolling.
    One rule the user can predict: content that scrolls, scrolls; content that does not, dismisses. */
-.v-slide{touch-action:pan-x pinch-zoom}
-/* Second half of the same story, and the reason a finger still could not page after `touch-action`
+		.v-slide {
+			touch-action: pan-x pinch-zoom
+		}
+
+		/* Second half of the same story, and the reason a finger still could not page after `touch-action`
    was fixed: `overscroll-behavior:contain` on a scroll container swallows a pan it cannot consume
    instead of chaining it to the ancestor. `.v-slide` was `overflow:auto` (a scroll container) with
    no horizontal overflow, so the browser took the gesture — `pointercancel` fired, 14 touchmoves
@@ -297,935 +864,1517 @@ dialog::backdrop{background:var(--scrim);backdrop-filter:blur(3px)}
    work from a markdown/code preview exactly as it does from an image.
    `.v-track` keeps two-axis `contain`: that is the boundary where chaining SHOULD stop, so a swipe
    past the first/last slide never reaches the document (no pull-to-refresh, no back-swipe). */
-.v-slide.scrolls{touch-action:auto;overflow:auto;overscroll-behavior-y:contain}
-/* only the easing for the release of a drag; the transform/opacity themselves are set through
+		.v-slide.scrolls {
+			touch-action: auto;
+			overflow: auto;
+			overscroll-behavior-y: contain
+		}
+
+		/* only the easing for the release of a drag; the transform/opacity themselves are set through
    CSSOM (no style= attributes under CSP) so a cancelled drag springs back. */
-.v-drag{transition:transform var(--dur) ease,opacity var(--dur) ease}
-.v-slide>img,.v-slide>video{max-width:100%;max-height:100%;
-	border-radius:var(--r1);box-shadow:var(--sh2);background:rgb(0 0 0/.25)}
-.v-slide>img{object-fit:contain;cursor:zoom-in}
-.v-slide>img.zoom{max-width:none;max-height:none;cursor:zoom-out}
-.v-frame{width:min(100%,var(--wrap));height:100%;border:0;border-radius:var(--r1);background:#fff}
-.v-stub{color:#9dabbc;font-size:var(--f-1)}
-.v-doc{
-	/* y-only containment: two-axis `contain` here swallowed the horizontal pan that should page the
+		.v-drag {
+			transition: transform var(--dur) ease, opacity var(--dur) ease
+		}
+
+		.v-slide>img,
+		.v-slide>video {
+			max-width: 100%;
+			max-height: 100%;
+			border-radius: var(--r1);
+			box-shadow: var(--sh2);
+			background: rgb(0 0 0/.25)
+		}
+
+		.v-slide>img {
+			object-fit: contain;
+			cursor: zoom-in
+		}
+
+		.v-slide>img.zoom {
+			max-width: none;
+			max-height: none;
+			cursor: zoom-out
+		}
+
+		.v-frame {
+			width: min(100%, var(--wrap));
+			height: 100%;
+			border: 0;
+			border-radius: var(--r1);
+			background: #fff
+		}
+
+		.v-stub {
+			color: #9dabbc;
+			font-size: var(--f-1)
+		}
+
+		.v-doc {
+			/* y-only containment: two-axis `contain` here swallowed the horizontal pan that should page the
 	   carousel, because the doc has no horizontal overflow to spend it on (see .v-slide above). */
-	width:min(100%,68rem);max-height:100%;overflow:auto;overscroll-behavior-y:contain;
-	padding:var(--s5);background:var(--surface);color:var(--fg);
-	border-radius:var(--r2);box-shadow:var(--sh2);
-}
-.v-doc.err{color:var(--warn);font-size:var(--f-1)}
-.v-doc pre{margin:0;font-size:var(--f-1);line-height:1.5;overflow:auto;
-	font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;-moz-tab-size:4;tab-size:4}
-.v-doc pre .c{color:var(--code-c);font-style:italic}
-.v-doc pre .s{color:var(--code-s)}
-.v-doc pre .n{color:var(--code-n)}
-.v-doc pre .k{color:var(--code-k);font-weight:600}
-.md{max-width:var(--read);line-height:var(--lh)}
-.md h1,.md h2,.md h3,.md h4{line-height:var(--lh-tight);margin:var(--s5) 0 var(--s3)}
-.md h1{font-size:var(--f3)}.md h2{font-size:var(--f2)}.md h3{font-size:var(--f1)}
-.md>:first-child{margin-top:0}
-.md p,.md ul,.md ol,.md blockquote,.md pre,.md table{margin:0 0 var(--s4)}
-.md ul,.md ol{padding-left:var(--s5)}
-.md li{margin:var(--s1) 0}
-.md code{padding:.15em .35em;border-radius:var(--r1);background:var(--surface2);
-	font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em}
-.md pre{padding:var(--s4);border-radius:var(--r2);background:var(--surface2);border:1px solid var(--line)}
-.md pre code{padding:0;background:none}
-.md blockquote{padding-left:var(--s4);border-left:3px solid var(--line2);color:var(--fg2)}
-.md img{max-width:100%;height:auto;border-radius:var(--r1)}
-.md hr{border:0;border-top:1px solid var(--line);margin:var(--s5) 0}
-.md table{border-collapse:collapse;width:100%;font-size:var(--f-1)}
-.md th,.md td{border:1px solid var(--line);padding:var(--s2) var(--s3);text-align:left}
-.v-bar{
-	grid-area:1/1;position:relative;z-index:2;align-self:start;
-	display:flex;gap:var(--s3);align-items:center;
-	padding:var(--s3);padding-top:max(var(--s3),env(safe-area-inset-top));
-	background:linear-gradient(180deg,rgb(4 7 10/.72),rgb(4 7 10/0));
-	pointer-events:none;
-}
-.v-bar>*{pointer-events:auto}
-/* idle auto-hide (2.5 s, ~1.2 s while expanded) and the expanded/edge-to-edge mode.
+			width: min(100%, 68rem);
+			max-height: 100%;
+			overflow: auto;
+			overscroll-behavior-y: contain;
+			padding: var(--s5);
+			background: var(--surface);
+			color: var(--fg);
+			border-radius: var(--r2);
+			box-shadow: var(--sh2);
+		}
+
+		.v-doc.err {
+			color: var(--warn);
+			font-size: var(--f-1)
+		}
+
+		.v-doc pre {
+			margin: 0;
+			font-size: var(--f-1);
+			line-height: var(--lh-ui);
+			overflow: auto;
+			font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+			-moz-tab-size: 4;
+			tab-size: 4
+		}
+
+		.v-doc pre .c {
+			color: var(--code-c);
+			font-style: italic
+		}
+
+		.v-doc pre .s {
+			color: var(--code-s)
+		}
+
+		.v-doc pre .n {
+			color: var(--code-n)
+		}
+
+		.v-doc pre .k {
+			color: var(--code-k);
+			font-weight: 600
+		}
+
+		.md {
+			max-width: var(--read);
+			line-height: var(--lh)
+		}
+
+		.md h1,
+		.md h2,
+		.md h3,
+		.md h4 {
+			line-height: var(--lh-tight);
+			margin: var(--s5) 0 var(--s3)
+		}
+
+		.md h1 {
+			font-size: var(--f3)
+		}
+
+		.md h2 {
+			font-size: var(--f2)
+		}
+
+		.md h3 {
+			font-size: var(--f1)
+		}
+
+		.md>:first-child {
+			margin-top: 0
+		}
+
+		.md p,
+		.md ul,
+		.md ol,
+		.md blockquote,
+		.md pre,
+		.md table {
+			margin: 0 0 var(--s4)
+		}
+
+		.md ul,
+		.md ol {
+			padding-left: var(--s5)
+		}
+
+		.md li {
+			margin: var(--s1) 0
+		}
+
+		.md code {
+			padding: .15em .35em;
+			border-radius: var(--r1);
+			background: var(--surface2);
+			font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+			font-size: .9em
+		}
+
+		.md pre {
+			padding: var(--s4);
+			border-radius: var(--r2);
+			background: var(--surface2);
+			border: 1px solid var(--line)
+		}
+
+		.md pre code {
+			padding: 0;
+			background: none
+		}
+
+		.md blockquote {
+			padding-left: var(--s4);
+			border-left: 3px solid var(--line2);
+			color: var(--fg2)
+		}
+
+		.md img {
+			max-width: 100%;
+			height: auto;
+			border-radius: var(--r1)
+		}
+
+		.md hr {
+			border: 0;
+			border-top: 1px solid var(--line);
+			margin: var(--s5) 0
+		}
+
+		.md table {
+			border-collapse: collapse;
+			width: 100%;
+			font-size: var(--f-1)
+		}
+
+		.md th,
+		.md td {
+			border: 1px solid var(--line);
+			padding: var(--s2) var(--s3);
+			text-align: left
+		}
+
+		.v-bar {
+			grid-area: 1/1;
+			position: relative;
+			z-index: 2;
+			align-self: start;
+			display: flex;
+			gap: var(--s3);
+			align-items: center;
+			padding: var(--s3);
+			padding-top: max(var(--s3), env(safe-area-inset-top));
+			background: linear-gradient(180deg, rgb(4 7 10/.72), rgb(4 7 10/0));
+			pointer-events: none;
+		}
+
+		.v-bar>* {
+			pointer-events: auto
+		}
+
+		/* idle auto-hide (2.5 s, ~1.2 s while expanded) and the expanded/edge-to-edge mode.
    No Fullscreen API is used anywhere: fullscreening the dialog is a visual no-op (it is
    already 100vw/100dvh) and fullscreening <html> pushes the page ABOVE the dialog in the
    top layer, which is what inverted the toolbar over the media. */
-.v-bar,.v-nav{transition:opacity var(--dur) ease,transform var(--dur) ease}
-/* the children need pointer-events:none of their own: `.v-bar>*{pointer-events:auto}` above
+		.v-bar,
+		.v-nav {
+			transition: opacity var(--dur) ease, transform var(--dur) ease
+		}
+
+		/* the children need pointer-events:none of their own: `.v-bar>*{pointer-events:auto}` above
    would otherwise keep an invisible close/download button clickable. */
-#viewer.hide-ui .v-bar,#viewer.hide-ui .v-bar>*{pointer-events:none}
-#viewer.hide-ui .v-bar{opacity:0;transform:translateY(-.4rem)}
-#viewer.hide-ui .v-nav{opacity:0;pointer-events:none}
-#viewer.imm.hide-ui{cursor:none}
-#viewer.imm .v-slide{padding:0}
-#viewer.imm .v-slide>img,#viewer.imm .v-slide>video{border-radius:0;box-shadow:none;background:none}
-#viewer.imm .v-doc{width:100%;max-width:none;border-radius:0;box-shadow:none}
-#viewer.imm .v-frame{width:100%;border-radius:0}
-@media (prefers-reduced-motion:reduce){.v-bar,.v-nav{transition:none}}
-.v-title{flex:1 1 auto;min-width:0;font-size:var(--f-1);font-weight:600;
-	overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-shadow:0 1px 3px rgb(0 0 0/.6)}
-.v-count{font-size:var(--f-2);color:#c3ccd6;font-variant-numeric:tabular-nums;white-space:nowrap}
-.v-btn{
-	display:grid;place-items:center;width:2.75rem;height:2.75rem;flex:none;
-	background:rgb(255 255 255/.12);border:1px solid rgb(255 255 255/.16);border-radius:50%;
-	color:#f2f5f8;cursor:pointer;transition:background var(--dur),opacity var(--dur);
-}
-.v-btn:hover{background:rgb(255 255 255/.24);text-decoration:none}
-.v-btn[disabled]{opacity:.28;cursor:default}
-.v-btn.on{background:rgb(255 255 255/.3)}
-.v-btn svg{width:20px;height:20px}
-.v-nav{grid-area:1/1;align-self:center;z-index:2;width:3.4rem;height:3.4rem}
-.v-prev{justify-self:start;margin-left:var(--s3)}
-.v-next{justify-self:end;margin-right:var(--s3)}
-@media (pointer:coarse){.v-nav{display:none}}
-#keys{width:min(92vw,34rem);margin:auto;padding:var(--s5);
-	background:var(--surface);border-radius:var(--r3);box-shadow:var(--sh2)}
-#keys h2{margin:0 0 var(--s4);font-size:var(--f1)}
-#keys dl{display:grid;grid-template-columns:auto 1fr;gap:var(--s2) var(--s4);margin:0;font-size:var(--f-1)}
-#keys dt{font-family:ui-monospace,monospace;color:var(--accent);white-space:nowrap}
-#keys dd{margin:0;color:var(--fg2)}
-#keys .chip{margin-top:var(--s4)}
-@media (prefers-reduced-motion:reduce){
-	*,*::before,*::after{transition-duration:0s!important;animation-duration:0s!important}
-	html,.v-track{scroll-behavior:auto}
-	.entry a:hover{transform:none}
-}
-@media print{.bar,.dock,dialog,.tools{display:none!important}.panel{border:0;box-shadow:none}}
-</style>
+		#viewer.hide-ui .v-bar,
+		#viewer.hide-ui .v-bar>* {
+			pointer-events: none
+		}
+
+		#viewer.hide-ui .v-bar {
+			opacity: 0;
+			transform: translateY(-.375rem)
+		}
+
+		#viewer.hide-ui .v-nav {
+			opacity: 0;
+			pointer-events: none
+		}
+
+		#viewer.imm.hide-ui {
+			cursor: none
+		}
+
+		#viewer.imm .v-slide {
+			padding: 0
+		}
+
+		#viewer.imm .v-slide>img,
+		#viewer.imm .v-slide>video {
+			border-radius: 0;
+			box-shadow: none;
+			background: none
+		}
+
+		#viewer.imm .v-doc {
+			width: 100%;
+			max-width: none;
+			border-radius: 0;
+			box-shadow: none
+		}
+
+		#viewer.imm .v-frame {
+			width: 100%;
+			border-radius: 0
+		}
+
+		@media (prefers-reduced-motion:reduce) {
+
+			.v-bar,
+			.v-nav {
+				transition: none
+			}
+		}
+
+		.v-title {
+			flex: 1 1 auto;
+			min-width: 0;
+			font-size: var(--f-1);
+			font-weight: 600;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			text-shadow: 0 1px 3px rgb(0 0 0/.6)
+		}
+
+		.v-count {
+			font-size: var(--f-2);
+			color: #c3ccd6;
+			font-variant-numeric: tabular-nums;
+			white-space: nowrap
+		}
+
+		.v-btn {
+			display: grid;
+			place-items: center;
+			width: var(--c3);
+			height: var(--c3);
+			flex: none;
+			background: rgb(255 255 255/.12);
+			border: 1px solid rgb(255 255 255/.16);
+			border-radius: 50%;
+			color: #f2f5f8;
+			cursor: pointer;
+			transition: background var(--dur), opacity var(--dur);
+		}
+
+		.v-btn:hover {
+			background: rgb(255 255 255/.24);
+			text-decoration: none
+		}
+
+		.v-btn[disabled] {
+			opacity: .28;
+			cursor: default
+		}
+
+		.v-btn.on {
+			background: rgb(255 255 255/.3)
+		}
+
+		.v-btn svg {
+			width: var(--i2);
+			height: var(--i2)
+		}
+
+		.v-nav {
+			grid-area: 1/1;
+			align-self: center;
+			z-index: 2;
+			width: 3.5rem;
+			height: 3.5rem
+		}
+
+		.v-prev {
+			justify-self: start;
+			margin-left: var(--s3)
+		}
+
+		.v-next {
+			justify-self: end;
+			margin-right: var(--s3)
+		}
+
+		@media (pointer:coarse) {
+			.v-nav {
+				display: none
+			}
+		}
+
+		#keys {
+			width: min(92vw, 34rem);
+			margin: auto;
+			padding: var(--s5);
+			background: var(--surface);
+			border-radius: var(--r3);
+			box-shadow: var(--sh2)
+		}
+
+		#keys h2 {
+			margin: 0 0 var(--s4);
+			font-size: var(--f1)
+		}
+
+		#keys dl {
+			display: grid;
+			grid-template-columns: auto 1fr;
+			gap: var(--s2) var(--s4);
+			margin: 0;
+			font-size: var(--f-1)
+		}
+
+		#keys dt {
+			font-family: ui-monospace, monospace;
+			color: var(--accent);
+			white-space: nowrap
+		}
+
+		#keys dd {
+			margin: 0;
+			color: var(--fg2)
+		}
+
+		#keys .chip {
+			margin-top: var(--s4)
+		}
+
+		@media (prefers-reduced-motion:reduce) {
+
+			*,
+			*::before,
+			*::after {
+				transition-duration: 0s !important;
+				animation-duration: 0s !important
+			}
+
+			html,
+			.v-track {
+				scroll-behavior: auto
+			}
+
+			.entry a:hover {
+				transform: none
+			}
+		}
+
+		@media print {
+
+			.bar,
+			.dock,
+			dialog,
+			.tools {
+				display: none !important
+			}
+
+			.panel {
+				border: 0;
+				box-shadow: none
+			}
+		}
+	</style>
 </head>
+
 <body>
-<div class="sprite" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><defs><g id="go-up"><path d="M18 18h-6a3 3 0 0 1-3-3V5L5 9m8 0L9 5"/></g><g id="folder"><path fill="#ffb900" stroke-width="0" d="M9 3a1 1 0 0 1 .6.2h.1L12.4 6H19a3 3 0 0 1 3 2.8V17a3 3 0 0 1-2.8 3H5a3 3 0 0 1-3-2.8V6a3 3 0 0 1 2.8-3H9z"/></g><g id="folder-symlink"><path fill="#ffb900" stroke-width="0" d="M9 3a1 1 0 0 1 .6.2h.1L12.4 6H19a3 3 0 0 1 3 2.8V17a3 3 0 0 1-2.8 3H5a3 3 0 0 1-3-2.8V6a3 3 0 0 1 2.8-3H5Z"/><path fill="#000" stroke-width=".1" d="M2.8 17.3c0-2.4 1.8-4.3 4-4.5v-1.1c0-.4.5-.6.7-.3l2.5 2.5v.2l-2.5 2.5c-.2.2-.6 0-.6-.3v-1c-2 .2-3.5 1.3-3.8 3.2l-.3-1.2Z"/></g><g id="symlink"><path d="M4 21v-4a3 3 0 0 1 3-3h5"/><path d="m9 17 3-3-3-3m5-8v4a1 1 0 0 0 1 1h4"/><path d="M5 11V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2H7.5"/></g><g id="generic"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/></g><g id="license"><path d="M15 21H6a3 3 0 0 1-3-3v-1h10v2a2 2 0 0 0 4 0V5a2 2 0 1 1 2 2h-2m2-4H8a3 3 0 0 0-3 3v11M9 7h4m-4 4h4"/></g><g id="image"><path d="M15 8h0M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6z"/><path d="m3 16 5-5c1-.9 2-.9 3 0l5 5"/><path d="m14 14 1-1c1-.9 2-.9 3 0l3 3"/></g><g id="video"><path d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm4-2v16m8-16v16M4 8h4m-4 8h4m-4-4h16m-4-4h4m-4 8h4"/></g><g id="audio"><path d="M3 17a3 3 0 1 0 6 0 3 3 0 1 0-6 0m10 0a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/><path d="M9 17V4h10v13M9 8h10"/></g><g id="pdf"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4M5 18h1.5a1.5 1.5 0 0 0 0-3H5v6m12-3h2m1-3h-3v6m-6-6v6h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-1z"/></g><g id="csv"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4M7 16.5a1.5 1.5 0 0 0-3 0v3a1.5 1.5 0 0 0 3 0m3 .8c0 .4.3.7.8.7H12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1.3a.8.8 0 0 1 .7.8m3-.8 2 6 2-6"/></g><g id="doc"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2zM9 9h1m-1 4h6m-6 4h6"/></g><g id="sheet"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z"/><path d="M8 11h8v7H8zm0 4h8m-5-4v7"/></g><g id="ppt"><path d="M9 12V8m6 4v-2m-3 2v-1M3 4h18M4 4v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4m-8 12v4m-3 0h6"/></g><g id="archive"><path d="M6 20.7A2 2 0 0 1 5 19V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2h-1"/><path d="M11 17a2 2 0 0 1 2 2v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2a2 2 0 0 1 2-2zm0-12h-1m3 2h-1m-1 2h-1m3 2h-1m-1 2h-1m3 2h-1"/></g><g id="deb"><path d="M12 17c-2.4-1-4-3.2-4-5.6 0-2.2 1-3.2 1.6-3.6C12.2 5.6 16 7.5 16 11c0 2.5-2.9 2.1-3.5 1.5-.6-.6-1-1.5-.5-2.5"/><path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0"/></g><g id="dist"><path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3m0 9 8-4.5M12 12v9m0-9L4 7.5m12-2.2L8 9.8"/></g><g id="ps1"><path d="M4.9 20h11.9a2 2 0 0 0 1.8-1.6l2.4-12A2 2 0 0 0 19.5 4a1.8 1.8 0 0 0-.4 0H7.2a2 2 0 0 0-1.8 1.6L3 17.6A2 2 0 0 0 4.5 20h.4z"/><path d="m9 8 4 4-6 4m5 0h3"/></g><g id="py"><path d="M12 9H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h3m4-2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3"/><path d="M8 9V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4m-5-9h0m2 12h0"/></g><g id="sh"><path d="M17 20H6a3 3 0 0 1 0-6h11a3 3 0 0 0 0 6h1a3 3 0 0 0 3-3V6a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v8"/></g><g id="dmg"><path d="M3 5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zm4 3v1m10-1v1"/><path d="M12.5 4c-.7 1.5-1.3 3.4-1.5 9h2.5c-.2 2.9 0 5 .5 7"/><path d="M7 15.5c3.7 2 6.3 2 10 0"/></g><g id="iso"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0"/><path d="M11 12a1 1 0 1 0 2 0 1 1 0 1 0-2 0m-4 0a5 5 0 0 1 5-5m0 10a5 5 0 0 0 5-5"/></g><g id="md"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M7 15V9l2 2 2-2v6m3-2 2 2 2-2m-2 2V9"/></g><g id="font"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2zm-6-3h2m-1 0v-7"/><path d="M9 12v-1h6v1"/></g><g id="go"><path d="M15.7 14.3c1 1 3 .9 4.2-.4 1.3-1.3 1.5-3.1.4-4.2-1-1-3-.9-4.2.4-1.3 1.3-1.5 3.1-.4 4.2zm-3-5.1c-1.1-.5-2.6-.2-3.6.9-1.3 1.3-1.5 3.1-.4 4.2 1 1 3 .9 4.3-.4a3.7 3.7 0 0 0 1-1.9h-2.4m-6.1 3H4m2-6H4m1 3H2"/></g><g id="html"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4M2 21v-6m3 0v6m-3-3h3m15-3v6h2m-9 0v-6l2 3 2-3v6m-9.5-6h3M9 15v6"/></g><g id="js"><path d="M14 3v4a1 1 0 0 0 1 1h4M3 15h3v4.5a1.5 1.5 0 0 1-3 0m6 .8c0 .4.3.7.8.7H11a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1.3a.8.8 0 0 1 .7.8"/><path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2h-1"/></g><g id="css"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4M8 16.5a1.5 1.5 0 0 0-3 0v3a1.5 1.5 0 0 0 3 0m3 .8c0 .4.3.7.8.7H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1.3a.8.8 0 0 1 .7.8m3 4.5c0 .4.3.7.8.7H19a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1.3a.8.8 0 0 1 .7.8"/></g><g id="json"><path d="M20 16V8l3 8V8m-8 0a2 2 0 0 1 2 2v4a2 2 0 1 1-4 0v-4a2 2 0 0 1 2-2zM1 8h3v6.5a1.5 1.5 0 0 1-3 0V14m6 1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H8a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1"/></g><g id="ts"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2h-1"/><path d="M14 3v4a1 1 0 0 0 1 1h4M9 20.3c0 .4.3.7.8.7H11a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1.3a.8.8 0 0 1 .7.8M3.5 15h3M5 15v6"/></g><g id="sql"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M14 3v4a1 1 0 0 0 1 1h4M5 20.3c0 .4.3.7.8.7H7a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H6a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1.3a.8.8 0 0 1 .7.8"/><path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4m-1 3v6h2m-7-6a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2zm1 5 1.5 1.5"/></g><g id="db"><path d="M4 6a8 3 0 1 0 16 0A8 3 0 1 0 4 6"/><path d="M4 6v6a8 3 0 0 0 16 0V6"/><path d="M4 12v6a8 3 0 0 0 16 0v-6"/></g><g id="email"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="m3 7 9 6 9-6"/></g><g id="cert"><path d="M12 15a3 3 0 1 0 6 0 3 3 0 1 0-6 0"/><path d="M13 17.5V22l2-1.5 2 1.5v-4.5"/><path d="M10 19H5a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-1 1.7M6 9h12M6 12h3m-3 3h2"/></g><g id="keystore"><path d="m16.6 3.8 3.6 3.6a2.9 2.9 0 0 1 0 4.1l-2.7 2.7a2.9 2.9 0 0 1-4 0l-.4-.3-6.5 6.5a2 2 0 0 1-1.3.6H4a1 1 0 0 1-1-.9v-1.3a2 2 0 0 1 .5-1.3h0L4 17h2v-2h2v-2l2.1-2.1-.3-.3a2.9 2.9 0 0 1 0-4.1l2.7-2.7a2.9 2.9 0 0 1 4 0zM15 9h0"/></g></defs></svg></div>
+	<div class="sprite" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+			stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+			<defs>
+				<g id="go-up">
+					<path d="M18 18h-6a3 3 0 0 1-3-3V5L5 9m8 0L9 5" />
+				</g>
+				<g id="folder">
+					<path fill="#ffb900" stroke-width="0"
+						d="M9 3a1 1 0 0 1 .6.2h.1L12.4 6H19a3 3 0 0 1 3 2.8V17a3 3 0 0 1-2.8 3H5a3 3 0 0 1-3-2.8V6a3 3 0 0 1 2.8-3H9z" />
+				</g>
+				<g id="folder-symlink">
+					<path fill="#ffb900" stroke-width="0"
+						d="M9 3a1 1 0 0 1 .6.2h.1L12.4 6H19a3 3 0 0 1 3 2.8V17a3 3 0 0 1-2.8 3H5a3 3 0 0 1-3-2.8V6a3 3 0 0 1 2.8-3H5Z" />
+					<path fill="#000" stroke-width=".1"
+						d="M2.8 17.3c0-2.4 1.8-4.3 4-4.5v-1.1c0-.4.5-.6.7-.3l2.5 2.5v.2l-2.5 2.5c-.2.2-.6 0-.6-.3v-1c-2 .2-3.5 1.3-3.8 3.2l-.3-1.2Z" />
+				</g>
+				<g id="symlink">
+					<path d="M4 21v-4a3 3 0 0 1 3-3h5" />
+					<path d="m9 17 3-3-3-3m5-8v4a1 1 0 0 0 1 1h4" />
+					<path d="M5 11V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2H7.5" />
+				</g>
+				<g id="generic">
+					<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+					<path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z" />
+				</g>
+				<g id="license">
+					<path
+						d="M15 21H6a3 3 0 0 1-3-3v-1h10v2a2 2 0 0 0 4 0V5a2 2 0 1 1 2 2h-2m2-4H8a3 3 0 0 0-3 3v11M9 7h4m-4 4h4" />
+				</g>
+				<g id="image">
+					<path d="M15 8h0M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6z" />
+					<path d="m3 16 5-5c1-.9 2-.9 3 0l5 5" />
+					<path d="m14 14 1-1c1-.9 2-.9 3 0l3 3" />
+				</g>
+				<g id="video">
+					<path
+						d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm4-2v16m8-16v16M4 8h4m-4 8h4m-4-4h16m-4-4h4m-4 8h4" />
+				</g>
+				<g id="audio">
+					<path d="M3 17a3 3 0 1 0 6 0 3 3 0 1 0-6 0m10 0a3 3 0 1 0 6 0 3 3 0 1 0-6 0" />
+					<path d="M9 17V4h10v13M9 8h10" />
+				</g>
+				<g id="pdf">
+					<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+					<path
+						d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4M5 18h1.5a1.5 1.5 0 0 0 0-3H5v6m12-3h2m1-3h-3v6m-6-6v6h1a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-1z" />
+				</g>
+				<g id="csv">
+					<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+					<path
+						d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4M7 16.5a1.5 1.5 0 0 0-3 0v3a1.5 1.5 0 0 0 3 0m3 .8c0 .4.3.7.8.7H12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1.3a.8.8 0 0 1 .7.8m3-.8 2 6 2-6" />
+				</g>
+				<g id="doc">
+					<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+					<path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2zM9 9h1m-1 4h6m-6 4h6" />
+				</g>
+				<g id="sheet">
+					<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+					<path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2z" />
+					<path d="M8 11h8v7H8zm0 4h8m-5-4v7" />
+				</g>
+				<g id="ppt">
+					<path d="M9 12V8m6 4v-2m-3 2v-1M3 4h18M4 4v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4m-8 12v4m-3 0h6" />
+				</g>
+				<g id="archive">
+					<path d="M6 20.7A2 2 0 0 1 5 19V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2h-1" />
+					<path
+						d="M11 17a2 2 0 0 1 2 2v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2a2 2 0 0 1 2-2zm0-12h-1m3 2h-1m-1 2h-1m3 2h-1m-1 2h-1m3 2h-1" />
+				</g>
+				<g id="deb">
+					<path
+						d="M12 17c-2.4-1-4-3.2-4-5.6 0-2.2 1-3.2 1.6-3.6C12.2 5.6 16 7.5 16 11c0 2.5-2.9 2.1-3.5 1.5-.6-.6-1-1.5-.5-2.5" />
+					<path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0" />
+				</g>
+				<g id="dist">
+					<path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3m0 9 8-4.5M12 12v9m0-9L4 7.5m12-2.2L8 9.8" />
+				</g>
+				<g id="ps1">
+					<path
+						d="M4.9 20h11.9a2 2 0 0 0 1.8-1.6l2.4-12A2 2 0 0 0 19.5 4a1.8 1.8 0 0 0-.4 0H7.2a2 2 0 0 0-1.8 1.6L3 17.6A2 2 0 0 0 4.5 20h.4z" />
+					<path d="m9 8 4 4-6 4m5 0h3" />
+				</g>
+				<g id="py">
+					<path d="M12 9H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h3m4-2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3" />
+					<path
+						d="M8 9V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-4m-5-9h0m2 12h0" />
+				</g>
+				<g id="sh">
+					<path
+						d="M17 20H6a3 3 0 0 1 0-6h11a3 3 0 0 0 0 6h1a3 3 0 0 0 3-3V6a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v8" />
+				</g>
+				<g id="dmg">
+					<path d="M3 5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zm4 3v1m10-1v1" />
+					<path d="M12.5 4c-.7 1.5-1.3 3.4-1.5 9h2.5c-.2 2.9 0 5 .5 7" />
+					<path d="M7 15.5c3.7 2 6.3 2 10 0" />
+				</g>
+				<g id="iso">
+					<path d="M3 12a9 9 0 1 0 18 0 9 9 0 1 0-18 0" />
+					<path d="M11 12a1 1 0 1 0 2 0 1 1 0 1 0-2 0m-4 0a5 5 0 0 1 5-5m0 10a5 5 0 0 0 5-5" />
+				</g>
+				<g id="md">
+					<path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+					<path d="M7 15V9l2 2 2-2v6m3-2 2 2 2-2m-2 2V9" />
+				</g>
+				<g id="font">
+					<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+					<path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2zm-6-3h2m-1 0v-7" />
+					<path d="M9 12v-1h6v1" />
+				</g>
+				<g id="go">
+					<path
+						d="M15.7 14.3c1 1 3 .9 4.2-.4 1.3-1.3 1.5-3.1.4-4.2-1-1-3-.9-4.2.4-1.3 1.3-1.5 3.1-.4 4.2zm-3-5.1c-1.1-.5-2.6-.2-3.6.9-1.3 1.3-1.5 3.1-.4 4.2 1 1 3 .9 4.3-.4a3.7 3.7 0 0 0 1-1.9h-2.4m-6.1 3H4m2-6H4m1 3H2" />
+				</g>
+				<g id="html">
+					<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+					<path
+						d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4M2 21v-6m3 0v6m-3-3h3m15-3v6h2m-9 0v-6l2 3 2-3v6m-9.5-6h3M9 15v6" />
+				</g>
+				<g id="js">
+					<path
+						d="M14 3v4a1 1 0 0 0 1 1h4M3 15h3v4.5a1.5 1.5 0 0 1-3 0m6 .8c0 .4.3.7.8.7H11a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1.3a.8.8 0 0 1 .7.8" />
+					<path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2h-1" />
+				</g>
+				<g id="css">
+					<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+					<path
+						d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4M8 16.5a1.5 1.5 0 0 0-3 0v3a1.5 1.5 0 0 0 3 0m3 .8c0 .4.3.7.8.7H13a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1.3a.8.8 0 0 1 .7.8m3 4.5c0 .4.3.7.8.7H19a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1.3a.8.8 0 0 1 .7.8" />
+				</g>
+				<g id="json">
+					<path
+						d="M20 16V8l3 8V8m-8 0a2 2 0 0 1 2 2v4a2 2 0 1 1-4 0v-4a2 2 0 0 1 2-2zM1 8h3v6.5a1.5 1.5 0 0 1-3 0V14m6 1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1H8a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1" />
+				</g>
+				<g id="ts">
+					<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+					<path d="M5 12V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2h-1" />
+					<path
+						d="M14 3v4a1 1 0 0 0 1 1h4M9 20.3c0 .4.3.7.8.7H11a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1h-1a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1.3a.8.8 0 0 1 .7.8M3.5 15h3M5 15v6" />
+				</g>
+				<g id="sql">
+					<path d="M14 3v4a1 1 0 0 0 1 1h4" />
+					<path
+						d="M14 3v4a1 1 0 0 0 1 1h4M5 20.3c0 .4.3.7.8.7H7a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1H6a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1h1.3a.8.8 0 0 1 .7.8" />
+					<path
+						d="M5 12V5a2 2 0 0 1 2-2h7l5 5v4m-1 3v6h2m-7-6a2 2 0 0 1 2 2v2a2 2 0 1 1-4 0v-2a2 2 0 0 1 2-2zm1 5 1.5 1.5" />
+				</g>
+				<g id="db">
+					<path d="M4 6a8 3 0 1 0 16 0A8 3 0 1 0 4 6" />
+					<path d="M4 6v6a8 3 0 0 0 16 0V6" />
+					<path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+				</g>
+				<g id="email">
+					<path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" />
+					<path d="m3 7 9 6 9-6" />
+				</g>
+				<g id="cert">
+					<path d="M12 15a3 3 0 1 0 6 0 3 3 0 1 0-6 0" />
+					<path d="M13 17.5V22l2-1.5 2 1.5v-4.5" />
+					<path
+						d="M10 19H5a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-1 1.7M6 9h12M6 12h3m-3 3h2" />
+				</g>
+				<g id="keystore">
+					<path
+						d="m16.6 3.8 3.6 3.6a2.9 2.9 0 0 1 0 4.1l-2.7 2.7a2.9 2.9 0 0 1-4 0l-.4-.3-6.5 6.5a2 2 0 0 1-1.3.6H4a1 1 0 0 1-1-.9v-1.3a2 2 0 0 1 .5-1.3h0L4 17h2v-2h2v-2l2.1-2.1-.3-.3a2.9 2.9 0 0 1 0-4.1l2.7-2.7a2.9 2.9 0 0 1 4 0zM15 9h0" />
+				</g>
+			</defs>
+		</svg></div>
 
-<header class="wrap">
-	<nav class="crumbs" aria-label="Breadcrumb">
-		{{- range $i, $crumb := .Breadcrumbs}}
-		{{- /* crumb 0 is always the root and its Text is already "/" — separate from crumb 1 on */}}
-		{{- if gt $i 1}}<span class="sep">/</span>{{end}}<a href="{{html $crumb.Link}}">{{html $crumb.Text}}</a>
-		{{- end}}
-	</nav>
-</header>
+	<header class="wrap">
+		<nav class="crumbs" aria-label="Breadcrumb">
+			{{- range $i, $crumb := .Breadcrumbs}}
+			{{- /* crumb 0 is always the root and its Text is already "/" — separate from crumb 1 on */}}
+			{{- if gt $i 1}}<span class="sep">/</span>{{end}}<a href="{{html $crumb.Link}}">{{html $crumb.Text}}</a>
+			{{- end}}
+		</nav>
+	</header>
 
-<div class="bar">
-	<div class="stats">
-		<span><b>{{.NumDirs}}</b> {{if eq .NumDirs 1}}folder{{else}}folders{{end}}</span>
-		<span><b>{{.NumFiles}}</b> {{if eq .NumFiles 1}}file{{else}}files{{end}}</span>
-		<span><b>{{.HumanTotalFileSize}}</b></span>
-		<span class="fcount" aria-live="polite" role="status"></span>
-	</div>
-	<div class="tools">
-		<label class="search">
-			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-			<input type="search" id="filter" placeholder="Filter&hellip;  ( / )" aria-label="Filter entries" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
-		</label>
-		{{- $ord := "asc"}}{{if eq .Order "asc"}}{{$ord = "desc"}}{{end}}
-		{{- $lay := ""}}{{if eq .Layout "grid"}}{{$lay = "&layout=grid"}}{{end}}
-		{{- if eq .Layout "grid"}}
-		<a class="chip{{if eq .Sort "name"}} on{{end}}" href="?sort=name&amp;order={{if eq .Sort "name"}}{{$ord}}{{else}}asc{{end}}{{$lay}}">Name<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a>
-		<a class="chip{{if eq .Sort "size"}} on{{end}}" href="?sort=size&amp;order={{if eq .Sort "size"}}{{$ord}}{{else}}asc{{end}}{{$lay}}">Size<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a>
-		<a class="chip{{if eq .Sort "time"}} on{{end}}" href="?sort=time&amp;order={{if eq .Sort "time"}}{{$ord}}{{else}}desc{{end}}{{$lay}}">Date<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a>
-		{{- end}}
-		{{- /* Caddy's namedirfirst reverses the WHOLE list under order=desc, i.e. folders LAST,
-		       so grouping only exists in asc: enabling it must force asc, and the chip may only
-		       read as "on" for namedirfirst+asc. Carrying .Order here put folders last. */}}
-		{{- $grp := and (eq .Sort "namedirfirst") (eq .Order "asc")}}
-		<a class="chip{{if $grp}} on{{end}}" href="?sort={{if $grp}}name{{else}}namedirfirst{{end}}&amp;order=asc{{$lay}}" title="Group folders before files" aria-pressed="{{if $grp}}true{{else}}false{{end}}">Folders first</a>
-		<a class="chip ico-only{{if ne .Layout "grid"}} on{{end}}" href="?layout=list" title="List view" aria-label="List view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></a>
-		<a class="chip ico-only{{if eq .Layout "grid"}} on{{end}}" href="?layout=grid" title="Grid view" aria-label="Grid view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg></a>
-		<button type="button" class="chip ico-only" id="theme" title="Toggle theme" aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 4v16" /><path d="M12 4a8 8 0 0 0 0 16" fill="currentColor" stroke="none"/></svg></button>
-		<button type="button" class="chip ico-only" id="help" title="Keyboard shortcuts (?)" aria-label="Keyboard shortcuts">?</button>
-	</div>
-</div>
-
-<main class="wrap">
-<div class="panel">
-{{- if not .Items}}
-	<div class="empty">This folder is empty.</div>
-{{- else if eq .Layout "grid"}}
-	<div class="grid listing">
-		{{- if .CanGoUp}}
-		<div class="entry up"><a href=".."><span class="box"><svg class="ic d" viewBox="0 0 24 24"><use href="#go-up"/></svg></span><span class="name">Parent folder</span></a></div>
-		{{- end}}
-		{{- range .Items}}
-		<div class="entry{{if .IsDir}} dir{{else}} file{{end}}">
-			<a href="{{html .URL}}"{{if .IsDir}} data-dir="1"{{end}}>
-				<span class="box">
-					{{- if and (not .IsDir) (.HasExt ".jpg" ".jpeg" ".png" ".apng" ".gif" ".webp" ".avif" ".bmp" ".ico" ".svg")}}<img class="th" loading="lazy" decoding="async" src="{{html .URL}}" alt="">
-					{{- else}}<svg class="ic{{if .IsDir}} d{{end}}" viewBox="0 0 24 24"><use href="#{{template "icon" .}}"/></svg>
-					{{- end}}
-				</span>
-				<span class="name" title="{{html .Name}}">{{html .Name}}</span>
-				<span class="m"><span>{{if .IsDir}}&mdash;{{else}}{{.HumanSize}}{{end}}</span><time datetime="{{.HumanModTime "2006-01-02T15:04:05Z"}}">{{.HumanModTime "2006-01-02"}}</time></span>
-			</a>
+	<div class="bar">
+		<div class="stats">
+			<span><b>{{.NumDirs}}</b> {{if eq .NumDirs 1}}folder{{else}}folders{{end}}</span>
+			<span><b>{{.NumFiles}}</b> {{if eq .NumFiles 1}}file{{else}}files{{end}}</span>
+			<span><b>{{.HumanTotalFileSize}}</b></span>
+			<span class="fcount" aria-live="polite" role="status"></span>
 		</div>
-		{{- end}}
+		<div class="tools">
+			<label class="search">
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+					aria-hidden="true">
+					<circle cx="11" cy="11" r="7" />
+					<path d="m20 20-3.5-3.5" />
+				</svg>
+				<input type="search" id="filter" placeholder="Filter&hellip;  ( / )" aria-label="Filter entries"
+					autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+			</label>
+			<div class="chips">
+				{{- $ord := "asc"}}{{if eq .Order "asc"}}{{$ord = "desc"}}{{end}}
+				{{- $lay := ""}}{{if eq .Layout "grid"}}{{$lay = "&layout=grid"}}{{end}}
+				{{- if eq .Layout "grid"}}
+				<a class="chip{{if eq .Sort "name"}} on{{end}}" href="?sort=name&amp;order={{if eq .Sort "name"}}{{$ord}}{{else}}asc{{end}}{{$lay}}">Name<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a>
+				<a class="chip{{if eq .Sort "size"}} on{{end}}" href="?sort=size&amp;order={{if eq .Sort "size"}}{{$ord}}{{else}}asc{{end}}{{$lay}}">Size<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a>
+				<a class="chip{{if eq .Sort "time"}} on{{end}}" href="?sort=time&amp;order={{if eq .Sort "time"}}{{$ord}}{{else}}desc{{end}}{{$lay}}">Date<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a>
+				{{- end}}
+				{{- /* Caddy's namedirfirst reverses the WHOLE list under order=desc, i.e. folders LAST,
+				so grouping only exists in asc: enabling it must force asc, and the chip may only
+				read as "on" for namedirfirst+asc. Carrying .Order here put folders last. */}}
+				{{- $grp := and (eq .Sort "namedirfirst") (eq .Order "asc")}}
+				<a class="chip{{if $grp}} on{{end}}"
+					href="?sort={{if $grp}}name{{else}}namedirfirst{{end}}&amp;order=asc{{$lay}}"
+					title="Group folders before files" aria-pressed="{{if $grp}}true{{else}}false{{end}}">Folders
+					first</a>
+				<a class="chip ico-only{{if ne .Layout "grid"}} on{{end}}" href="?layout=list" title="List view"
+					aria-label="List view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+						stroke-linecap="round">
+						<path d="M4 6h16M4 12h16M4 18h16" />
+					</svg></a>
+				<a class="chip ico-only{{if eq .Layout "grid"}} on{{end}}" href="?layout=grid" title="Grid view"
+					aria-label="Grid view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<rect x="4" y="4" width="7" height="7" rx="1" />
+						<rect x="13" y="4" width="7" height="7" rx="1" />
+						<rect x="4" y="13" width="7" height="7" rx="1" />
+						<rect x="13" y="13" width="7" height="7" rx="1" />
+					</svg></a>
+				<button type="button" class="chip ico-only" id="theme" title="Toggle theme"
+					aria-label="Toggle theme"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+						stroke-width="2">
+						<circle cx="12" cy="12" r="8" />
+						<path d="M12 4v16" />
+						<path d="M12 4a8 8 0 0 0 0 16" fill="currentColor" stroke="none" />
+					</svg></button>
+				<button type="button" class="chip ico-only" id="help" title="Keyboard shortcuts (?)"
+					aria-label="Keyboard shortcuts">?</button>
+			</div>
+		</div>
 	</div>
-{{- else}}
-	<table class="listing">
-		<thead><tr>
-			<th{{if or (eq .Sort "name") (eq .Sort "namedirfirst")}} aria-sort="{{if eq .Order "asc"}}ascending{{else}}descending{{end}}"{{end}}><a href="?sort=name&amp;order={{if eq .Sort "name"}}{{$ord}}{{else}}asc{{end}}">Name<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a></th>
-			<th{{if eq .Sort "size"}} aria-sort="{{if eq .Order "asc"}}ascending{{else}}descending{{end}}"{{end}}><a href="?sort=size&amp;order={{if eq .Sort "size"}}{{$ord}}{{else}}asc{{end}}">Size<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a></th>
-			<th{{if eq .Sort "time"}} aria-sort="{{if eq .Order "asc"}}ascending{{else}}descending{{end}}"{{end}}><a href="?sort=time&amp;order={{if eq .Sort "time"}}{{$ord}}{{else}}desc{{end}}">Modified<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a></th>
-		</tr></thead>
-		<tbody>
-		{{- if .CanGoUp}}
-			<tr class="up"><td class="n"><a href=".."><svg class="ic d" viewBox="0 0 24 24"><use href="#go-up"/></svg><span class="name">..</span></a></td><td class="s">&mdash;</td><td class="t"></td></tr>
-		{{- end}}
-		{{- range .Items}}
-			<tr class="{{if .IsDir}}dir{{else}}file{{end}}">
-				<td class="n"><a href="{{html .URL}}"{{if .IsDir}} data-dir="1"{{end}}><svg class="ic{{if .IsDir}} d{{end}}" viewBox="0 0 24 24"><use href="#{{template "icon" .}}"/></svg><span class="name">{{html .Name}}</span>{{if .SymlinkPath}}<span class="lnk">&rarr; {{html .SymlinkPath}}</span>{{end}}</a></td>
-				<td class="s"{{if not .IsDir}} data-b="{{.Size}}"{{end}}>{{if .IsDir}}&mdash;{{else}}{{.HumanSize}}{{end}}</td>
-				<td class="t"><time datetime="{{.HumanModTime "2006-01-02T15:04:05Z"}}">{{.HumanModTime "2006-01-02 15:04 UTC"}}</time></td>
-			</tr>
-		{{- end}}
-		</tbody>
-	</table>
-{{- end}}
-</div>
-{{- if .Limit}}
-<nav class="pager">
-	{{- if .Offset}}<a class="chip" href="?limit={{.Limit}}&amp;offset={{max 0 (sub .Offset .Limit)}}">&larr; Previous</a>{{end}}
-	<span>{{add .Offset 1}}&ndash;{{add .Offset (len .Items)}}</span>
-	{{- if eq (len .Items) .Limit}}<a class="chip" href="?limit={{.Limit}}&amp;offset={{add .Offset .Limit}}">Next &rarr;</a>{{end}}
-</nav>
-{{- end}}
-</main>
 
-<div class="dock" hidden>
-	<button type="button" class="chip ico-only d-prev" title="Previous track" aria-label="Previous track"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 5 8 12l10 7zM6 5v14"/></svg></button>
-	<button type="button" class="chip ico-only d-next" title="Next track" aria-label="Next track"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 5l10 7L6 19zM18 5v14"/></svg></button>
-	<span class="dock-title"></span>
-	<audio class="d-audio" controls preload="metadata"></audio>
-	<button type="button" class="chip ico-only d-close" title="Close player" aria-label="Close player">&times;</button>
-</div>
+	<main class="wrap">
+		<div class="panel">
+			{{- if not .Items}}
+			<div class="empty">This folder is empty.</div>
+			{{- else if eq .Layout "grid"}}
+			<div class="grid listing">
+				{{- if .CanGoUp}}
+				<div class="entry up"><a href=".."><span class="box"><svg class="ic d" viewBox="0 0 24 24">
+								<use href="#go-up" />
+							</svg></span><span class="name">Parent folder</span></a></div>
+				{{- end}}
+				{{- range .Items}}
+				<div class="entry{{if .IsDir}} dir{{else}} file{{end}}">
+					<a href="{{html .URL}}" {{if .IsDir}} data-dir="1" {{end}}>
+						<span class="box">
+							{{- if and (not .IsDir) (.HasExt ".jpg" ".jpeg" ".png" ".apng" ".gif" ".webp" ".avif" ".bmp"
+							".ico" ".svg")}}<img class="th" loading="lazy" decoding="async" src="{{html .URL}}" alt="">
+							{{- else}}<svg class="ic{{if .IsDir}} d{{end}}" viewBox="0 0 24 24">
+								<use href="#{{template "icon" .}}" />
+							</svg>
+							{{- end}}
+						</span>
+						<span class="name" title="{{html .Name}}">{{html .Name}}</span>
+						<span class="m"><span>{{if not .IsDir}}{{.HumanSize}}{{end}}</span><time
+								datetime="{{.HumanModTime "2006-01-02T15:04:05Z"}}">{{.HumanModTime
+								"2006-01-02"}}</time></span>
+					</a>
+				</div>
+				{{- end}}
+			</div>
+			{{- else}}
+			<table class="listing">
+				<thead>
+					<tr>
+						<th{{if or (eq .Sort "name") (eq .Sort "namedirfirst")}} aria-sort="{{if eq .Order "asc"}}ascending{{else}}descending{{end}}"{{end}}><a href="?sort=name&amp;order={{if eq .Sort "name"}}{{$ord}}{{else}}asc{{end}}">Name<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a></th>
+						<th{{if eq .Sort "size"}} aria-sort="{{if eq .Order "asc"}}ascending{{else}}descending{{end}}"{{end}}><a href="?sort=size&amp;order={{if eq .Sort "size"}}{{$ord}}{{else}}asc{{end}}">Size<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a></th>
+						<th{{if eq .Sort "time"}} aria-sort="{{if eq .Order "asc"}}ascending{{else}}descending{{end}}"{{end}}><a href="?sort=time&amp;order={{if eq .Sort "time"}}{{$ord}}{{else}}desc{{end}}">Modified<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a></th>
+					</tr>
+				</thead>
+				<tbody>
+					{{- if .CanGoUp}}
+					<tr class="up">
+						<td class="n"><a href=".."><svg class="ic d" viewBox="0 0 24 24">
+									<use href="#go-up" />
+								</svg><span class="name">..</span></a></td>
+						<td class="s">&mdash;</td>
+						<td class="t"></td>
+					</tr>
+					{{- end}}
+					{{- range .Items}}
+					<tr class="{{if .IsDir}}dir{{else}}file{{end}}">
+						<td class="n"><a href="{{html .URL}}" {{if .IsDir}} data-dir="1" {{end}}><svg
+									class="ic{{if .IsDir}} d{{end}}" viewBox="0 0 24 24">
+									<use href="#{{template "icon" .}}" />
+								</svg><span class="name">{{html .Name}}</span>{{if .SymlinkPath}}<span
+									class="lnk">&rarr; {{html .SymlinkPath}}</span>{{end}}</a></td>
+						<td class="s" {{if not .IsDir}} data-b="{{.Size}}" {{end}}>{{if
+							.IsDir}}&mdash;{{else}}{{.HumanSize}}{{end}}</td>
+						<td class="t"><time datetime="{{.HumanModTime "2006-01-02T15:04:05Z"}}">{{.HumanModTime
+								"2006-01-02 15:04 UTC"}}</time></td>
+					</tr>
+					{{- end}}
+				</tbody>
+			</table>
+			{{- end}}
+		</div>
+		{{- if .Limit}}
+		<nav class="pager">
+			{{- if .Offset}}<a class="chip" href="?limit={{.Limit}}&amp;offset={{max 0 (sub .Offset .Limit)}}">&larr;
+				Previous</a>{{end}}
+			<span>{{add .Offset 1}}&ndash;{{add .Offset (len .Items)}}</span>
+			{{- if eq (len .Items) .Limit}}<a class="chip"
+				href="?limit={{.Limit}}&amp;offset={{add .Offset .Limit}}">Next &rarr;</a>{{end}}
+		</nav>
+		{{- end}}
+	</main>
 
-<dialog id="viewer" aria-label="Preview">
-	<div class="v-track"></div>
-	<div class="v-bar">
-		<button type="button" class="v-btn v-close" title="Close (Esc)" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-		<span class="v-title"></span>
-		<span class="v-count"></span>
-		<a class="v-btn v-dl" title="Download" aria-label="Download"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14"/></svg></a>
-		<button type="button" class="v-btn v-fs" title="Expand — hide interface (f)" aria-label="Expand" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+	<div class="dock" hidden>
+		<button type="button" class="chip ico-only d-prev" title="Previous track" aria-label="Previous track"><svg
+				viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+				<path d="M18 5 8 12l10 7zM6 5v14" />
+			</svg></button>
+		<button type="button" class="chip ico-only d-next" title="Next track" aria-label="Next track"><svg
+				viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+				<path d="M6 5l10 7L6 19zM18 5v14" />
+			</svg></button>
+		<span class="dock-title"></span>
+		<audio class="d-audio" controls preload="metadata"></audio>
+		<button type="button" class="chip ico-only d-close" title="Close player"
+			aria-label="Close player">&times;</button>
 	</div>
-	<button type="button" class="v-btn v-nav v-prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
-	<button type="button" class="v-btn v-nav v-next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
-</dialog>
 
-<dialog id="keys">
-	<h2>Keyboard</h2>
-	<dl>
-		<dt>/</dt><dd>focus the filter box</dd>
-		<dt>Esc</dt><dd>clear filter / close preview</dd>
-		<dt>&larr; &rarr;</dt><dd>previous / next item (seek &plusmn;5s in video)</dd>
-		<dt>PgUp PgDn</dt><dd>previous / next item</dd>
-		<dt>Home End</dt><dd>first / last item</dd>
-		<dt>Space</dt><dd>play / pause video</dd>
-		<dt>f</dt><dd>expand &mdash; hide interface</dd>
-		<dt>g / l</dt><dd>grid / list layout</dd>
-		<dt>?</dt><dd>this dialog</dd>
-	</dl>
-	<button type="button" class="chip" autofocus>Close</button>
-</dialog>
+	<dialog id="viewer" aria-label="Preview">
+		<div class="v-track"></div>
+		<div class="v-bar">
+			<button type="button" class="v-btn v-close" title="Close (Esc)" aria-label="Close"><svg viewBox="0 0 24 24"
+					fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+					<path d="M6 6l12 12M18 6 6 18" />
+				</svg></button>
+			<span class="v-title"></span>
+			<span class="v-count"></span>
+			<a class="v-btn v-dl" title="Download" aria-label="Download"><svg viewBox="0 0 24 24" fill="none"
+					stroke="currentColor" stroke-width="2" stroke-linecap="round">
+					<path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" />
+				</svg></a>
+			<button type="button" class="v-btn v-fs" title="Expand — hide interface (f)" aria-label="Expand"
+				aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+					stroke-linecap="round">
+					<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+				</svg></button>
+		</div>
+		<button type="button" class="v-btn v-nav v-prev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none"
+				stroke="currentColor" stroke-width="2" stroke-linecap="round">
+				<path d="M15 5l-7 7 7 7" />
+			</svg></button>
+		<button type="button" class="v-btn v-nav v-next" aria-label="Next"><svg viewBox="0 0 24 24" fill="none"
+				stroke="currentColor" stroke-width="2" stroke-linecap="round">
+				<path d="M9 5l7 7-7 7" />
+			</svg></button>
+	</dialog>
 
-<script {{$n}}>
-"use strict";
-(function(){
-var $=function(s,r){return (r||document).querySelector(s);};
-var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+	<dialog id="keys">
+		<h2>Keyboard</h2>
+		<dl>
+			<dt>/</dt>
+			<dd>focus the filter box</dd>
+			<dt>Esc</dt>
+			<dd>clear filter / close preview</dd>
+			<dt>&larr; &rarr;</dt>
+			<dd>previous / next item (seek &plusmn;5s in video)</dd>
+			<dt>PgUp PgDn</dt>
+			<dd>previous / next item</dd>
+			<dt>Home End</dt>
+			<dd>first / last item</dd>
+			<dt>Space</dt>
+			<dd>play / pause video</dd>
+			<dt>f</dt>
+			<dd>expand &mdash; hide interface</dd>
+			<dt>g / l</dt>
+			<dd>grid / list layout</dd>
+			<dt>?</dt>
+			<dd>this dialog</dd>
+		</dl>
+		<button type="button" class="chip" autofocus>Close</button>
+	</dialog>
 
-/* ── kind routing (mirror of the Go icon template) ───────────────────── */
-var KINDS=[
-	["image",/\.(avif|bmp|gif|ico|jpe?g|a?png|svg|tiff?|webp|heix?|heif|heic)$/i],
-	["video",/\.(3gp|avi|m4v|mkv|mov|mp4|mpe?g|ogm|ogv|webm)$/i],
-	["audio",/\.(aac|ape|flac|m4a|mid|midi|mp3|oga|ogg|opus|wav|weba|wma)$/i],
-	["markdown",/\.(md|mdown|markdown)$/i],
-	["pdf",/\.pdf$/i],
-	["frame",/\.(html?|xhtml)$/i],
-	["text",/\.(asp|bat|c|cc|cfg|cjs|conf|cpp|cs|css|csv|cue|dart|diff|dockerfile|env|go|gradle|groovy|h|hpp|hs|ini|ipynb|java|jl|js|json|json5|jsonc|jsx|kt|less|log|lua|m|m3u|m3u8|makefile|mjs|mk|mod|patch|php|pl|plist|properties|ps1|py|pyw|r|rb|rs|rst|sass|scss|sh|sql|srt|sum|svelte|swift|tf|toml|ts|tsv|tsx|txt|vtt|vue|xml|ya?ml|zsh)$/i]
-];
-var VIEW=["image","video","markdown","pdf","frame","text"];
-function kindOf(href){
-	var p=href.split(/[?#]/)[0];
-	for(var i=0;i<KINDS.length;i++){if(KINDS[i][1].test(p))return KINDS[i][0];}
-	return null;
-}
-function dec(s){try{return decodeURIComponent(s);}catch(e){return s;}}
-function baseOf(href){return dec(href.split(/[?#]/)[0].split("/").pop());}
-function stem(n){return n.replace(/\.[^.]+$/,"");}
-function rx(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}
-function norm(s){return s.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");}
+	<script {{$n}}>
+		"use strict";
+		(function () {
+			var $ = function (s, r) { return (r || document).querySelector(s); };
+			var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
 
-/* ── state carried across navigation ────────────────────────────────── */
-var CARRY=["layout","filter","limit","sort","order"];
-/* `filter` is a view over the rows of the CURRENT listing, so it may only survive navigation
-   that stays in the same directory (sort/order/layout chips, pager). Crossing into another
-   directory drops both the applied filter and the ?filter= parameter — carrying it re-filtered
-   the new folder by a term that means nothing there. */
-function merge(href){
-	var cur,u;
-	try{cur=new URL(location.href);u=new URL(href,location.href);}catch(e){return null;}
-	if(u.origin!==cur.origin)return null;
-	var same=u.pathname===cur.pathname,changed=false;
-	for(var i=0;i<CARRY.length;i++){
-		var k=CARRY[i],v=cur.searchParams.get(k);
-		if(k==="filter"&&!same)continue;
-		if(v!=null&&v!==""&&!u.searchParams.has(k)){u.searchParams.set(k,v);changed=true;}
-	}
-	return changed?u.href:null;
-}
-function setParam(k,v){
-	var u=new URL(location.href);
-	if(v)u.searchParams.set(k,v);else u.searchParams.delete(k);
-	location.href=u.href;
-}
-
-/* ── filter ─────────────────────────────────────────────────────────── */
-var fInput=$("#filter"),fCount=$(".fcount"),rows=null,fTimer=0;
-function index(){
-	rows=$$(".listing tr.dir,.listing tr.file,.listing .entry:not(.up)").map(function(el){
-		var n=el.querySelector(".name");
-		return {el:el,hay:norm(n?n.textContent:"")};
-	});
-}
-function applyFilter(sync){
-	if(!fInput)return;
-	if(!rows)index();
-	var terms=norm(fInput.value).split(/\s+/).filter(Boolean),shown=0;
-	for(var i=0;i<rows.length;i++){
-		var r=rows[i],hit=true;
-		for(var j=0;j<terms.length;j++){if(r.hay.indexOf(terms[j])<0){hit=false;break;}}
-		if(r.el.hidden===hit)r.el.hidden=!hit;
-		if(hit)shown++;
-	}
-	fCount.textContent=terms.length?shown+" of "+rows.length+" shown":"";
-	if(sync!==false){
-		var u=new URL(location.href);
-		if(fInput.value)u.searchParams.set("filter",fInput.value);else u.searchParams.delete("filter");
-		try{history.replaceState(null,"",u.href);}catch(e){}
-	}
-}
-/* returns true only if something was actually cleared, so Escape stays a no-op otherwise */
-function clearFilter(){
-	if(!fInput||!fInput.value)return false;
-	fInput.value="";
-	applyFilter();
-	return true;
-}
-if(fInput){
-	fInput.addEventListener("input",function(){
-		clearTimeout(fTimer);
-		fTimer=setTimeout(applyFilter,rows&&rows.length>2000?180:0);
-	});
-	var f0=new URL(location.href).searchParams.get("filter");
-	if(f0){fInput.value=f0;applyFilter(false);}
-}
-
-/* ── size bars + local timestamps ───────────────────────────────────── */
-(function(){
-	var cells=$$("td.s[data-b]"),maxB=0,i;
-	for(i=0;i<cells.length;i++){var b=+cells[i].dataset.b;if(b>maxB)maxB=b;}
-	if(maxB>0)for(i=0;i<cells.length;i++){
-		var pct=Math.sqrt(+cells[i].dataset.b/maxB)*100;
-		if(pct>=1)cells[i].style.setProperty("--w",pct.toFixed(1)+"%");
-	}
-	var fmt;
-	try{fmt=new Intl.DateTimeFormat(undefined,{dateStyle:"medium",timeStyle:"short"});}catch(e){return;}
-	var ts=document.getElementsByTagName("time");
-	for(i=0;i<ts.length;i++){
-		var d=new Date(ts[i].getAttribute("datetime"));
-		if(!isNaN(d.getTime()))ts[i].textContent=fmt.format(d);
-	}
-})();
-
-/* ── theme ──────────────────────────────────────────────────────────── */
-$("#theme").addEventListener("click",function(){
-	var d=document.documentElement,cur=d.dataset.theme||"",next=cur===""?"dark":cur==="dark"?"light":"";
-	if(next)d.dataset.theme=next;else delete d.dataset.theme;
-	try{next?localStorage.setItem("cfs-theme",next):localStorage.removeItem("cfs-theme");}catch(e){}
-});
-
-/* ── syntax tokenizer (extension-profiled, ~4 token classes) ────────── */
-var R_STR=/"(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*'|`(?:[^`\\]|\\.)*`/;
-var R_NUM=/\b(?:0[xXbBoO][0-9a-fA-F_]+|\d[\d_]*(?:\.\d+)?(?:[eE][+-]?\d+)?)\b/;
-var R_KW=/\b(?:abstract|and|as|assert|async|await|bool|break|byte|case|catch|char|class|const|constexpr|continue|def|default|defer|del|delete|do|double|elif|else|elseif|end|enum|export|extends|extern|false|final|finally|float|fn|for|from|func|function|global|go|goto|if|impl|implements|import|in|inline|instanceof|int|interface|is|lambda|let|long|match|module|move|mut|namespace|new|nil|none|not|null|operator|or|package|pass|print|private|protected|pub|public|raise|range|ref|return|select|self|short|signed|sizeof|static|str|struct|super|switch|template|then|this|throw|throws|trait|true|try|type|typedef|typeof|union|unsigned|use|using|var|virtual|void|volatile|when|where|while|with|yield)\b/;
-var R_C_SLASH=/\/\*[\s\S]*?\*\/|\/\/[^\n]*|<!--[\s\S]*?-->/;
-var R_C_HASH=/#[^\n]*/;
-var R_C_DASH=/--[^\n]*|\/\*[\s\S]*?\*\//;
-function mkHL(c){
-	return new RegExp("("+c.source+")|("+R_STR.source+")|("+R_NUM.source+")|("+R_KW.source+")","g");
-}
-var HL={slash:mkHL(R_C_SLASH),hash:mkHL(R_C_HASH),dash:mkHL(R_C_DASH)};
-var HL_MAX=300000;
-function highlight(code,ext){
-	var src=code.textContent;
-	if(!src||src.length>HL_MAX)return;
-	var e=String(ext||"").toLowerCase().replace(/^\./,"");
-	var re=/^(py|pyw|sh|bash|zsh|fish|rb|pl|yml|yaml|toml|ini|cfg|conf|env|properties|ps1|tf|r|jl|dockerfile|makefile|mk|gitignore)$/.test(e)?HL.hash
-		:/^(sql|lua|hs|elm|ada|vhdl)$/.test(e)?HL.dash:HL.slash;
-	re.lastIndex=0;
-	var frag=document.createDocumentFragment(),last=0,m,cls,sp;
-	while((m=re.exec(src))!==null){
-		if(m[0]===""){re.lastIndex++;continue;}
-		if(m.index>last)frag.appendChild(document.createTextNode(src.slice(last,m.index)));
-		last=re.lastIndex;
-		cls=m[1]!==undefined?"c":m[2]!==undefined?"s":m[3]!==undefined?"n":"k";
-		sp=document.createElement("span");sp.className=cls;sp.textContent=m[0];
-		frag.appendChild(sp);
-	}
-	if(last<src.length)frag.appendChild(document.createTextNode(src.slice(last)));
-	code.replaceChildren(frag);
-}
-
-/* ── markdown to DOM (escaped by construction, no innerHTML anywhere) ── */
-var SCHEME=/^(?:https?:|mailto:)/i;
-function safeUrl(u){
-	try{
-		var a=new URL(String(u).trim(),location.href);
-		return SCHEME.test(a.protocol)?a.href:null;
-	}catch(e){return null;}
-}
-var INL=/(`+)([\s\S]*?)\1|\*\*([\s\S]+?)\*\*|(?<![A-Za-z0-9_])__([\s\S]+?)__(?![A-Za-z0-9_])|\*([^*\n]+?)\*|(?<![A-Za-z0-9_])_([^_\n]+?)_(?![A-Za-z0-9_])|~~([\s\S]+?)~~|!\[([^\]]*)\]\(([^)\s]+)\)|\[([^\]]*)\]\(([^)\s]+)\)|<((?:https?|mailto):[^>\s]+)>|\b((?:https?):\/\/[^\s<>()[\]"]+)/g;
-function el(t,p){var x=document.createElement(t);if(p)p.appendChild(x);return x;}
-function txt(s,p){p.appendChild(document.createTextNode(s));}
-function inline(s,p){
-	/* collect first: inline() recurses, and INL is a shared /g regex whose
-	   lastIndex a nested call would otherwise clobber (infinite loop). */
-	INL.lastIndex=0;
-	var ms=[],m,x,u,k,last=0;
-	while((m=INL.exec(s))!==null){
-		if(m[0]===""){INL.lastIndex++;continue;}
-		ms.push(m);
-	}
-	for(k=0;k<ms.length;k++){
-		m=ms[k];
-		if(m.index<last)continue;
-		if(m.index>last)txt(s.slice(last,m.index),p);
-		last=m.index+m[0].length;
-		if(m[2]!==undefined){el("code",p).textContent=m[2].replace(/^ | $/g,"");}
-		else if(m[3]!==undefined||m[4]!==undefined){inline(m[3]!==undefined?m[3]:m[4],el("strong",p));}
-		else if(m[5]!==undefined||m[6]!==undefined){inline(m[5]!==undefined?m[5]:m[6],el("em",p));}
-		else if(m[7]!==undefined){inline(m[7],el("del",p));}
-		else if(m[9]!==undefined){
-			u=safeUrl(m[9]);
-			if(u){x=el("img",p);x.src=u;x.alt=m[8];x.loading="lazy";}else txt(m[0],p);
-		}else if(m[11]!==undefined){
-			u=safeUrl(m[11]);
-			if(u){
-				x=el("a",p);x.href=u;x.rel="noopener noreferrer nofollow";x.target="_blank";
-				inline(m[10]||m[11],x);
-			}else txt(m[0],p);
-		}else{
-			var raw=m[12]!==undefined?m[12]:m[13];u=safeUrl(raw);
-			if(u){x=el("a",p);x.href=u;x.rel="noopener noreferrer nofollow";x.target="_blank";x.textContent=raw;}
-			else txt(m[0],p);
-		}
-	}
-	if(last<s.length)txt(s.slice(last),p);
-}
-var LI=/^\s*(?:[-*+]|\d+[.)])\s+/,BLK=/^(?:#{1,6}\s|```|~~~|>|\s*(?:[-*+]|\d+[.)])\s|\||\s*$)/;
-function mdRender(src,depth){
-	var frag=document.createDocumentFragment();
-	if((depth|0)>6){txt(src,frag);return frag;}
-	var lines=String(src).replace(/\r\n?/g,"\n").split("\n"),i=0,m,buf,x,y;
-	while(i<lines.length){
-		var ln=lines[i];
-		if(!ln.trim()){i++;continue;}
-		/* a fence opener carries nothing but an info word; `` `x` `` stays inline code */
-		if((m=/^\s*(?:```+|~~~+)[ \t]*([\w.+#-]*)[ \t]*$/.exec(ln))!==null){
-			i++;buf=[];
-			while(i<lines.length&&!/^\s*(?:```|~~~)/.test(lines[i]))buf.push(lines[i++]);
-			i++;
-			x=el("code",el("pre",frag));x.textContent=buf.join("\n");highlight(x,m[1]);
-			continue;
-		}
-		if((m=/^(#{1,6})\s+(.*?)#*\s*$/.exec(ln))!==null){inline(m[2],el("h"+m[1].length,frag));i++;continue;}
-		if(/^\s*(?:([-*_])\s*)(?:\1\s*){2,}$/.test(ln)){el("hr",frag);i++;continue;}
-		if(/^>/.test(ln)){
-			buf=[];
-			while(i<lines.length&&/^>/.test(lines[i]))buf.push(lines[i++].replace(/^>\s?/,""));
-			el("blockquote",frag).appendChild(mdRender(buf.join("\n"),(depth|0)+1));
-			continue;
-		}
-		if(/^\s*\|.*\|\s*$/.test(ln)&&i+1<lines.length&&/^\s*\|[\s:|-]+\|\s*$/.test(lines[i+1])){
-			var tbl=el("table",frag),row=lines[i].trim().replace(/^\||\|$/g,"").split("|");
-			y=el("tr",el("thead",tbl));
-			row.forEach(function(c){inline(c.trim(),el("th",y));});
-			i+=2;
-			var tb=el("tbody",tbl);
-			while(i<lines.length&&/^\s*\|.*\|\s*$/.test(lines[i])){
-				y=el("tr",tb);
-				lines[i++].trim().replace(/^\||\|$/g,"").split("|").forEach(function(c){inline(c.trim(),el("td",y));});
+			/* ── kind routing (mirror of the Go icon template) ───────────────────── */
+			var KINDS = [
+				["image", /\.(avif|bmp|gif|ico|jpe?g|a?png|svg|tiff?|webp|heix?|heif|heic)$/i],
+				["video", /\.(3gp|avi|m4v|mkv|mov|mp4|mpe?g|ogm|ogv|webm)$/i],
+				["audio", /\.(aac|ape|flac|m4a|mid|midi|mp3|oga|ogg|opus|wav|weba|wma)$/i],
+				["markdown", /\.(md|mdown|markdown)$/i],
+				["pdf", /\.pdf$/i],
+				["frame", /\.(html?|xhtml)$/i],
+				["text", /\.(asp|bat|c|cc|cfg|cjs|conf|cpp|cs|css|csv|cue|dart|diff|dockerfile|env|go|gradle|groovy|h|hpp|hs|ini|ipynb|java|jl|js|json|json5|jsonc|jsx|kt|less|log|lua|m|m3u|m3u8|makefile|mjs|mk|mod|patch|php|pl|plist|properties|ps1|py|pyw|r|rb|rs|rst|sass|scss|sh|sql|srt|sum|svelte|swift|tf|toml|ts|tsv|tsx|txt|vtt|vue|xml|ya?ml|zsh)$/i]
+			];
+			var VIEW = ["image", "video", "markdown", "pdf", "frame", "text"];
+			function kindOf(href) {
+				var p = href.split(/[?#]/)[0];
+				for (var i = 0; i < KINDS.length; i++) { if (KINDS[i][1].test(p)) return KINDS[i][0]; }
+				return null;
 			}
-			continue;
-		}
-		if(LI.test(ln)){
-			var ord=/^\s*\d/.test(ln),list=el(ord?"ol":"ul",frag);
-			while(i<lines.length&&LI.test(lines[i])&&/^\s*\d/.test(lines[i])===ord){
-				buf=[lines[i++].replace(LI,"")];
-				while(i<lines.length&&lines[i].trim()&&!BLK.test(lines[i]))buf.push(lines[i++].trim());
-				inline(buf.join(" "),el("li",list));
+			function dec(s) { try { return decodeURIComponent(s); } catch (e) { return s; } }
+			function baseOf(href) { return dec(href.split(/[?#]/)[0].split("/").pop()); }
+			function stem(n) { return n.replace(/\.[^.]+$/, ""); }
+			function rx(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+			function norm(s) { return s.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
+
+			/* ── state carried across navigation ────────────────────────────────── */
+			var CARRY = ["layout", "filter", "limit", "sort", "order"];
+			/* `filter` is a view over the rows of the CURRENT listing, so it may only survive navigation
+			   that stays in the same directory (sort/order/layout chips, pager). Crossing into another
+			   directory drops both the applied filter and the ?filter= parameter — carrying it re-filtered
+			   the new folder by a term that means nothing there. */
+			function merge(href) {
+				var cur, u;
+				try { cur = new URL(location.href); u = new URL(href, location.href); } catch (e) { return null; }
+				if (u.origin !== cur.origin) return null;
+				var same = u.pathname === cur.pathname, changed = false;
+				for (var i = 0; i < CARRY.length; i++) {
+					var k = CARRY[i], v = cur.searchParams.get(k);
+					if (k === "filter" && !same) continue;
+					if (v != null && v !== "" && !u.searchParams.has(k)) { u.searchParams.set(k, v); changed = true; }
+				}
+				return changed ? u.href : null;
 			}
-			continue;
-		}
-		buf=[];
-		while(i<lines.length&&lines[i].trim()&&!BLK.test(lines[i]))buf.push(lines[i++]);
-		if(!buf.length)buf.push(lines[i++]);
-		inline(buf.join("\n"),el("p",frag));
-	}
-	return frag;
-}
+			function setParam(k, v) {
+				var u = new URL(location.href);
+				if (v) u.searchParams.set(k, v); else u.searchParams.delete(k);
+				location.href = u.href;
+			}
 
-/* ── srt to vtt ─────────────────────────────────────────────────────── */
-function srt2vtt(s){
-	var body=String(s).replace(/^\uFEFF/,"").replace(/\r\n?/g,"\n")
-		.replace(/(\d\d:\d\d:\d\d),(\d{1,3})/g,"$1.$2")
-		.replace(/\{\\an?\d\}/gi,"")
-		.replace(/<font[^>]*>|<\/font>/gi,"");
-	return "WEBVTT\n\n"+body.trim()+"\n";
-}
-function subUrl(u){
-	if(!/\.srt$/i.test(u.split(/[?#]/)[0]))return Promise.resolve(u);
-	return fetch(u).then(function(r){
-		if(!r.ok)throw new Error(r.status);
-		return r.text();
-	}).then(function(t){
-		return URL.createObjectURL(new Blob([srt2vtt(t)],{type:"text/vtt"}));
-	}).catch(function(){return null;});
-}
+			/* ── filter ─────────────────────────────────────────────────────────── */
+			var fInput = $("#filter"), fCount = $(".fcount"), rows = null, fTimer = 0;
+			function index() {
+				rows = $$(".listing tr.dir,.listing tr.file,.listing .entry:not(.up)").map(function (el) {
+					var n = el.querySelector(".name");
+					return { el: el, hay: norm(n ? n.textContent : "") };
+				});
+			}
+			function applyFilter(sync) {
+				if (!fInput) return;
+				if (!rows) index();
+				var terms = norm(fInput.value).split(/\s+/).filter(Boolean), shown = 0;
+				for (var i = 0; i < rows.length; i++) {
+					var r = rows[i], hit = true;
+					for (var j = 0; j < terms.length; j++) { if (r.hay.indexOf(terms[j]) < 0) { hit = false; break; } }
+					if (r.el.hidden === hit) r.el.hidden = !hit;
+					if (hit) shown++;
+				}
+				fCount.textContent = terms.length ? shown + " of " + rows.length + " shown" : "";
+				if (sync !== false) {
+					var u = new URL(location.href);
+					if (fInput.value) u.searchParams.set("filter", fInput.value); else u.searchParams.delete("filter");
+					try { history.replaceState(null, "", u.href); } catch (e) { }
+				}
+			}
+			/* returns true only if something was actually cleared, so Escape stays a no-op otherwise */
+			function clearFilter() {
+				if (!fInput || !fInput.value) return false;
+				fInput.value = "";
+				applyFilter();
+				return true;
+			}
+			if (fInput) {
+				fInput.addEventListener("input", function () {
+					clearTimeout(fTimer);
+					fTimer = setTimeout(applyFilter, rows && rows.length > 2000 ? 180 : 0);
+				});
+				var f0 = new URL(location.href).searchParams.get("filter");
+				if (f0) { fInput.value = f0; applyFilter(false); }
+			}
 
-/* ── viewer: scroll-snap carousel (native swipe, momentum, pinch) ───── */
-var dlg=$("#viewer"),track=$(".v-track",dlg),vTitle=$(".v-title",dlg),vCount=$(".v-count",dlg),
-	vDl=$(".v-dl",dlg),vPrev=$(".v-prev",dlg),vNext=$(".v-next",dlg);
-var items=[],idx=0,slots=[],lock=false,uT=0,DOC_MAX=4194304,cache=new Map();
+			/* ── size bars + local timestamps ───────────────────────────────────── */
+			(function () {
+				var cells = $$("td.s[data-b]"), maxB = 0, i;
+				for (i = 0; i < cells.length; i++) { var b = +cells[i].dataset.b; if (b > maxB) maxB = b; }
+				if (maxB > 0) for (i = 0; i < cells.length; i++) {
+					var pct = Math.sqrt(+cells[i].dataset.b / maxB) * 100;
+					if (pct >= 1) cells[i].style.setProperty("--w", pct.toFixed(1) + "%");
+				}
+				var fmt;
+				try { fmt = new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" }); } catch (e) { return; }
+				var ts = document.getElementsByTagName("time");
+				for (i = 0; i < ts.length; i++) {
+					var d = new Date(ts[i].getAttribute("datetime"));
+					if (!isNaN(d.getTime())) ts[i].textContent = fmt.format(d);
+				}
+			})();
 
-/* snap must be off while we reposition scrollLeft, then back on. rAF alone is
-   not enough: it is throttled in background tabs / headless, which would leave
-   the track unsnapped and `lock` stuck true (swipe stops updating the index),
-   so a timer guarantees release and thaw() is idempotent. */
-function freeze(){if(uT){clearTimeout(uT);uT=0;}lock=true;track.classList.add("no-snap");}
-function thaw(){if(uT){clearTimeout(uT);uT=0;}track.classList.remove("no-snap");lock=false;}
-/* the vertical scroller of the active slide, if it actually overflows: a doc/code
-   preview must swallow Up/Down/PageUp/PageDown/Home/End instead of paging slides.
-   Nothing is focused inside the dialog, so the browser will not scroll it for us. */
-function scroller(){
-	var s=$('.v-slide[data-i="'+idx+'"]',track),el;
-	if(!s)return null;
-	el=$(".v-doc",s)||s;
-	return el.scrollHeight-el.clientHeight>8?el:null;
-}
-function vscroll(el,dy){var b=el.scrollTop;el.scrollTop=b+dy;return el.scrollTop!==b;}
-
-function thawSoon(){
-	uT=setTimeout(thaw,80);
-	requestAnimationFrame(function(){requestAnimationFrame(thaw);});
-}
-
-function links(){return $$(".listing a[href]");}
-function collect(kinds){
-	var out=[],ls=links();
-	for(var i=0;i<ls.length;i++){
-		var a=ls[i],row=a.closest("tr,.entry");
-		if(row&&row.hidden)continue;
-		var href=a.getAttribute("href");
-		if(!href||a.dataset.dir)continue;
-		var k=kindOf(href);
-		if(k&&kinds.indexOf(k)>=0)out.push({href:href,url:a.href,name:baseOf(href),kind:k,a:a});
-	}
-	return out;
-}
-function teardown(){
-	var ms=$$("video,audio",track);
-	for(var i=0;i<ms.length;i++){
-		var m=ms[i];
-		try{m.pause();}catch(e){}
-		(m._blobs||[]).forEach(function(b){URL.revokeObjectURL(b);});
-		m._blobs=null;
-		m.removeAttribute("src");
-		try{m.load();}catch(e){}
-	}
-	$$("iframe",track).forEach(function(f){f.removeAttribute("src");});
-	track.replaceChildren();
-}
-function video(it){
-	var v=document.createElement("video");
-	v.controls=true;v.autoplay=true;v.playsInline=true;v.preload="metadata";v.tabIndex=-1;
-	v.src=it.href;v._blobs=[];
-	var re=new RegExp("^"+rx(stem(it.name))+".*\\.(?:vtt|srt)$","i"),ls=links(),first=true;
-	for(var i=0;i<ls.length;i++){
-		var nm=baseOf(ls[i].getAttribute("href"));
-		if(!re.test(nm))continue;
-		(function(name,url,isDef){
-			subUrl(url).then(function(src){
-				if(!src||!v.isConnected)return;
-				var t=document.createElement("track");
-				t.kind="subtitles";t.label=name;t.srclang="en";t.src=src;t.default=isDef;
-				v.appendChild(t);
-				if(src.indexOf("blob:")===0)v._blobs.push(src);
-				if(isDef&&v.textTracks.length)v.textTracks[v.textTracks.length-1].mode="showing";
+			/* ── theme ──────────────────────────────────────────────────────────── */
+			$("#theme").addEventListener("click", function () {
+				var d = document.documentElement, cur = d.dataset.theme || "", next = cur === "" ? "dark" : cur === "dark" ? "light" : "";
+				if (next) d.dataset.theme = next; else delete d.dataset.theme;
+				try { next ? localStorage.setItem("cfs-theme", next) : localStorage.removeItem("cfs-theme"); } catch (e) { }
 			});
-		})(nm,ls[i].href,first);
-		first=false;
-	}
-	return v;
-}
-function loadDoc(host,it){
-	host.textContent="Loading\u2026";
-	var done=function(text){
-		if(!host.isConnected)return;
-		if(it.kind==="markdown"){host.classList.add("md");host.replaceChildren(mdRender(text,0));}
-		else{
-			var pre=document.createElement("pre"),code=document.createElement("code");
-			code.textContent=text;pre.appendChild(code);host.replaceChildren(pre);
-			highlight(code,(/\.([^.]+)$/.exec(it.name)||[])[1]);
-		}
-	};
-	var hit=cache.get(it.href);
-	if(hit!==undefined){done(hit);return;}
-	fetch(it.href).then(function(r){
-		if(!r.ok)throw new Error("HTTP "+r.status);
-		var len=+r.headers.get("content-length");
-		if(len>DOC_MAX)throw new Error("file is "+(len/1048576).toFixed(1)+" MiB, too large to preview");
-		return r.text();
-	}).then(function(text){
-		if(text.length>DOC_MAX)text=text.slice(0,DOC_MAX)+"\n\u2026 truncated \u2026";
-		cache.set(it.href,text);
-		if(cache.size>12)cache.delete(cache.keys().next().value);
-		done(text);
-	}).catch(function(err){
-		if(!host.isConnected)return;
-		host.classList.add("err");
-		host.textContent="Preview failed: "+err.message;
-	});
-}
-function slide(i,active,pend){
-	var it=items[i],s=document.createElement("div"),x;
-	s.className="v-slide";s.dataset.i=i;
-	if(it.kind==="image"){
-		x=new Image();x.src=it.href;x.alt=it.name;x.decoding="async";s.appendChild(x);
-	}else if(!active){
-		x=document.createElement("div");x.className="v-stub";x.textContent=it.name;s.appendChild(x);
-	}else if(it.kind==="video"){
-		s.appendChild(video(it));
-	}else if(it.kind==="pdf"||it.kind==="frame"){
-		x=document.createElement("iframe");x.className="v-frame";x.title=it.name;
-		x.referrerPolicy="no-referrer";
-		if(it.kind==="frame")x.setAttribute("sandbox","");
-		x.src=it.href;s.appendChild(x);
-		s.classList.add("scrolls");/* the iframe scrolls itself — leave both axes to the browser */
-	}else{
-		/* load only once the host is in the document, never from the detached fragment */
-		x=document.createElement("div");x.className="v-doc";s.appendChild(x);pend.push([x,it]);
-		s.classList.add("scrolls");
-	}
-	return s;
-}
-function chrome(){
-	var it=items[idx];
-	vTitle.textContent=it.name;vTitle.title=it.name;
-	vCount.textContent=items.length>1?(idx+1)+" / "+items.length:"";
-	vDl.href=it.href;vDl.setAttribute("download",it.name);
-	vPrev.disabled=idx<=0;vNext.disabled=idx>=items.length-1;
-	for(var j=idx-2;j<=idx+2;j++){
-		var n=items[j];
-		if(n&&n.kind==="image"&&j!==idx){var p=new Image();p.decoding="async";p.src=n.href;}
-	}
-}
-function render(){
-	var lo=Math.max(0,idx-1),hi=Math.min(items.length-1,idx+1),frag=document.createDocumentFragment(),pend=[];
-	slots=[];
-	for(var i=lo;i<=hi;i++){slots.push(i);frag.appendChild(slide(i,i===idx,pend));}
-	teardown();track.appendChild(frag);
-	for(i=0;i<pend.length;i++)loadDoc(pend[i][0],pend[i][1]);
-	freeze();
-	track.scrollLeft=slots.indexOf(idx)*track.clientWidth;
-	thawSoon();
-	chrome();
-}
-function go(d){
-	var t=Math.min(items.length-1,Math.max(0,idx+d));
-	if(t===idx)return;
-	var s=slots.indexOf(t);
-	if(s>=0){freeze();track.scrollTo({left:s*track.clientWidth,behavior:"smooth"});
-		setTimeout(function(){idx=t;render();},260);}
-	else{idx=t;render();}
-}
-function settle(){
-	if(lock||!dlg.open||!items.length)return;
-	var w=track.clientWidth||1,t=slots[Math.round(track.scrollLeft/w)];
-	if(t!==undefined&&t!==idx){idx=t;render();}
-}
-function openAt(href){
-	items=collect(VIEW);
-	idx=-1;
-	for(var i=0;i<items.length;i++){if(items[i].href===href){idx=i;break;}}
-	if(idx<0){items=[{href:href,name:baseOf(href),kind:kindOf(href)}];idx=0;}
-	/* a drag-dismiss arms eatClick and then closes, so the flag must not survive into the next
-	   session — it would swallow the first tap after every dismissal */
-	drag=null;tActive=false;eatClick=false;
-	if(!dlg.open)dlg.showModal();
-	render();
-	if(imm)hideUI();else showUI();
-}
-/* tear down synchronously: never rely on the close event alone to stop media */
-function closeViewer(){
-	if(uiT){clearTimeout(uiT);uiT=0;}
-	dlg.classList.remove("hide-ui");
-	if(dlg.open)dlg.close();teardown();items=[];slots=[];
-}
-var sTimer=0;
-track.addEventListener("scroll",function(){
-	/* a finger is paging: get the interface out of the way immediately, before the first frame
-	   of movement, instead of letting it linger over the media for the rest of the idle timer. */
-	if(tActive)hideUI();
-	if("onscrollend" in window)return;
-	clearTimeout(sTimer);sTimer=setTimeout(settle,120);
-},{passive:true});
-track.addEventListener("scrollend",settle);
-track.addEventListener("click",function(e){
-	if(eatClick){eatClick=false;return;}/* the tail of a drag is not a tap */
-	if(lastPT==="touch"){
-		/* Touch has no hover, so the tap is the only "show me the controls" gesture there is —
-		   and it must toggle, or a tap meant to dismiss the interface would re-arm it. Taps on
-		   real controls are left alone. Backdrop-tap-to-close is deliberately NOT wired on touch:
-		   it collides with this toggle, and every mobile gallery closes via the button or a
-		   downward flick instead. */
-		if(e.target.closest("a,button,video,audio,iframe,input,select,textarea,summary"))return;
-		if(dlg.classList.contains("hide-ui"))showUI();else hideUI();
-		return;
-	}
-	if(e.target===track||e.target.classList.contains("v-slide"))closeViewer();
-	else if(e.target.tagName==="IMG"){
-		var z=e.target.classList.toggle("zoom"),sl=e.target.closest(".v-slide");
-		/* a zoomed image overflows, so hand both axes back to the browser while it is zoomed */
-		if(sl)sl.classList.toggle("scrolls",z);
-	}
-});
 
-/* ── touch gestures: native horizontal paging + vertical drag-to-dismiss ────────────────
-   There is deliberately NO synthetic left/right swipe detection: the horizontal axis belongs to
-   the scroll-snap track, which already gives finger-following movement, momentum, rubber-band and
-   one-slide-per-flick snapping — a touchend threshold handler could only replace all of that with
-   a binary guess. Vertical is ours by construction: `touch-action:pan-x` on a media slide leaves
-   the browser no vertical axis to claim, so it never takes over the pointer stream mid-gesture. */
-var DRAG_MIN=10,drag=null,tActive=false,eatClick=false,lastPT="mouse";
-function dragEnd(d,dismiss){
-	d.el.classList.add("v-drag");
-	if(d.s)d.s.style.overflow="";
-	if(dismiss){
-		d.el.style.transform="translate3d(0,"+(d.dy<0?-innerHeight:innerHeight)+"px,0)";
-		d.el.style.opacity="0";
-		/* a timer, never transitionend: a transition that never ticks must not strand the viewer */
-		setTimeout(closeViewer,200);
-	}else{
-		d.el.style.transform="";d.el.style.opacity="";
-		setTimeout(function(){d.el.classList.remove("v-drag");},200);
-	}
-}
-/* "touch" is the only special pointer type: it has no hover and no cursor, so it gets the
-   tap-toggle and the drag. Everything else — mouse, pen, and any synthetic event with an empty
-   pointerType — keeps hover semantics, which is the safe default (controls stay reachable). */
-track.addEventListener("pointerdown",function(e){
-	lastPT=e.pointerType||"mouse";
-	if(lastPT!=="touch")return;
-	tActive=true;
-	if(drag){dragEnd(drag,false);drag=null;return;}/* a second finger: it is a pinch, not a drag */
-	if(!e.isPrimary||!dlg.open)return;
-	var s=$('.v-slide[data-i="'+idx+'"]',track);
-	if(!s||s.classList.contains("scrolls"))return;/* scrollable content owns its own vertical axis */
-	if(window.visualViewport&&visualViewport.scale>1.01)return;/* pinched in: let them pan it */
-	var el=s.querySelector("img,video");
-	if(!el)return;/* never transform the slide itself — it is the snap area */
-	el.classList.remove("v-drag");
-	drag={el:el,s:s,x:e.clientX,y:e.clientY,t:Date.now(),dy:0,on:false};
-},{passive:true});
-track.addEventListener("pointermove",function(e){
-	if(!drag||!e.isPrimary)return;
-	var dx=e.clientX-drag.x,dy=e.clientY-drag.y;
-	if(!drag.on){
-		/* first movement past the threshold locks the axis for the whole gesture, so a sloppy
-		   diagonal flick can never both page and dismiss */
-		if(Math.abs(dx)>DRAG_MIN&&Math.abs(dx)>=Math.abs(dy)){drag=null;return;}
-		if(Math.abs(dy)<DRAG_MIN)return;
-		drag.on=true;
-		hideUI();/* the gesture is confirmed: nothing should sit over the media while it moves */
-		drag.s.style.overflow="hidden";/* the translated child must not become scrollable overflow */
-	}
-	drag.dy=dy;
-	var k=Math.min(1,Math.abs(dy)/(innerHeight*.5));
-	drag.el.style.transform="translate3d(0,"+dy+"px,0) scale("+(1-k*.12).toFixed(3)+")";
-	drag.el.style.opacity=(1-k*.65).toFixed(3);
-},{passive:true});
-track.addEventListener("pointerup",function(){
-	tActive=false;
-	if(!drag)return;
-	var d=drag;drag=null;
-	if(!d.on)return;/* it was a tap: leave it to the click handler */
-	eatClick=true;
-	var dt=Math.max(1,Date.now()-d.t);
-	/* distance OR velocity, so a short fast flick dismisses as readily as a long slow pull */
-	dragEnd(d,Math.abs(d.dy)>Math.max(80,innerHeight*.18)||(Math.abs(d.dy)/dt>.5&&Math.abs(d.dy)>40));
-});
-track.addEventListener("pointercancel",function(){
-	tActive=false;
-	if(!drag)return;
-	var d=drag;drag=null;
-	if(d.on){eatClick=true;dragEnd(d,false);}
-});
-vPrev.addEventListener("click",function(){go(-1);});
-vNext.addEventListener("click",function(){go(1);});
-$(".v-close",dlg).addEventListener("click",closeViewer);
-/* ── interface visibility: idle auto-hide + expanded mode (no Fullscreen API) ──
-   One timer drives both. Expanded ("imm") only removes padding/frames and shortens the
-   idle delay, so a pointer move always brings the controls back — the single mechanism
-   means there is no state where the UI is hidden with no way to reveal it. */
-var vFs=$(".v-fs",dlg),bar=$(".v-bar",dlg),UI_IDLE=2500,uiT=0,imm=false,barHot=false;
-function hideUI(){if(uiT){clearTimeout(uiT);uiT=0;}dlg.classList.add("hide-ui");}
-function showUI(){
-	dlg.classList.remove("hide-ui");
-	if(uiT){clearTimeout(uiT);uiT=0;}
-	if(!barHot&&dlg.open)uiT=setTimeout(hideUI,imm?1200:UI_IDLE);
-}
-function setImm(on){
-	imm=!!on;
-	dlg.classList.toggle("imm",imm);
-	vFs.classList.toggle("on",imm);
-	vFs.setAttribute("aria-pressed",imm?"true":"false");
-	vFs.setAttribute("title",imm?"Restore interface (f)":"Expand — hide interface (f)");
-	if(imm)hideUI();else showUI();
-}
-vFs.addEventListener("click",function(){setImm(!imm);});
-/* hovering the bar pins it; leaving restarts the idle countdown */
-bar.addEventListener("pointerenter",function(){barHot=true;if(uiT){clearTimeout(uiT);uiT=0;}});
-bar.addEventListener("pointerleave",function(){barHot=false;showUI();});
-/* Mouse only. A touch pointerdown/pointermove is the START of a swipe, so revealing on it made
-   the bar flash in over the media on every single page — the exact annoyance this avoids. On
-   touch the reveal is the tap (see the track click handler); touching a control still keeps the
-   bar alive, so reaching for a second button never races the idle timer. */
-dlg.addEventListener("pointermove",function(e){if(e.pointerType!=="touch"&&!barHot)showUI();});
-dlg.addEventListener("pointerdown",function(e){if(e.pointerType!=="touch")showUI();});
-bar.addEventListener("pointerdown",function(){showUI();});
-/* Esc: while expanded the first press only restores the interface (cancel is cancelable),
-   so one keypress never loses your place in a long gallery. A second press closes. */
-dlg.addEventListener("cancel",function(e){
-	if(imm){e.preventDefault();setImm(false);return;}
-	teardown();items=[];slots=[];
-});
-dlg.addEventListener("close",function(){if(dlg.open)return;teardown();items=[];slots=[];});
-var rTimer=0;
-addEventListener("resize",function(){
-	if(!dlg.open)return;
-	clearTimeout(rTimer);
-	rTimer=setTimeout(function(){
-		freeze();
-		track.scrollLeft=slots.indexOf(idx)*track.clientWidth;
-		thawSoon();
-	},100);
-});
+			/* ── syntax tokenizer (extension-profiled, ~4 token classes) ────────── */
+			var R_STR = /"(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*'|`(?:[^`\\]|\\.)*`/;
+			var R_NUM = /\b(?:0[xXbBoO][0-9a-fA-F_]+|\d[\d_]*(?:\.\d+)?(?:[eE][+-]?\d+)?)\b/;
+			var R_KW = /\b(?:abstract|and|as|assert|async|await|bool|break|byte|case|catch|char|class|const|constexpr|continue|def|default|defer|del|delete|do|double|elif|else|elseif|end|enum|export|extends|extern|false|final|finally|float|fn|for|from|func|function|global|go|goto|if|impl|implements|import|in|inline|instanceof|int|interface|is|lambda|let|long|match|module|move|mut|namespace|new|nil|none|not|null|operator|or|package|pass|print|private|protected|pub|public|raise|range|ref|return|select|self|short|signed|sizeof|static|str|struct|super|switch|template|then|this|throw|throws|trait|true|try|type|typedef|typeof|union|unsigned|use|using|var|virtual|void|volatile|when|where|while|with|yield)\b/;
+			var R_C_SLASH = /\/\*[\s\S]*?\*\/|\/\/[^\n]*|< !--[\s\S ]*?-->/;
+var R_C_HASH = /#[^\n]*/;
+			var R_C_DASH = /--[^\n]*|\/\*[\s\S]*?\*\//;
+			function mkHL(c) {
+				return new RegExp("(" + c.source + ")|(" + R_STR.source + ")|(" + R_NUM.source + ")|(" + R_KW.source + ")", "g");
+			}
+			var HL = { slash: mkHL(R_C_SLASH), hash: mkHL(R_C_HASH), dash: mkHL(R_C_DASH) };
+			var HL_MAX = 300000;
+			function highlight(code, ext) {
+				var src = code.textContent;
+				if (!src || src.length > HL_MAX) return;
+				var e = String(ext || "").toLowerCase().replace(/^\./, "");
+				var re = /^(py|pyw|sh|bash|zsh|fish|rb|pl|yml|yaml|toml|ini|cfg|conf|env|properties|ps1|tf|r|jl|dockerfile|makefile|mk|gitignore)$/.test(e) ? HL.hash
+					: /^(sql|lua|hs|elm|ada|vhdl)$/.test(e) ? HL.dash : HL.slash;
+				re.lastIndex = 0;
+				var frag = document.createDocumentFragment(), last = 0, m, cls, sp;
+				while ((m = re.exec(src)) !== null) {
+					if (m[0] === "") { re.lastIndex++; continue; }
+					if (m.index > last) frag.appendChild(document.createTextNode(src.slice(last, m.index)));
+					last = re.lastIndex;
+					cls = m[1] !== undefined ? "c" : m[2] !== undefined ? "s" : m[3] !== undefined ? "n" : "k";
+					sp = document.createElement("span"); sp.className = cls; sp.textContent = m[0];
+					frag.appendChild(sp);
+				}
+				if (last < src.length) frag.appendChild(document.createTextNode(src.slice(last)));
+				code.replaceChildren(frag);
+			}
 
-/* ── audio dock ─────────────────────────────────────────────────────── */
-var dock=$(".dock"),dAudio=$(".d-audio",dock),dTitle=$(".dock-title",dock),
-	list=[],cur=-1,marked=null;
-function mark(a){
-	if(marked){
-		marked.classList.remove("now");
-		var pr=marked.closest?marked.closest("tr,.entry"):null;
-		if(pr)pr.classList.remove("now");
-	}
-	marked=a||null;
-	if(a){
-		a.classList.add("now");
-		var r=a.closest?a.closest("tr,.entry"):null;
-		if(r)r.classList.add("now");
-	}
-}
-function playAt(i){
-	if(i<0||i>=list.length)return;
-	cur=i;
-	var it=list[i];
-	dTitle.textContent=it.name;dTitle.title=it.name;
-	dAudio.src=it.href;
-	dock.hidden=false;document.body.classList.add("has-dock");
-	mark(it.a);
-	dAudio.play().catch(function(){});
-	try{
-		if("mediaSession" in navigator)navigator.mediaSession.metadata=new MediaMetadata({title:it.name});
-	}catch(e){}
-}
-function step(d){
-	var t=cur+d;
-	if(t<0||t>=list.length)return;
-	playAt(t);
-}
-dAudio.addEventListener("ended",function(){step(1);});
-$(".d-prev",dock).addEventListener("click",function(){step(-1);});
-$(".d-next",dock).addEventListener("click",function(){step(1);});
-$(".d-close",dock).addEventListener("click",function(){
-	try{dAudio.pause();}catch(e){}
-	dAudio.removeAttribute("src");
-	try{dAudio.load();}catch(e){}
-	dock.hidden=true;document.body.classList.remove("has-dock");mark(null);cur=-1;list=[];
-});
+			/* ── markdown to DOM (escaped by construction, no innerHTML anywhere) ── */
+			var SCHEME = /^(?:https?:|mailto:)/i;
+			function safeUrl(u) {
+				try {
+					var a = new URL(String(u).trim(), location.href);
+					return SCHEME.test(a.protocol) ? a.href : null;
+				} catch (e) { return null; }
+			}
+			var INL = /(`+)([\s\S]*?)\1|\*\*([\s\S]+?)\*\*|(?<![A-Za-z0-9_])__([\s\S]+?)__(?![A-Za-z0-9_])|\*([^*\n]+?)\*|(?<![A-Za-z0-9_])_([^_\n]+?)_(?![A-Za-z0-9_])|~~([\s\S]+?)~~|!\[([^\]]*)\]\(([^)\s]+)\)|\[([^\]]*)\]\(([^)\s]+)\)|<((?:https?|mailto):[^>\s]+)>|\b((?:https?):\/\/[^\s<>()[\]"]+)/g;
+			function el(t, p) { var x = document.createElement(t); if (p) p.appendChild(x); return x; }
+			function txt(s, p) { p.appendChild(document.createTextNode(s)); }
+			function inline(s, p) {
+				/* collect first: inline() recurses, and INL is a shared /g regex whose
+				   lastIndex a nested call would otherwise clobber (infinite loop). */
+				INL.lastIndex = 0;
+				var ms = [], m, x, u, k, last = 0;
+				while ((m = INL.exec(s)) !== null) {
+					if (m[0] === "") { INL.lastIndex++; continue; }
+					ms.push(m);
+				}
+				for (k = 0; k < ms.length; k++) {
+					m = ms[k];
+					if (m.index < last) continue;
+					if (m.index > last) txt(s.slice(last, m.index), p);
+					last = m.index + m[0].length;
+					if (m[2] !== undefined) { el("code", p).textContent = m[2].replace(/^ | $/g, ""); }
+					else if (m[3] !== undefined || m[4] !== undefined) { inline(m[3] !== undefined ? m[3] : m[4], el("strong", p)); }
+					else if (m[5] !== undefined || m[6] !== undefined) { inline(m[5] !== undefined ? m[5] : m[6], el("em", p)); }
+					else if (m[7] !== undefined) { inline(m[7], el("del", p)); }
+					else if (m[9] !== undefined) {
+						u = safeUrl(m[9]);
+						if (u) { x = el("img", p); x.src = u; x.alt = m[8]; x.loading = "lazy"; } else txt(m[0], p);
+					} else if (m[11] !== undefined) {
+						u = safeUrl(m[11]);
+						if (u) {
+							x = el("a", p); x.href = u; x.rel = "noopener noreferrer nofollow"; x.target = "_blank";
+							inline(m[10] || m[11], x);
+						} else txt(m[0], p);
+					} else {
+						var raw = m[12] !== undefined ? m[12] : m[13]; u = safeUrl(raw);
+						if (u) { x = el("a", p); x.href = u; x.rel = "noopener noreferrer nofollow"; x.target = "_blank"; x.textContent = raw; }
+						else txt(m[0], p);
+					}
+				}
+				if (last < s.length) txt(s.slice(last), p);
+			}
+			var LI = /^\s*(?:[-*+]|\d+[.)])\s+/, BLK = /^(?:#{1,6}\s|```|~~~|>|\s*(?:[-*+]|\d+[.)])\s|\||\s*$)/;
+			function mdRender(src, depth) {
+				var frag = document.createDocumentFragment();
+				if ((depth | 0) > 6) { txt(src, frag); return frag; }
+				var lines = String(src).replace(/\r\n?/g, "\n").split("\n"), i = 0, m, buf, x, y;
+				while (i < lines.length) {
+					var ln = lines[i];
+					if (!ln.trim()) { i++; continue; }
+					/* a fence opener carries nothing but an info word; `` `x` `` stays inline code */
+					if ((m = /^\s*(?:```+|~~~+)[ \t]*([\w.+#-]*)[ \t]*$/.exec(ln)) !== null) {
+						i++; buf = [];
+						while (i < lines.length && !/^\s*(?:```|~~~)/.test(lines[i])) buf.push(lines[i++]);
+						i++;
+						x = el("code", el("pre", frag)); x.textContent = buf.join("\n"); highlight(x, m[1]);
+						continue;
+					}
+					if ((m = /^(#{1,6})\s+(.*?)#*\s*$/.exec(ln)) !== null) { inline(m[2], el("h" + m[1].length, frag)); i++; continue; }
+					if (/^\s*(?:([-*_])\s*)(?:\1\s*){2,}$/.test(ln)) { el("hr", frag); i++; continue; }
+					if (/^>/.test(ln)) {
+						buf = [];
+						while (i < lines.length && /^>/.test(lines[i])) buf.push(lines[i++].replace(/^>\s?/, ""));
+						el("blockquote", frag).appendChild(mdRender(buf.join("\n"), (depth | 0) + 1));
+						continue;
+					}
+					if (/^\s*\|.*\|\s*$/.test(ln) && i + 1 < lines.length && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i + 1])) {
+						var tbl = el("table", frag), row = lines[i].trim().replace(/^\||\|$/g, "").split("|");
+						y = el("tr", el("thead", tbl));
+						row.forEach(function (c) { inline(c.trim(), el("th", y)); });
+						i += 2;
+						var tb = el("tbody", tbl);
+						while (i < lines.length && /^\s*\|.*\|\s*$/.test(lines[i])) {
+							y = el("tr", tb);
+							lines[i++].trim().replace(/^\||\|$/g, "").split("|").forEach(function (c) { inline(c.trim(), el("td", y)); });
+						}
+						continue;
+					}
+					if (LI.test(ln)) {
+						var ord = /^\s*\d/.test(ln), list = el(ord ? "ol" : "ul", frag);
+						while (i < lines.length && LI.test(lines[i]) && /^\s*\d/.test(lines[i]) === ord) {
+							buf = [lines[i++].replace(LI, "")];
+							while (i < lines.length && lines[i].trim() && !BLK.test(lines[i])) buf.push(lines[i++].trim());
+							inline(buf.join(" "), el("li", list));
+						}
+						continue;
+					}
+					buf = [];
+					while (i < lines.length && lines[i].trim() && !BLK.test(lines[i])) buf.push(lines[i++]);
+					if (!buf.length) buf.push(lines[i++]);
+					inline(buf.join("\n"), el("p", frag));
+				}
+				return frag;
+			}
 
-/* ── one delegated click handler ────────────────────────────────────── */
-document.addEventListener("click",function(e){
-	var a=e.target.closest?e.target.closest("a[href]"):null;
-	if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
-	if(a.closest("#viewer,#keys,.dock"))return;
-	var href=a.getAttribute("href");
-	if(!href||href.charAt(0)==="#")return;
-	if(a.closest(".listing")&&!a.dataset.dir&&!a.closest(".up")){
-		var k=kindOf(href);
-		if(k==="audio"){
-			e.preventDefault();
-			list=collect(["audio"]);
-			for(var i=0;i<list.length;i++)if(list[i].href===href){playAt(i);return;}
-			return;
-		}
-		if(k&&VIEW.indexOf(k)>=0){e.preventDefault();openAt(href);return;}
-	}
-	var u=merge(a.href);
-	if(u){e.preventDefault();location.href=u;}
-});
+			/* ── srt to vtt ─────────────────────────────────────────────────────── */
+			function srt2vtt(s) {
+				var body = String(s).replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n")
+					.replace(/(\d\d:\d\d:\d\d),(\d{1,3})/g, "$1.$2")
+					.replace(/\{\\an?\d\}/gi, "")
+					.replace(/<font[^>]*>|<\/font>/gi, "");
+				return "WEBVTT\n\n" + body.trim() + "\n";
+			}
+			function subUrl(u) {
+				if (!/\.srt$/i.test(u.split(/[?#]/)[0])) return Promise.resolve(u);
+				return fetch(u).then(function (r) {
+					if (!r.ok) throw new Error(r.status);
+					return r.text();
+				}).then(function (t) {
+					return URL.createObjectURL(new Blob([srt2vtt(t)], { type: "text/vtt" }));
+				}).catch(function () { return null; });
+			}
 
-/* ── keyboard ───────────────────────────────────────────────────────── */
-var keys=$("#keys");
-$("#help").addEventListener("click",function(){keys.showModal();});
-$("#keys .chip").addEventListener("click",function(){keys.close();});
-addEventListener("keydown",function(e){
-	if(e.ctrlKey||e.metaKey||e.altKey)return;
-	var t=e.target;
-	if(t&&t.closest&&t.closest("input,textarea,select,[contenteditable=true]")){
-		if(e.key==="Escape"&&t===fInput){clearFilter();fInput.blur();e.preventDefault();}
-		return;
-	}
-	if(keys.open)return;
-	if(dlg.open){
-		var v=$('.v-slide[data-i="'+idx+'"] video',track),sc=scroller(),pg=sc?Math.max(80,sc.clientHeight*.9):0;
-		if(e.key!=="Escape")showUI();/* any key counts as activity */
-		switch(e.key){
-			case "ArrowLeft":if(v&&!e.shiftKey)v.currentTime=Math.max(0,v.currentTime-5);else go(-1);e.preventDefault();break;
-			case "ArrowRight":if(v&&!e.shiftKey)v.currentTime=v.currentTime+5;else go(1);e.preventDefault();break;
-			case "ArrowUp":if(sc)vscroll(sc,-64);else go(-1);e.preventDefault();break;
-			case "ArrowDown":if(sc)vscroll(sc,64);else go(1);e.preventDefault();break;
-			case "PageUp":if(sc)vscroll(sc,-pg);else go(-1);e.preventDefault();break;
-			case "PageDown":if(sc)vscroll(sc,pg);else go(1);e.preventDefault();break;
-			case "Home":if(sc)sc.scrollTop=0;else if(items.length){idx=0;render();}e.preventDefault();break;
-			case "End":if(sc)sc.scrollTop=sc.scrollHeight;else if(items.length){idx=items.length-1;render();}e.preventDefault();break;
-			case " ":if(v){v.paused?v.play().catch(function(){}):v.pause();e.preventDefault();}
-				else if(sc){vscroll(sc,e.shiftKey?-pg:pg);e.preventDefault();}break;
-			case "f":case "F":$(".v-fs",dlg).click();e.preventDefault();break;
-		}
-		return;
-	}
-	if(e.key==="/"){if(fInput){fInput.focus();fInput.select();e.preventDefault();}}
-	else if(e.key==="?"){keys.showModal();e.preventDefault();}
-	else if(e.key==="g"){setParam("layout","grid");}
-	else if(e.key==="l"){setParam("layout","list");}
-	/* Escape must clear the filter even when focus has left the box — the in-input branch above
-	   only ever fires while it is focused, which is why Escape looked dead after clicking a row.
-	   Both dialogs return before this point, so their own Escape handling is untouched. */
-	else if(e.key==="Escape"){if(clearFilter())e.preventDefault();}
-});
-})();
-</script>
+			/* ── viewer: scroll-snap carousel (native swipe, momentum, pinch) ───── */
+			var dlg = $("#viewer"), track = $(".v-track", dlg), vTitle = $(".v-title", dlg), vCount = $(".v-count", dlg),
+				vDl = $(".v-dl", dlg), vPrev = $(".v-prev", dlg), vNext = $(".v-next", dlg);
+			var items = [], idx = 0, slots = [], lock = false, uT = 0, DOC_MAX = 4194304, cache = new Map();
+
+			/* snap must be off while we reposition scrollLeft, then back on. rAF alone is
+			   not enough: it is throttled in background tabs / headless, which would leave
+			   the track unsnapped and `lock` stuck true (swipe stops updating the index),
+			   so a timer guarantees release and thaw() is idempotent. */
+			function freeze() { if (uT) { clearTimeout(uT); uT = 0; } lock = true; track.classList.add("no-snap"); }
+			function thaw() { if (uT) { clearTimeout(uT); uT = 0; } track.classList.remove("no-snap"); lock = false; }
+			/* the vertical scroller of the active slide, if it actually overflows: a doc/code
+			   preview must swallow Up/Down/PageUp/PageDown/Home/End instead of paging slides.
+			   Nothing is focused inside the dialog, so the browser will not scroll it for us. */
+			function scroller() {
+				var s = $('.v-slide[data-i="' + idx + '"]', track), el;
+				if (!s) return null;
+				el = $(".v-doc", s) || s;
+				return el.scrollHeight - el.clientHeight > 8 ? el : null;
+			}
+			function vscroll(el, dy) { var b = el.scrollTop; el.scrollTop = b + dy; return el.scrollTop !== b; }
+
+			function thawSoon() {
+				uT = setTimeout(thaw, 80);
+				requestAnimationFrame(function () { requestAnimationFrame(thaw); });
+			}
+
+			function links() { return $$(".listing a[href]"); }
+			function collect(kinds) {
+				var out = [], ls = links();
+				for (var i = 0; i < ls.length; i++) {
+					var a = ls[i], row = a.closest("tr,.entry");
+					if (row && row.hidden) continue;
+					var href = a.getAttribute("href");
+					if (!href || a.dataset.dir) continue;
+					var k = kindOf(href);
+					if (k && kinds.indexOf(k) >= 0) out.push({ href: href, url: a.href, name: baseOf(href), kind: k, a: a });
+				}
+				return out;
+			}
+			function teardown() {
+				var ms = $$("video,audio", track);
+				for (var i = 0; i < ms.length; i++) {
+					var m = ms[i];
+					try { m.pause(); } catch (e) { }
+					(m._blobs || []).forEach(function (b) { URL.revokeObjectURL(b); });
+					m._blobs = null;
+					m.removeAttribute("src");
+					try { m.load(); } catch (e) { }
+				}
+				$$("iframe", track).forEach(function (f) { f.removeAttribute("src"); });
+				track.replaceChildren();
+			}
+			function video(it) {
+				var v = document.createElement("video");
+				v.controls = true; v.autoplay = true; v.playsInline = true; v.preload = "metadata"; v.tabIndex = -1;
+				v.src = it.href; v._blobs = [];
+				var re = new RegExp("^" + rx(stem(it.name)) + ".*\\.(?:vtt|srt)$", "i"), ls = links(), first = true;
+				for (var i = 0; i < ls.length; i++) {
+					var nm = baseOf(ls[i].getAttribute("href"));
+					if (!re.test(nm)) continue;
+					(function (name, url, isDef) {
+						subUrl(url).then(function (src) {
+							if (!src || !v.isConnected) return;
+							var t = document.createElement("track");
+							t.kind = "subtitles"; t.label = name; t.srclang = "en"; t.src = src; t.default = isDef;
+							v.appendChild(t);
+							if (src.indexOf("blob:") === 0) v._blobs.push(src);
+							if (isDef && v.textTracks.length) v.textTracks[v.textTracks.length - 1].mode = "showing";
+						});
+					})(nm, ls[i].href, first);
+					first = false;
+				}
+				return v;
+			}
+			function loadDoc(host, it) {
+				host.textContent = "Loading\u2026";
+				var done = function (text) {
+					if (!host.isConnected) return;
+					if (it.kind === "markdown") { host.classList.add("md"); host.replaceChildren(mdRender(text, 0)); }
+					else {
+						var pre = document.createElement("pre"), code = document.createElement("code");
+						code.textContent = text; pre.appendChild(code); host.replaceChildren(pre);
+						highlight(code, (/\.([^.]+)$/.exec(it.name) || [])[1]);
+					}
+				};
+				var hit = cache.get(it.href);
+				if (hit !== undefined) { done(hit); return; }
+				fetch(it.href).then(function (r) {
+					if (!r.ok) throw new Error("HTTP " + r.status);
+					var len = +r.headers.get("content-length");
+					if (len > DOC_MAX) throw new Error("file is " + (len / 1048576).toFixed(1) + " MiB, too large to preview");
+					return r.text();
+				}).then(function (text) {
+					if (text.length > DOC_MAX) text = text.slice(0, DOC_MAX) + "\n\u2026 truncated \u2026";
+					cache.set(it.href, text);
+					if (cache.size > 12) cache.delete(cache.keys().next().value);
+					done(text);
+				}).catch(function (err) {
+					if (!host.isConnected) return;
+					host.classList.add("err");
+					host.textContent = "Preview failed: " + err.message;
+				});
+			}
+			function slide(i, active, pend) {
+				var it = items[i], s = document.createElement("div"), x;
+				s.className = "v-slide"; s.dataset.i = i;
+				if (it.kind === "image") {
+					x = new Image(); x.src = it.href; x.alt = it.name; x.decoding = "async"; s.appendChild(x);
+				} else if (!active) {
+					x = document.createElement("div"); x.className = "v-stub"; x.textContent = it.name; s.appendChild(x);
+				} else if (it.kind === "video") {
+					s.appendChild(video(it));
+				} else if (it.kind === "pdf" || it.kind === "frame") {
+					x = document.createElement("iframe"); x.className = "v-frame"; x.title = it.name;
+					x.referrerPolicy = "no-referrer";
+					if (it.kind === "frame") x.setAttribute("sandbox", "");
+					x.src = it.href; s.appendChild(x);
+					s.classList.add("scrolls");/* the iframe scrolls itself — leave both axes to the browser */
+				} else {
+					/* load only once the host is in the document, never from the detached fragment */
+					x = document.createElement("div"); x.className = "v-doc"; s.appendChild(x); pend.push([x, it]);
+					s.classList.add("scrolls");
+				}
+				return s;
+			}
+			function chrome() {
+				var it = items[idx];
+				vTitle.textContent = it.name; vTitle.title = it.name;
+				vCount.textContent = items.length > 1 ? (idx + 1) + " / " + items.length : "";
+				vDl.href = it.href; vDl.setAttribute("download", it.name);
+				vPrev.disabled = idx <= 0; vNext.disabled = idx >= items.length - 1;
+				for (var j = idx - 2; j <= idx + 2; j++) {
+					var n = items[j];
+					if (n && n.kind === "image" && j !== idx) { var p = new Image(); p.decoding = "async"; p.src = n.href; }
+				}
+			}
+			function render() {
+				var lo = Math.max(0, idx - 1), hi = Math.min(items.length - 1, idx + 1), frag = document.createDocumentFragment(), pend = [];
+				slots = [];
+				for (var i = lo; i <= hi; i++) { slots.push(i); frag.appendChild(slide(i, i === idx, pend)); }
+				teardown(); track.appendChild(frag);
+				for (i = 0; i < pend.length; i++)loadDoc(pend[i][0], pend[i][1]);
+				freeze();
+				track.scrollLeft = slots.indexOf(idx) * track.clientWidth;
+				thawSoon();
+				chrome();
+			}
+			function go(d) {
+				var t = Math.min(items.length - 1, Math.max(0, idx + d));
+				if (t === idx) return;
+				var s = slots.indexOf(t);
+				if (s >= 0) {
+					freeze(); track.scrollTo({ left: s * track.clientWidth, behavior: "smooth" });
+					setTimeout(function () { idx = t; render(); }, 260);
+				}
+				else { idx = t; render(); }
+			}
+			function settle() {
+				if (lock || !dlg.open || !items.length) return;
+				var w = track.clientWidth || 1, t = slots[Math.round(track.scrollLeft / w)];
+				if (t !== undefined && t !== idx) { idx = t; render(); }
+			}
+			function openAt(href) {
+				items = collect(VIEW);
+				idx = -1;
+				for (var i = 0; i < items.length; i++) { if (items[i].href === href) { idx = i; break; } }
+				if (idx < 0) { items = [{ href: href, name: baseOf(href), kind: kindOf(href) }]; idx = 0; }
+				/* a drag-dismiss arms eatClick and then closes, so the flag must not survive into the next
+				   session — it would swallow the first tap after every dismissal */
+				drag = null; tActive = false; eatClick = false;
+				if (!dlg.open) dlg.showModal();
+				render();
+				if (imm) hideUI(); else showUI();
+			}
+			/* tear down synchronously: never rely on the close event alone to stop media */
+			function closeViewer() {
+				if (uiT) { clearTimeout(uiT); uiT = 0; }
+				dlg.classList.remove("hide-ui");
+				if (dlg.open) dlg.close(); teardown(); items = []; slots = [];
+			}
+			var sTimer = 0;
+			track.addEventListener("scroll", function () {
+				/* a finger is paging: get the interface out of the way immediately, before the first frame
+				   of movement, instead of letting it linger over the media for the rest of the idle timer. */
+				if (tActive) hideUI();
+				if ("onscrollend" in window) return;
+				clearTimeout(sTimer); sTimer = setTimeout(settle, 120);
+			}, { passive: true });
+			track.addEventListener("scrollend", settle);
+			track.addEventListener("click", function (e) {
+				if (eatClick) { eatClick = false; return; }/* the tail of a drag is not a tap */
+				if (lastPT === "touch") {
+					/* Touch has no hover, so the tap is the only "show me the controls" gesture there is —
+					   and it must toggle, or a tap meant to dismiss the interface would re-arm it. Taps on
+					   real controls are left alone. Backdrop-tap-to-close is deliberately NOT wired on touch:
+					   it collides with this toggle, and every mobile gallery closes via the button or a
+					   downward flick instead. */
+					if (e.target.closest("a,button,video,audio,iframe,input,select,textarea,summary")) return;
+					if (dlg.classList.contains("hide-ui")) showUI(); else hideUI();
+					return;
+				}
+				if (e.target === track || e.target.classList.contains("v-slide")) closeViewer();
+				else if (e.target.tagName === "IMG") {
+					var z = e.target.classList.toggle("zoom"), sl = e.target.closest(".v-slide");
+					/* a zoomed image overflows, so hand both axes back to the browser while it is zoomed */
+					if (sl) sl.classList.toggle("scrolls", z);
+				}
+			});
+
+			/* ── touch gestures: native horizontal paging + vertical drag-to-dismiss ────────────────
+			   There is deliberately NO synthetic left/right swipe detection: the horizontal axis belongs to
+			   the scroll-snap track, which already gives finger-following movement, momentum, rubber-band and
+			   one-slide-per-flick snapping — a touchend threshold handler could only replace all of that with
+			   a binary guess. Vertical is ours by construction: `touch-action:pan-x` on a media slide leaves
+			   the browser no vertical axis to claim, so it never takes over the pointer stream mid-gesture. */
+			var DRAG_MIN = 10, drag = null, tActive = false, eatClick = false, lastPT = "mouse";
+			function dragEnd(d, dismiss) {
+				d.el.classList.add("v-drag");
+				if (d.s) d.s.style.overflow = "";
+				if (dismiss) {
+					d.el.style.transform = "translate3d(0," + (d.dy < 0 ? -innerHeight : innerHeight) + "px,0)";
+					d.el.style.opacity = "0";
+					/* a timer, never transitionend: a transition that never ticks must not strand the viewer */
+					setTimeout(closeViewer, 200);
+				} else {
+					d.el.style.transform = ""; d.el.style.opacity = "";
+					setTimeout(function () { d.el.classList.remove("v-drag"); }, 200);
+				}
+			}
+			/* "touch" is the only special pointer type: it has no hover and no cursor, so it gets the
+			   tap-toggle and the drag. Everything else — mouse, pen, and any synthetic event with an empty
+			   pointerType — keeps hover semantics, which is the safe default (controls stay reachable). */
+			track.addEventListener("pointerdown", function (e) {
+				lastPT = e.pointerType || "mouse";
+				if (lastPT !== "touch") return;
+				tActive = true;
+				if (drag) { dragEnd(drag, false); drag = null; return; }/* a second finger: it is a pinch, not a drag */
+				if (!e.isPrimary || !dlg.open) return;
+				var s = $('.v-slide[data-i="' + idx + '"]', track);
+				if (!s || s.classList.contains("scrolls")) return;/* scrollable content owns its own vertical axis */
+				if (window.visualViewport && visualViewport.scale > 1.01) return;/* pinched in: let them pan it */
+				var el = s.querySelector("img,video");
+				if (!el) return;/* never transform the slide itself — it is the snap area */
+				el.classList.remove("v-drag");
+				drag = { el: el, s: s, x: e.clientX, y: e.clientY, t: Date.now(), dy: 0, on: false };
+			}, { passive: true });
+			track.addEventListener("pointermove", function (e) {
+				if (!drag || !e.isPrimary) return;
+				var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+				if (!drag.on) {
+					/* first movement past the threshold locks the axis for the whole gesture, so a sloppy
+					   diagonal flick can never both page and dismiss */
+					if (Math.abs(dx) > DRAG_MIN && Math.abs(dx) >= Math.abs(dy)) { drag = null; return; }
+					if (Math.abs(dy) < DRAG_MIN) return;
+					drag.on = true;
+					hideUI();/* the gesture is confirmed: nothing should sit over the media while it moves */
+					drag.s.style.overflow = "hidden";/* the translated child must not become scrollable overflow */
+				}
+				drag.dy = dy;
+				var k = Math.min(1, Math.abs(dy) / (innerHeight * .5));
+				drag.el.style.transform = "translate3d(0," + dy + "px,0) scale(" + (1 - k * .12).toFixed(3) + ")";
+				drag.el.style.opacity = (1 - k * .65).toFixed(3);
+			}, { passive: true });
+			track.addEventListener("pointerup", function () {
+				tActive = false;
+				if (!drag) return;
+				var d = drag; drag = null;
+				if (!d.on) return;/* it was a tap: leave it to the click handler */
+				eatClick = true;
+				var dt = Math.max(1, Date.now() - d.t);
+				/* distance OR velocity, so a short fast flick dismisses as readily as a long slow pull */
+				dragEnd(d, Math.abs(d.dy) > Math.max(80, innerHeight * .18) || (Math.abs(d.dy) / dt > .5 && Math.abs(d.dy) > 40));
+			});
+			track.addEventListener("pointercancel", function () {
+				tActive = false;
+				if (!drag) return;
+				var d = drag; drag = null;
+				if (d.on) { eatClick = true; dragEnd(d, false); }
+			});
+			vPrev.addEventListener("click", function () { go(-1); });
+			vNext.addEventListener("click", function () { go(1); });
+			$(".v-close", dlg).addEventListener("click", closeViewer);
+			/* ── interface visibility: idle auto-hide + expanded mode (no Fullscreen API) ──
+			   One timer drives both. Expanded ("imm") only removes padding/frames and shortens the
+			   idle delay, so a pointer move always brings the controls back — the single mechanism
+			   means there is no state where the UI is hidden with no way to reveal it. */
+			var vFs = $(".v-fs", dlg), bar = $(".v-bar", dlg), UI_IDLE = 2500, uiT = 0, imm = false, barHot = false;
+			function hideUI() { if (uiT) { clearTimeout(uiT); uiT = 0; } dlg.classList.add("hide-ui"); }
+			function showUI() {
+				dlg.classList.remove("hide-ui");
+				if (uiT) { clearTimeout(uiT); uiT = 0; }
+				if (!barHot && dlg.open) uiT = setTimeout(hideUI, imm ? 1200 : UI_IDLE);
+			}
+			function setImm(on) {
+				imm = !!on;
+				dlg.classList.toggle("imm", imm);
+				vFs.classList.toggle("on", imm);
+				vFs.setAttribute("aria-pressed", imm ? "true" : "false");
+				vFs.setAttribute("title", imm ? "Restore interface (f)" : "Expand — hide interface (f)");
+				if (imm) hideUI(); else showUI();
+			}
+			vFs.addEventListener("click", function () { setImm(!imm); });
+			/* hovering the bar pins it; leaving restarts the idle countdown */
+			bar.addEventListener("pointerenter", function () { barHot = true; if (uiT) { clearTimeout(uiT); uiT = 0; } });
+			bar.addEventListener("pointerleave", function () { barHot = false; showUI(); });
+			/* Mouse only. A touch pointerdown/pointermove is the START of a swipe, so revealing on it made
+			   the bar flash in over the media on every single page — the exact annoyance this avoids. On
+			   touch the reveal is the tap (see the track click handler); touching a control still keeps the
+			   bar alive, so reaching for a second button never races the idle timer. */
+			dlg.addEventListener("pointermove", function (e) { if (e.pointerType !== "touch" && !barHot) showUI(); });
+			dlg.addEventListener("pointerdown", function (e) { if (e.pointerType !== "touch") showUI(); });
+			bar.addEventListener("pointerdown", function () { showUI(); });
+			/* Esc: while expanded the first press only restores the interface (cancel is cancelable),
+			   so one keypress never loses your place in a long gallery. A second press closes. */
+			dlg.addEventListener("cancel", function (e) {
+				if (imm) { e.preventDefault(); setImm(false); return; }
+				teardown(); items = []; slots = [];
+			});
+			dlg.addEventListener("close", function () { if (dlg.open) return; teardown(); items = []; slots = []; });
+			var rTimer = 0;
+			addEventListener("resize", function () {
+				if (!dlg.open) return;
+				clearTimeout(rTimer);
+				rTimer = setTimeout(function () {
+					freeze();
+					track.scrollLeft = slots.indexOf(idx) * track.clientWidth;
+					thawSoon();
+				}, 100);
+			});
+
+			/* ── audio dock ─────────────────────────────────────────────────────── */
+			var dock = $(".dock"), dAudio = $(".d-audio", dock), dTitle = $(".dock-title", dock),
+				list = [], cur = -1, marked = null;
+			function mark(a) {
+				if (marked) {
+					marked.classList.remove("now");
+					var pr = marked.closest ? marked.closest("tr,.entry") : null;
+					if (pr) pr.classList.remove("now");
+				}
+				marked = a || null;
+				if (a) {
+					a.classList.add("now");
+					var r = a.closest ? a.closest("tr,.entry") : null;
+					if (r) r.classList.add("now");
+				}
+			}
+			function playAt(i) {
+				if (i < 0 || i >= list.length) return;
+				cur = i;
+				var it = list[i];
+				dTitle.textContent = it.name; dTitle.title = it.name;
+				dAudio.src = it.href;
+				dock.hidden = false; document.body.classList.add("has-dock");
+				mark(it.a);
+				dAudio.play().catch(function () { });
+				try {
+					if ("mediaSession" in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: it.name });
+				} catch (e) { }
+			}
+			function step(d) {
+				var t = cur + d;
+				if (t < 0 || t >= list.length) return;
+				playAt(t);
+			}
+			dAudio.addEventListener("ended", function () { step(1); });
+			$(".d-prev", dock).addEventListener("click", function () { step(-1); });
+			$(".d-next", dock).addEventListener("click", function () { step(1); });
+			$(".d-close", dock).addEventListener("click", function () {
+				try { dAudio.pause(); } catch (e) { }
+				dAudio.removeAttribute("src");
+				try { dAudio.load(); } catch (e) { }
+				dock.hidden = true; document.body.classList.remove("has-dock"); mark(null); cur = -1; list = [];
+			});
+
+			/* ── one delegated click handler ────────────────────────────────────── */
+			document.addEventListener("click", function (e) {
+				var a = e.target.closest ? e.target.closest("a[href]") : null;
+				if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+				if (a.closest("#viewer,#keys,.dock")) return;
+				var href = a.getAttribute("href");
+				if (!href || href.charAt(0) === "#") return;
+				if (a.closest(".listing") && !a.dataset.dir && !a.closest(".up")) {
+					var k = kindOf(href);
+					if (k === "audio") {
+						e.preventDefault();
+						list = collect(["audio"]);
+						for (var i = 0; i < list.length; i++)if (list[i].href === href) { playAt(i); return; }
+						return;
+					}
+					if (k && VIEW.indexOf(k) >= 0) { e.preventDefault(); openAt(href); return; }
+				}
+				var u = merge(a.href);
+				if (u) { e.preventDefault(); location.href = u; }
+			});
+
+			/* ── video seek bounds ──────────────────────────────────────────────── */
+			var SEEK_EPS = .25;
+			function seekEnd(v, t) { var d = v.duration; return isFinite(d) && d > 0 ? Math.min(t, d) : t; }
+			function atEnd(v) { var d = v.duration; return v.ended || (isFinite(d) && d > 0 && v.currentTime >= d - SEEK_EPS); }
+
+			/* ── keyboard ───────────────────────────────────────────────────────── */
+			var keys = $("#keys");
+			$("#help").addEventListener("click", function () { keys.showModal(); });
+			$("#keys .chip").addEventListener("click", function () { keys.close(); });
+			addEventListener("keydown", function (e) {
+				if (e.ctrlKey || e.metaKey || e.altKey) return;
+				var t = e.target;
+				if (t && t.closest && t.closest("input,textarea,select,[contenteditable=true]")) {
+					if (e.key === "Escape" && t === fInput) { clearFilter(); fInput.blur(); e.preventDefault(); }
+					return;
+				}
+				if (keys.open) return;
+				if (dlg.open) {
+					var v = $('.v-slide[data-i="' + idx + '"] video', track), sc = scroller(), pg = sc ? Math.max(80, sc.clientHeight * .9) : 0;
+					if (e.key !== "Escape") showUI();/* any key counts as activity */
+					switch (e.key) {
+						/* On a video the arrows seek, but only while there is time left to seek into:
+						   at t=0 Left pages back and at the end (or after `ended`) Right pages forward,
+						   so a finished video is never a dead end. SEEK_EPS absorbs float drift and the
+						   fact that browsers rarely land exactly on `duration`; a non-finite duration
+						   (live/streaming) can only be seeked backwards. */
+						case "ArrowLeft": if (v && !e.shiftKey && v.currentTime > SEEK_EPS) v.currentTime = Math.max(0, v.currentTime - 5); else go(-1); e.preventDefault(); break;
+						case "ArrowRight": if (v && !e.shiftKey && !atEnd(v)) v.currentTime = seekEnd(v, v.currentTime + 5); else go(1); e.preventDefault(); break;
+						case "ArrowUp": if (sc) vscroll(sc, -64); else go(-1); e.preventDefault(); break;
+						case "ArrowDown": if (sc) vscroll(sc, 64); else go(1); e.preventDefault(); break;
+						case "PageUp": if (sc) vscroll(sc, -pg); else go(-1); e.preventDefault(); break;
+						case "PageDown": if (sc) vscroll(sc, pg); else go(1); e.preventDefault(); break;
+						case "Home": if (sc) sc.scrollTop = 0; else if (items.length) { idx = 0; render(); } e.preventDefault(); break;
+						case "End": if (sc) sc.scrollTop = sc.scrollHeight; else if (items.length) { idx = items.length - 1; render(); } e.preventDefault(); break;
+						case " ": if (v) { v.paused ? v.play().catch(function () { }) : v.pause(); e.preventDefault(); }
+						else if (sc) { vscroll(sc, e.shiftKey ? -pg : pg); e.preventDefault(); } break;
+						case "f": case "F": $(".v-fs", dlg).click(); e.preventDefault(); break;
+					}
+					return;
+				}
+				if (e.key === "/") { if (fInput) { fInput.focus(); fInput.select(); e.preventDefault(); } }
+				else if (e.key === "?") { keys.showModal(); e.preventDefault(); }
+				else if (e.key === "g") { setParam("layout", "grid"); }
+				else if (e.key === "l") { setParam("layout", "list"); }
+				/* Escape must clear the filter even when focus has left the box — the in-input branch above
+				   only ever fires while it is focused, which is why Escape looked dead after clicking a row.
+				   Both dialogs return before this point, so their own Escape handling is untouched. */
+				else if (e.key === "Escape") { if (clearFilter()) e.preventDefault(); }
+			});
+		})();
+	</script>
 </body>
+
 </html>
