@@ -22,7 +22,7 @@ http:// {
 }
 ```
 ## HEIC Preview Support
-Preview for HEIC images works natively for Safari browsers on iOS and macOS. No other browsers can render HEIC natively.
+Preview for HEIC images works natively in Safari browsers on iOS and macOS. No other browsers can render HEIC natively.
 
 An experimental branch with slower Javascript-based HEIC decoding for non-Apple browsers is available in this repo in the [**`heic`**](https://github.com/glowinthedark/caddy-file-server-browse-extension/tree/heic) branch.
 
