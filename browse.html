@@ -44,21 +44,19 @@
 {{- $nonce := uuidv4}}
 {{- $n := print "nonce=" (quote $nonce)}}
 {{/* Optional HEIC decoder sidecar (see sidecar/heic.js). Chrome and Firefox cannot decode HEIC;
-Safari can. $heicJS is the URL the browser fetches; $heicFile is that file's path under the
-*site root* — they differ only if the site rewrites URLs; neither is relative to this template,
-which is read off disk and is not part of the served tree. If the file is absent everything
-below is a no-op: one stat per listing, no markup, no request, no CSP relaxation. Set
-$heicJS to "" to skip the lookup entirely. */}}
+	Safari can. $heicJS is the URL the browser fetches; $heicFile is that file's path under the
+	*site root* — they differ only if the site rewrites URLs; neither is relative to this template,
+	which is read off disk and is not part of the served tree. If the file is absent everything
+	below is a no-op: one stat per listing, no markup, no request, no CSP relaxation. Set
+	$heicJS to "" to skip the lookup entirely. */}}
 {{- $heicJS := "/.assets/heic.js"}}
-{{- $heicFile := "heic.js"}}
+{{- $heicFile := $heicJS}}
 {{- $heic := and (ne $heicJS "") (fileExists $heicFile)}}
 {{- $imgx := ""}}{{- $scrx := ""}}{{- $wrkx := ""}}
 {{- if $heic}}{{$imgx = " blob:"}}{{$scrx = " 'wasm-unsafe-eval'"}}{{$wrkx = " worker-src 'self';"}}{{end}}
 {{/* To disable the Content-Security-Policy, set this to false */}}{{- $enableCsp := true}}
 {{- if $enableCsp}}
-{{- $csp := "default-src 'none'; img-src 'self' data:%s; media-src 'self' blob:; frame-src 'self'; connect-src 'self';
-font-src 'self';%s style-src 'nonce-%s'; script-src 'nonce-%s'%s; object-src 'none'; base-uri 'none'; form-action
-'none'; frame-ancestors 'self'"}}
+{{- $csp := "default-src 'none'; img-src 'self' data:%s; media-src 'self' blob:; frame-src 'self'; connect-src 'self'; font-src 'self';%s style-src 'nonce-%s'; script-src 'nonce-%s'%s; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'"}}
 {{- .RespHeader.Set "Content-Security-Policy" (printf $csp $imgx $wrkx $nonce $nonce $scrx)}}
 {{- end}}
 <!DOCTYPE html>
@@ -1492,15 +1490,9 @@ font-src 'self';%s style-src 'nonce-%s'; script-src 'nonce-%s'%s; object-src 'no
 				{{- $ord := "asc"}}{{if eq .Order "asc"}}{{$ord = "desc"}}{{end}}
 				{{- $lay := ""}}{{if eq .Layout "grid"}}{{$lay = "&layout=grid"}}{{end}}
 				{{- if eq .Layout "grid"}}
-				<a class="chip{{if eq .Sort " name"}} on{{end}}" href="?sort=name&amp;order={{if eq .Sort "
-					name"}}{{$ord}}{{else}}asc{{end}}{{$lay}}">Name<i class="caret{{if eq .Order " asc"}}
-						up{{end}}"></i></a>
-				<a class="chip{{if eq .Sort " size"}} on{{end}}" href="?sort=size&amp;order={{if eq .Sort "
-					size"}}{{$ord}}{{else}}asc{{end}}{{$lay}}">Size<i class="caret{{if eq .Order " asc"}}
-						up{{end}}"></i></a>
-				<a class="chip{{if eq .Sort " time"}} on{{end}}" href="?sort=time&amp;order={{if eq .Sort "
-					time"}}{{$ord}}{{else}}desc{{end}}{{$lay}}">Date<i class="caret{{if eq .Order " asc"}}
-						up{{end}}"></i></a>
+				<a class="chip{{if eq .Sort "name"}} on{{end}}" href="?sort=name&amp;order={{if eq .Sort "name"}}{{$ord}}{{else}}asc{{end}}{{$lay}}">Name<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a>
+				<a class="chip{{if eq .Sort "size"}} on{{end}}" href="?sort=size&amp;order={{if eq .Sort "size"}}{{$ord}}{{else}}asc{{end}}{{$lay}}">Size<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a>
+				<a class="chip{{if eq .Sort "time"}} on{{end}}" href="?sort=time&amp;order={{if eq .Sort "time"}}{{$ord}}{{else}}desc{{end}}{{$lay}}">Date<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a>
 				{{- end}}
 				{{- /* Caddy's namedirfirst reverses the WHOLE list under order=desc, i.e. folders LAST,
 				so grouping only exists in asc: enabling it must force asc, and the chip may only
@@ -1510,12 +1502,12 @@ font-src 'self';%s style-src 'nonce-%s'; script-src 'nonce-%s'%s; object-src 'no
 					href="?sort={{if $grp}}name{{else}}namedirfirst{{end}}&amp;order=asc{{$lay}}"
 					title="Group folders before files" aria-pressed="{{if $grp}}true{{else}}false{{end}}">Folders
 					first</a>
-				<a class="chip ico-only{{if ne .Layout " grid"}} on{{end}}" href="?layout=list" title="List view"
+				<a class="chip ico-only{{if ne .Layout "grid"}} on{{end}}" href="?layout=list" title="List view"
 					aria-label="List view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
 						stroke-linecap="round">
 						<path d="M4 6h16M4 12h16M4 18h16" />
 					</svg></a>
-				<a class="chip ico-only{{if eq .Layout " grid"}} on{{end}}" href="?layout=grid" title="Grid view"
+				<a class="chip ico-only{{if eq .Layout "grid"}} on{{end}}" href="?layout=grid" title="Grid view"
 					aria-label="Grid view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
 						<rect x="4" y="4" width="7" height="7" rx="1" />
 						<rect x="13" y="4" width="7" height="7" rx="1" />
@@ -1553,13 +1545,13 @@ font-src 'self';%s style-src 'nonce-%s'; script-src 'nonce-%s'%s; object-src 'no
 							{{- if and (not .IsDir) (.HasExt ".jpg" ".jpeg" ".png" ".apng" ".gif" ".webp" ".avif" ".bmp"
 							".ico" ".svg")}}<img class="th" loading="lazy" decoding="async" src="{{html .URL}}" alt="">
 							{{- else}}<svg class="ic{{if .IsDir}} d{{end}}" viewBox="0 0 24 24">
-								<use href="#{{template " icon" .}}" />
+								<use href="#{{template "icon" .}}" />
 							</svg>
 							{{- end}}
 						</span>
 						<span class="name" title="{{html .Name}}">{{html .Name}}</span>
 						<span class="m"><span>{{if not .IsDir}}{{.HumanSize}}{{end}}</span><time
-								datetime="{{.HumanModTime " 2006-01-02T15:04:05Z"}}">{{.HumanModTime
+								datetime="{{.HumanModTime "2006-01-02T15:04:05Z"}}">{{.HumanModTime
 								"2006-01-02"}}</time></span>
 					</a>
 				</div>
@@ -1569,19 +1561,9 @@ font-src 'self';%s style-src 'nonce-%s'; script-src 'nonce-%s'%s; object-src 'no
 			<table class="listing">
 				<thead>
 					<tr>
-						<th{{if or (eq .Sort "name" ) (eq .Sort "namedirfirst" )}} aria-sort="{{if eq .Order "
-							asc"}}ascending{{else}}descending{{end}}"{{end}}><a
-								href="?sort=name&amp;order={{if eq .Sort " name"}}{{$ord}}{{else}}asc{{end}}">Name<i
-									class="caret{{if eq .Order " asc"}} up{{end}}"></i></a></th>
-							<th{{if eq .Sort "size" }} aria-sort="{{if eq .Order "
-								asc"}}ascending{{else}}descending{{end}}"{{end}}><a
-									href="?sort=size&amp;order={{if eq .Sort " size"}}{{$ord}}{{else}}asc{{end}}">Size<i
-										class="caret{{if eq .Order " asc"}} up{{end}}"></i></a></th>
-								<th{{if eq .Sort "time" }} aria-sort="{{if eq .Order "
-									asc"}}ascending{{else}}descending{{end}}"{{end}}><a
-										href="?sort=time&amp;order={{if eq .Sort "
-										time"}}{{$ord}}{{else}}desc{{end}}">Modified<i class="caret{{if eq .Order "
-											asc"}} up{{end}}"></i></a></th>
+						<th{{if or (eq .Sort "name") (eq .Sort "namedirfirst")}} aria-sort="{{if eq .Order "asc"}}ascending{{else}}descending{{end}}"{{end}}><a href="?sort=name&amp;order={{if eq .Sort "name"}}{{$ord}}{{else}}asc{{end}}">Name<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a></th>
+						<th{{if eq .Sort "size"}} aria-sort="{{if eq .Order "asc"}}ascending{{else}}descending{{end}}"{{end}}><a href="?sort=size&amp;order={{if eq .Sort "size"}}{{$ord}}{{else}}asc{{end}}">Size<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a></th>
+						<th{{if eq .Sort "time"}} aria-sort="{{if eq .Order "asc"}}ascending{{else}}descending{{end}}"{{end}}><a href="?sort=time&amp;order={{if eq .Sort "time"}}{{$ord}}{{else}}desc{{end}}">Modified<i class="caret{{if eq .Order "asc"}} up{{end}}"></i></a></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -1598,12 +1580,12 @@ font-src 'self';%s style-src 'nonce-%s'; script-src 'nonce-%s'%s; object-src 'no
 					<tr class="{{if .IsDir}}dir{{else}}file{{end}}">
 						<td class="n"><a href="{{html .URL}}" {{if .IsDir}} data-dir="1" {{end}}><svg
 									class="ic{{if .IsDir}} d{{end}}" viewBox="0 0 24 24">
-									<use href="#{{template " icon" .}}" />
+									<use href="#{{template "icon" .}}" />
 								</svg><span class="name">{{html .Name}}</span>{{if .SymlinkPath}}<span
 									class="lnk">&rarr; {{html .SymlinkPath}}</span>{{end}}</a></td>
 						<td class="s" {{if not .IsDir}} data-b="{{.Size}}" {{end}}>{{if
 							.IsDir}}&mdash;{{else}}{{.HumanSize}}{{end}}</td>
-						<td class="t"><time datetime="{{.HumanModTime " 2006-01-02T15:04:05Z"}}">{{.HumanModTime
+						<td class="t"><time datetime="{{.HumanModTime "2006-01-02T15:04:05Z"}}">{{.HumanModTime
 								"2006-01-02 15:04 UTC"}}</time></td>
 					</tr>
 					{{- end}}
@@ -1813,8 +1795,8 @@ font-src 'self';%s style-src 'nonce-%s'; script-src 'nonce-%s'%s; object-src 'no
 			var R_STR = /"(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*'|`(?:[^`\\]|\\.)*`/;
 			var R_NUM = /\b(?:0[xXbBoO][0-9a-fA-F_]+|\d[\d_]*(?:\.\d+)?(?:[eE][+-]?\d+)?)\b/;
 			var R_KW = /\b(?:abstract|and|as|assert|async|await|bool|break|byte|case|catch|char|class|const|constexpr|continue|def|default|defer|del|delete|do|double|elif|else|elseif|end|enum|export|extends|extern|false|final|finally|float|fn|for|from|func|function|global|go|goto|if|impl|implements|import|in|inline|instanceof|int|interface|is|lambda|let|long|match|module|move|mut|namespace|new|nil|none|not|null|operator|or|package|pass|print|private|protected|pub|public|raise|range|ref|return|select|self|short|signed|sizeof|static|str|struct|super|switch|template|then|this|throw|throws|trait|true|try|type|typedef|typeof|union|unsigned|use|using|var|virtual|void|volatile|when|where|while|with|yield)\b/;
-			var R_C_SLASH = /\/\*[\s\S]*?\*\/|\/\/[^\n]*|< !--[\s\S ]*?--> /;
-			var R_C_HASH = /#[^\n]*/;
+			var R_C_SLASH = /\/\*[\s\S]*?\*\/|\/\/[^\n]*|< !--[\s\S ]*?-->/;
+var R_C_HASH = /#[^\n]*/;
 			var R_C_DASH = /--[^\n]*|\/\*[\s\S]*?\*\//;
 			function mkHL(c) {
 				return new RegExp("(" + c.source + ")|(" + R_STR.source + ")|(" + R_NUM.source + ")|(" + R_KW.source + ")", "g");
@@ -2069,395 +2051,394 @@ font-src 'self';%s style-src 'nonce-%s'; script-src 'nonce-%s'%s; object-src 'no
 			   HEIC_JS is "" unless the template found the sidecar on disk, which makes every branch
 			   below dead code. Decoding is serialized (a 12MP frame is ~48 MB of RGBA) and happens
 			   only for the slide the user is actually looking at — neighbours are never decoded. */
-			var HEIC_JS = {{ if $heic }
-		}"{{$heicJS}}"{ {else } } ""{ { end } }, HEIC_RE = /\.hei[cf]$/i;
-		var heicMod = null, heicWait = null, heicQ = Promise.resolve(), heicCache = [];
-		function heicLoad() {
-			if (heicMod) return Promise.resolve(heicMod);
-			if (heicWait) return heicWait;
-			heicWait = new Promise(function (res, rej) {
-				var el = document.createElement("script");
-				el.src = HEIC_JS; el.nonce = NONCE;/* a nonce authorises an external src; no CSP host needed */
-				el.onload = function () { heicMod = window.CFSHeic || null; if (heicMod) res(heicMod); else rej(); };
-				el.onerror = rej;
-				document.head.appendChild(el);
-			});
-			heicWait["catch"](function () { HEIC_JS = ""; });/* ask once: a missing sidecar costs one 404 */
-			return heicWait;
-		}
-		function heicBlob(href) {
-			for (var i = 0; i < heicCache.length; i++) if (heicCache[i][0] === href) return Promise.resolve(heicCache[i][1]);
-			heicQ = heicQ["catch"](function () { }).then(function () {
-				return heicLoad().then(function (m) { return m.decode(href); });
-			}).then(function (b) {
-				heicCache.push([href, b]); if (heicCache.length > 4) heicCache.shift();
-				return b;
-			});
-			return heicQ;
-		}
-		function heicSwap(s) {
-			var img = s && s.querySelector("img");
-			if (!HEIC_JS || !img || s.dataset.heic !== "1" || +s.dataset.i !== idx) return;
-			s.dataset.heic = "2";
-			var st = document.createElement("div");
-			st.className = "v-stub"; st.textContent = "Decoding\u2026"; s.appendChild(st);
-			heicBlob(img.dataset.src).then(function (b) {
-				if (!s.isConnected) return;
-				st.remove();
-				img._blob = URL.createObjectURL(b); img.src = img._blob;
-			})["catch"](function () { st.textContent = "No preview"; s.dataset.heic = "3"; });
-		}
-		function slide(i, active, pend) {
-			var it = items[i], s = document.createElement("div"), x;
-			s.className = "v-slide"; s.dataset.i = i;
-			if (it.kind === "image") {
-				x = new Image(); x.src = it.href; x.alt = it.name; x.decoding = "async";
-				if (HEIC_JS && HEIC_RE.test(it.href)) {
-					x.dataset.src = it.href;
-					x.onerror = function () { s.dataset.heic = "1"; heicSwap(s); };
+			var HEIC_JS = {{if $heic}}"{{$heicJS}}"{{else}}""{{end}}, HEIC_RE = /\.hei[cf]$/i;
+			var heicMod = null, heicWait = null, heicQ = Promise.resolve(), heicCache = [];
+			function heicLoad() {
+				if (heicMod) return Promise.resolve(heicMod);
+				if (heicWait) return heicWait;
+				heicWait = new Promise(function (res, rej) {
+					var el = document.createElement("script");
+					el.src = HEIC_JS; el.nonce = NONCE;/* a nonce authorises an external src; no CSP host needed */
+					el.onload = function () { heicMod = window.CFSHeic || null; if (heicMod) res(heicMod); else rej(); };
+					el.onerror = rej;
+					document.head.appendChild(el);
+				});
+				heicWait["catch"](function () { HEIC_JS = ""; });/* ask once: a missing sidecar costs one 404 */
+				return heicWait;
+			}
+			function heicBlob(href) {
+				for (var i = 0; i < heicCache.length; i++) if (heicCache[i][0] === href) return Promise.resolve(heicCache[i][1]);
+				heicQ = heicQ["catch"](function () { }).then(function () {
+					return heicLoad().then(function (m) { return m.decode(href); });
+				}).then(function (b) {
+					heicCache.push([href, b]); if (heicCache.length > 4) heicCache.shift();
+					return b;
+				});
+				return heicQ;
+			}
+			function heicSwap(s) {
+				var img = s && s.querySelector("img");
+				if (!HEIC_JS || !img || s.dataset.heic !== "1" || +s.dataset.i !== idx) return;
+				s.dataset.heic = "2";
+				var st = document.createElement("div");
+				st.className = "v-stub"; st.textContent = "Decoding\u2026"; s.appendChild(st);
+				heicBlob(img.dataset.src).then(function (b) {
+					if (!s.isConnected) return;
+					st.remove();
+					img._blob = URL.createObjectURL(b); img.src = img._blob;
+				})["catch"](function () { st.textContent = "No preview"; s.dataset.heic = "3"; });
+			}
+			function slide(i, active, pend) {
+				var it = items[i], s = document.createElement("div"), x;
+				s.className = "v-slide"; s.dataset.i = i;
+				if (it.kind === "image") {
+					x = new Image(); x.src = it.href; x.alt = it.name; x.decoding = "async";
+					if (HEIC_JS && HEIC_RE.test(it.href)) {
+						x.dataset.src = it.href;
+						x.onerror = function () { s.dataset.heic = "1"; heicSwap(s); };
+					}
+					s.appendChild(x);
+				} else if (!active) {
+					x = document.createElement("div"); x.className = "v-stub"; x.textContent = it.name; s.appendChild(x);
+				} else if (it.kind === "video") {
+					s.appendChild(video(it));
+				} else if (it.kind === "pdf" || it.kind === "frame") {
+					x = document.createElement("iframe"); x.className = "v-frame"; x.title = it.name;
+					x.referrerPolicy = "no-referrer";
+					if (it.kind === "frame") x.setAttribute("sandbox", "");
+					x.src = it.href; s.appendChild(x);
+					s.classList.add("scrolls");/* the iframe scrolls itself — leave both axes to the browser */
+				} else {
+					/* load only once the host is in the document, never from the detached fragment */
+					x = document.createElement("div"); x.className = "v-doc"; s.appendChild(x); pend.push([x, it]);
+					s.classList.add("scrolls");
 				}
-				s.appendChild(x);
-			} else if (!active) {
-				x = document.createElement("div"); x.className = "v-stub"; x.textContent = it.name; s.appendChild(x);
-			} else if (it.kind === "video") {
-				s.appendChild(video(it));
-			} else if (it.kind === "pdf" || it.kind === "frame") {
-				x = document.createElement("iframe"); x.className = "v-frame"; x.title = it.name;
-				x.referrerPolicy = "no-referrer";
-				if (it.kind === "frame") x.setAttribute("sandbox", "");
-				x.src = it.href; s.appendChild(x);
-				s.classList.add("scrolls");/* the iframe scrolls itself — leave both axes to the browser */
-			} else {
-				/* load only once the host is in the document, never from the detached fragment */
-				x = document.createElement("div"); x.className = "v-doc"; s.appendChild(x); pend.push([x, it]);
-				s.classList.add("scrolls");
+				return s;
 			}
-			return s;
-		}
-		function chrome() {
-			var it = items[idx];
-			vTitle.textContent = it.name; vTitle.title = it.name;
-			vCount.textContent = items.length > 1 ? (idx + 1) + " / " + items.length : "";
-			vDl.href = it.href; vDl.setAttribute("download", it.name);
-			vPrev.disabled = idx <= 0; vNext.disabled = idx >= items.length - 1;
-			for (var j = idx - 2; j <= idx + 2; j++) {
-				var n = items[j];
-				if (n && n.kind === "image" && j !== idx) { var p = new Image(); p.decoding = "async"; p.src = n.href; }
+			function chrome() {
+				var it = items[idx];
+				vTitle.textContent = it.name; vTitle.title = it.name;
+				vCount.textContent = items.length > 1 ? (idx + 1) + " / " + items.length : "";
+				vDl.href = it.href; vDl.setAttribute("download", it.name);
+				vPrev.disabled = idx <= 0; vNext.disabled = idx >= items.length - 1;
+				for (var j = idx - 2; j <= idx + 2; j++) {
+					var n = items[j];
+					if (n && n.kind === "image" && j !== idx) { var p = new Image(); p.decoding = "async"; p.src = n.href; }
+				}
+				heicSwap($('.v-slide[data-i="' + idx + '"]', track));/* a neighbour that failed while off-screen */
 			}
-			heicSwap($('.v-slide[data-i="' + idx + '"]', track));/* a neighbour that failed while off-screen */
-		}
-		function render() {
-			if (!items.length) return;/* a deferred go() must not outlive the session */
-			var lo = Math.max(0, idx - 1), hi = Math.min(items.length - 1, idx + 1), frag = document.createDocumentFragment(), pend = [];
-			slots = [];
-			for (var i = lo; i <= hi; i++) { slots.push(i); frag.appendChild(slide(i, i === idx, pend)); }
-			teardown(); track.appendChild(frag);
-			for (i = 0; i < pend.length; i++)loadDoc(pend[i][0], pend[i][1]);
-			freeze();
-			track.scrollLeft = slots.indexOf(idx) * track.clientWidth;
-			thawSoon();
-			chrome();
-		}
-		var goT = 0;
-		function go(d) {
-			var t = Math.min(items.length - 1, Math.max(0, idx + d));
-			if (t === idx) return;
-			var s = slots.indexOf(t);
-			if (s >= 0) {
-				freeze(); track.scrollTo({ left: s * track.clientWidth, behavior: "smooth" });
-				clearTimeout(goT); goT = setTimeout(function () { idx = t; render(); }, 260);
-			}
-			else { idx = t; render(); }
-		}
-		function settle() {
-			if (lock || !dlg.open || !items.length) return;
-			var w = track.clientWidth || 1, t = slots[Math.round(track.scrollLeft / w)];
-			if (t !== undefined && t !== idx) { idx = t; render(); }
-		}
-		function openAt(href) {
-			items = collect(VIEW);
-			idx = -1;
-			for (var i = 0; i < items.length; i++) { if (items[i].href === href) { idx = i; break; } }
-			if (idx < 0) { items = [{ href: href, name: baseOf(href), kind: kindOf(href) }]; idx = 0; }
-			/* a drag-dismiss arms eatClick and then closes, so the flag must not survive into the next
-			   session — it would swallow the first tap after every dismissal */
-			drag = null; tActive = false; eatClick = false;
-			if (!dlg.open) dlg.showModal();
-			render();
-			if (imm) hideUI(); else showUI();
-		}
-		/* tear down synchronously: never rely on the close event alone to stop media */
-		function closeViewer() {
-			if (uiT) { clearTimeout(uiT); uiT = 0; }
-			clearTimeout(goT); goT = 0;
-			dlg.classList.remove("hide-ui");
-			if (dlg.open) dlg.close(); teardown(); items = []; slots = [];
-		}
-		var sTimer = 0;
-		track.addEventListener("scroll", function () {
-			/* a finger is paging: get the interface out of the way immediately, before the first frame
-			   of movement, instead of letting it linger over the media for the rest of the idle timer. */
-			if (tActive) hideUI();
-			if ("onscrollend" in window) return;
-			clearTimeout(sTimer); sTimer = setTimeout(settle, 120);
-		}, { passive: true });
-		track.addEventListener("scrollend", settle);
-		track.addEventListener("click", function (e) {
-			if (eatClick) { eatClick = false; return; }/* the tail of a drag is not a tap */
-			if (lastPT === "touch") {
-				/* Touch has no hover, so the tap is the only "show me the controls" gesture there is —
-				   and it must toggle, or a tap meant to dismiss the interface would re-arm it. Taps on
-				   real controls are left alone. Backdrop-tap-to-close is deliberately NOT wired on touch:
-				   it collides with this toggle, and every mobile gallery closes via the button or a
-				   downward flick instead. */
-				if (e.target.closest("a,button,video,audio,iframe,input,select,textarea,summary")) return;
-				if (dlg.classList.contains("hide-ui")) showUI(); else hideUI();
-				return;
-			}
-			if (e.target === track || e.target.classList.contains("v-slide")) closeViewer();
-			else if (e.target.tagName === "IMG") {
-				var z = e.target.classList.toggle("zoom"), sl = e.target.closest(".v-slide");
-				/* a zoomed image overflows, so hand both axes back to the browser while it is zoomed */
-				if (sl) sl.classList.toggle("scrolls", z);
-			}
-		});
-
-		/* ── touch gestures: native horizontal paging + vertical drag-to-dismiss ────────────────
-		   There is deliberately NO synthetic left/right swipe detection: the horizontal axis belongs to
-		   the scroll-snap track, which already gives finger-following movement, momentum, rubber-band and
-		   one-slide-per-flick snapping — a touchend threshold handler could only replace all of that with
-		   a binary guess. Vertical is ours by construction: `touch-action:pan-x` on a media slide leaves
-		   the browser no vertical axis to claim, so it never takes over the pointer stream mid-gesture. */
-		var DRAG_MIN = 10, drag = null, tActive = false, eatClick = false, lastPT = "mouse";
-		function dragEnd(d, dismiss) {
-			d.el.classList.add("v-drag");
-			if (d.s) d.s.style.overflow = "";
-			if (dismiss) {
-				d.el.style.transform = "translate3d(0," + (d.dy < 0 ? -innerHeight : innerHeight) + "px,0)";
-				d.el.style.opacity = "0";
-				/* a timer, never transitionend: a transition that never ticks must not strand the viewer */
-				setTimeout(closeViewer, 200);
-			} else {
-				d.el.style.transform = ""; d.el.style.opacity = "";
-				setTimeout(function () { d.el.classList.remove("v-drag"); }, 200);
-			}
-		}
-		/* "touch" is the only special pointer type: it has no hover and no cursor, so it gets the
-		   tap-toggle and the drag. Everything else — mouse, pen, and any synthetic event with an empty
-		   pointerType — keeps hover semantics, which is the safe default (controls stay reachable). */
-		track.addEventListener("pointerdown", function (e) {
-			lastPT = e.pointerType || "mouse";
-			if (lastPT !== "touch") return;
-			tActive = true;
-			if (drag) { dragEnd(drag, false); drag = null; return; }/* a second finger: it is a pinch, not a drag */
-			if (!e.isPrimary || !dlg.open) return;
-			var s = $('.v-slide[data-i="' + idx + '"]', track);
-			if (!s || s.classList.contains("scrolls")) return;/* scrollable content owns its own vertical axis */
-			if (window.visualViewport && visualViewport.scale > 1.01) return;/* pinched in: let them pan it */
-			var el = s.querySelector("img,video");
-			if (!el) return;/* never transform the slide itself — it is the snap area */
-			el.classList.remove("v-drag");
-			drag = { el: el, s: s, x: e.clientX, y: e.clientY, t: Date.now(), dy: 0, on: false };
-		}, { passive: true });
-		track.addEventListener("pointermove", function (e) {
-			if (!drag || !e.isPrimary) return;
-			var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-			if (!drag.on) {
-				/* first movement past the threshold locks the axis for the whole gesture, so a sloppy
-				   diagonal flick can never both page and dismiss */
-				if (Math.abs(dx) > DRAG_MIN && Math.abs(dx) >= Math.abs(dy)) { drag = null; return; }
-				if (Math.abs(dy) < DRAG_MIN) return;
-				drag.on = true;
-				hideUI();/* the gesture is confirmed: nothing should sit over the media while it moves */
-				drag.s.style.overflow = "hidden";/* the translated child must not become scrollable overflow */
-			}
-			drag.dy = dy;
-			var k = Math.min(1, Math.abs(dy) / (innerHeight * .5));
-			drag.el.style.transform = "translate3d(0," + dy + "px,0) scale(" + (1 - k * .12).toFixed(3) + ")";
-			drag.el.style.opacity = (1 - k * .65).toFixed(3);
-		}, { passive: true });
-		track.addEventListener("pointerup", function () {
-			tActive = false;
-			if (!drag) return;
-			var d = drag; drag = null;
-			if (!d.on) return;/* it was a tap: leave it to the click handler */
-			eatClick = true;
-			var dt = Math.max(1, Date.now() - d.t);
-			/* distance OR velocity, so a short fast flick dismisses as readily as a long slow pull */
-			dragEnd(d, Math.abs(d.dy) > Math.max(80, innerHeight * .18) || (Math.abs(d.dy) / dt > .5 && Math.abs(d.dy) > 40));
-		});
-		track.addEventListener("pointercancel", function () {
-			tActive = false;
-			if (!drag) return;
-			var d = drag; drag = null;
-			if (d.on) { eatClick = true; dragEnd(d, false); }
-		});
-		vPrev.addEventListener("click", function () { go(-1); });
-		vNext.addEventListener("click", function () { go(1); });
-		$(".v-close", dlg).addEventListener("click", closeViewer);
-		/* ── interface visibility: idle auto-hide + expanded mode (no Fullscreen API) ──
-		   One timer drives both. Expanded ("imm") only removes padding/frames and shortens the
-		   idle delay, so a pointer move always brings the controls back — the single mechanism
-		   means there is no state where the UI is hidden with no way to reveal it. */
-		var vFs = $(".v-fs", dlg), bar = $(".v-bar", dlg), UI_IDLE = 2500, uiT = 0, imm = false, barHot = false;
-		function hideUI() { if (uiT) { clearTimeout(uiT); uiT = 0; } dlg.classList.add("hide-ui"); }
-		function showUI() {
-			dlg.classList.remove("hide-ui");
-			if (uiT) { clearTimeout(uiT); uiT = 0; }
-			if (!barHot && dlg.open) uiT = setTimeout(hideUI, imm ? 1200 : UI_IDLE);
-		}
-		function setImm(on) {
-			imm = !!on;
-			dlg.classList.toggle("imm", imm);
-			vFs.classList.toggle("on", imm);
-			vFs.setAttribute("aria-pressed", imm ? "true" : "false");
-			vFs.setAttribute("title", imm ? "Restore interface (f)" : "Expand — hide interface (f)");
-			if (imm) hideUI(); else showUI();
-		}
-		vFs.addEventListener("click", function () { setImm(!imm); });
-		/* hovering the bar pins it; leaving restarts the idle countdown */
-		bar.addEventListener("pointerenter", function () { barHot = true; if (uiT) { clearTimeout(uiT); uiT = 0; } });
-		bar.addEventListener("pointerleave", function () { barHot = false; showUI(); });
-		/* Mouse only. A touch pointerdown/pointermove is the START of a swipe, so revealing on it made
-		   the bar flash in over the media on every single page — the exact annoyance this avoids. On
-		   touch the reveal is the tap (see the track click handler); touching a control still keeps the
-		   bar alive, so reaching for a second button never races the idle timer. */
-		dlg.addEventListener("pointermove", function (e) { if (e.pointerType !== "touch" && !barHot) showUI(); });
-		dlg.addEventListener("pointerdown", function (e) { if (e.pointerType !== "touch") showUI(); });
-		bar.addEventListener("pointerdown", function () { showUI(); });
-		/* Esc: while expanded the first press only restores the interface (cancel is cancelable),
-		   so one keypress never loses your place in a long gallery. A second press closes. */
-		dlg.addEventListener("cancel", function (e) {
-			if (imm) { e.preventDefault(); setImm(false); return; }
-			teardown(); items = []; slots = [];
-		});
-		dlg.addEventListener("close", function () { if (dlg.open) return; teardown(); items = []; slots = []; });
-		var rTimer = 0;
-		addEventListener("resize", function () {
-			if (!dlg.open) return;
-			clearTimeout(rTimer);
-			rTimer = setTimeout(function () {
+			function render() {
+				if (!items.length) return;/* a deferred go() must not outlive the session */
+				var lo = Math.max(0, idx - 1), hi = Math.min(items.length - 1, idx + 1), frag = document.createDocumentFragment(), pend = [];
+				slots = [];
+				for (var i = lo; i <= hi; i++) { slots.push(i); frag.appendChild(slide(i, i === idx, pend)); }
+				teardown(); track.appendChild(frag);
+				for (i = 0; i < pend.length; i++)loadDoc(pend[i][0], pend[i][1]);
 				freeze();
 				track.scrollLeft = slots.indexOf(idx) * track.clientWidth;
 				thawSoon();
-			}, 100);
-		});
-
-		/* ── audio dock ─────────────────────────────────────────────────────── */
-		var dock = $(".dock"), dAudio = $(".d-audio", dock), dTitle = $(".dock-title", dock),
-			list = [], cur = -1, marked = null;
-		function mark(a) {
-			if (marked) {
-				marked.classList.remove("now");
-				var pr = marked.closest ? marked.closest("tr,.entry") : null;
-				if (pr) pr.classList.remove("now");
+				chrome();
 			}
-			marked = a || null;
-			if (a) {
-				a.classList.add("now");
-				var r = a.closest ? a.closest("tr,.entry") : null;
-				if (r) r.classList.add("now");
+			var goT = 0;
+			function go(d) {
+				var t = Math.min(items.length - 1, Math.max(0, idx + d));
+				if (t === idx) return;
+				var s = slots.indexOf(t);
+				if (s >= 0) {
+					freeze(); track.scrollTo({ left: s * track.clientWidth, behavior: "smooth" });
+					clearTimeout(goT); goT = setTimeout(function () { idx = t; render(); }, 260);
+				}
+				else { idx = t; render(); }
 			}
-		}
-		function playAt(i) {
-			if (i < 0 || i >= list.length) return;
-			cur = i;
-			var it = list[i];
-			dTitle.textContent = it.name; dTitle.title = it.name;
-			dAudio.src = it.href;
-			dock.hidden = false; document.body.classList.add("has-dock");
-			mark(it.a);
-			dAudio.play().catch(function () { });
-			try {
-				if ("mediaSession" in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: it.name });
-			} catch (e) { }
-		}
-		function step(d) {
-			var t = cur + d;
-			if (t < 0 || t >= list.length) return;
-			playAt(t);
-		}
-		dAudio.addEventListener("ended", function () { step(1); });
-		$(".d-prev", dock).addEventListener("click", function () { step(-1); });
-		$(".d-next", dock).addEventListener("click", function () { step(1); });
-		$(".d-close", dock).addEventListener("click", function () {
-			try { dAudio.pause(); } catch (e) { }
-			dAudio.removeAttribute("src");
-			try { dAudio.load(); } catch (e) { }
-			dock.hidden = true; document.body.classList.remove("has-dock"); mark(null); cur = -1; list = [];
-		});
-
-		/* ── one delegated click handler ────────────────────────────────────── */
-		document.addEventListener("click", function (e) {
-			var a = e.target.closest ? e.target.closest("a[href]") : null;
-			if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-			if (a.closest("#viewer,#keys,.dock")) return;
-			var href = a.getAttribute("href");
-			if (!href || href.charAt(0) === "#") return;
-			if (a.closest(".listing") && !a.dataset.dir && !a.closest(".up")) {
-				var k = kindOf(href);
-				if (k === "audio") {
-					e.preventDefault();
-					list = collect(["audio"]);
-					for (var i = 0; i < list.length; i++)if (list[i].href === href) { playAt(i); return; }
+			function settle() {
+				if (lock || !dlg.open || !items.length) return;
+				var w = track.clientWidth || 1, t = slots[Math.round(track.scrollLeft / w)];
+				if (t !== undefined && t !== idx) { idx = t; render(); }
+			}
+			function openAt(href) {
+				items = collect(VIEW);
+				idx = -1;
+				for (var i = 0; i < items.length; i++) { if (items[i].href === href) { idx = i; break; } }
+				if (idx < 0) { items = [{ href: href, name: baseOf(href), kind: kindOf(href) }]; idx = 0; }
+				/* a drag-dismiss arms eatClick and then closes, so the flag must not survive into the next
+				   session — it would swallow the first tap after every dismissal */
+				drag = null; tActive = false; eatClick = false;
+				if (!dlg.open) dlg.showModal();
+				render();
+				if (imm) hideUI(); else showUI();
+			}
+			/* tear down synchronously: never rely on the close event alone to stop media */
+			function closeViewer() {
+				if (uiT) { clearTimeout(uiT); uiT = 0; }
+				clearTimeout(goT); goT = 0;
+				dlg.classList.remove("hide-ui");
+				if (dlg.open) dlg.close(); teardown(); items = []; slots = [];
+			}
+			var sTimer = 0;
+			track.addEventListener("scroll", function () {
+				/* a finger is paging: get the interface out of the way immediately, before the first frame
+				   of movement, instead of letting it linger over the media for the rest of the idle timer. */
+				if (tActive) hideUI();
+				if ("onscrollend" in window) return;
+				clearTimeout(sTimer); sTimer = setTimeout(settle, 120);
+			}, { passive: true });
+			track.addEventListener("scrollend", settle);
+			track.addEventListener("click", function (e) {
+				if (eatClick) { eatClick = false; return; }/* the tail of a drag is not a tap */
+				if (lastPT === "touch") {
+					/* Touch has no hover, so the tap is the only "show me the controls" gesture there is —
+					   and it must toggle, or a tap meant to dismiss the interface would re-arm it. Taps on
+					   real controls are left alone. Backdrop-tap-to-close is deliberately NOT wired on touch:
+					   it collides with this toggle, and every mobile gallery closes via the button or a
+					   downward flick instead. */
+					if (e.target.closest("a,button,video,audio,iframe,input,select,textarea,summary")) return;
+					if (dlg.classList.contains("hide-ui")) showUI(); else hideUI();
 					return;
 				}
-				if (k && VIEW.indexOf(k) >= 0) { e.preventDefault(); openAt(href); return; }
-			}
-			var u = merge(a.href);
-			if (u) { e.preventDefault(); location.href = u; }
-		});
-
-		/* ── video seek bounds ──────────────────────────────────────────────── */
-		var SEEK_EPS = .25;
-		function seekEnd(v, t) { var d = v.duration; return isFinite(d) && d > 0 ? Math.min(t, d) : t; }
-		function atEnd(v) { var d = v.duration; return v.ended || (isFinite(d) && d > 0 && v.currentTime >= d - SEEK_EPS); }
-
-		/* ── keyboard ───────────────────────────────────────────────────────── */
-		var keys = $("#keys");
-		$("#help").addEventListener("click", function () { keys.showModal(); });
-		$("#keys .chip").addEventListener("click", function () { keys.close(); });
-		addEventListener("keydown", function (e) {
-			if (e.ctrlKey || e.metaKey || e.altKey) return;
-			var t = e.target;
-			if (t && t.closest && t.closest("input,textarea,select,[contenteditable=true]")) {
-				if (e.key === "Escape" && t === fInput) { clearFilter(); fInput.blur(); e.preventDefault(); }
-				return;
-			}
-			if (keys.open) return;
-			if (dlg.open) {
-				var v = $('.v-slide[data-i="' + idx + '"] video', track), sc = scroller(), pg = sc ? Math.max(80, sc.clientHeight * .9) : 0;
-				if (e.key !== "Escape") showUI();/* any key counts as activity */
-				switch (e.key) {
-					/* On a video the arrows seek, but only while there is time left to seek into:
-					   at t=0 Left pages back and at the end (or after `ended`) Right pages forward,
-					   so a finished video is never a dead end. SEEK_EPS absorbs float drift and the
-					   fact that browsers rarely land exactly on `duration`; a non-finite duration
-					   (live/streaming) can only be seeked backwards. */
-					case "ArrowLeft": if (v && !e.shiftKey && v.currentTime > SEEK_EPS) v.currentTime = Math.max(0, v.currentTime - 5); else go(-1); e.preventDefault(); break;
-					case "ArrowRight": if (v && !e.shiftKey && !atEnd(v)) v.currentTime = seekEnd(v, v.currentTime + 5); else go(1); e.preventDefault(); break;
-					case "ArrowUp": if (sc) vscroll(sc, -64); else go(-1); e.preventDefault(); break;
-					case "ArrowDown": if (sc) vscroll(sc, 64); else go(1); e.preventDefault(); break;
-					case "PageUp": if (sc) vscroll(sc, -pg); else go(-1); e.preventDefault(); break;
-					case "PageDown": if (sc) vscroll(sc, pg); else go(1); e.preventDefault(); break;
-					case "Home": if (sc) sc.scrollTop = 0; else if (items.length) { idx = 0; render(); } e.preventDefault(); break;
-					case "End": if (sc) sc.scrollTop = sc.scrollHeight; else if (items.length) { idx = items.length - 1; render(); } e.preventDefault(); break;
-					case " ": if (v) { v.paused ? v.play().catch(function () { }) : v.pause(); e.preventDefault(); }
-					else if (sc) { vscroll(sc, e.shiftKey ? -pg : pg); e.preventDefault(); } break;
-					case "f": case "F": $(".v-fs", dlg).click(); e.preventDefault(); break;
+				if (e.target === track || e.target.classList.contains("v-slide")) closeViewer();
+				else if (e.target.tagName === "IMG") {
+					var z = e.target.classList.toggle("zoom"), sl = e.target.closest(".v-slide");
+					/* a zoomed image overflows, so hand both axes back to the browser while it is zoomed */
+					if (sl) sl.classList.toggle("scrolls", z);
 				}
-				return;
+			});
+
+			/* ── touch gestures: native horizontal paging + vertical drag-to-dismiss ────────────────
+			   There is deliberately NO synthetic left/right swipe detection: the horizontal axis belongs to
+			   the scroll-snap track, which already gives finger-following movement, momentum, rubber-band and
+			   one-slide-per-flick snapping — a touchend threshold handler could only replace all of that with
+			   a binary guess. Vertical is ours by construction: `touch-action:pan-x` on a media slide leaves
+			   the browser no vertical axis to claim, so it never takes over the pointer stream mid-gesture. */
+			var DRAG_MIN = 10, drag = null, tActive = false, eatClick = false, lastPT = "mouse";
+			function dragEnd(d, dismiss) {
+				d.el.classList.add("v-drag");
+				if (d.s) d.s.style.overflow = "";
+				if (dismiss) {
+					d.el.style.transform = "translate3d(0," + (d.dy < 0 ? -innerHeight : innerHeight) + "px,0)";
+					d.el.style.opacity = "0";
+					/* a timer, never transitionend: a transition that never ticks must not strand the viewer */
+					setTimeout(closeViewer, 200);
+				} else {
+					d.el.style.transform = ""; d.el.style.opacity = "";
+					setTimeout(function () { d.el.classList.remove("v-drag"); }, 200);
+				}
 			}
-			if (e.key === "/") { if (fInput) { fInput.focus(); fInput.select(); e.preventDefault(); } }
-			else if (e.key === "?") { keys.showModal(); e.preventDefault(); }
-			else if (e.key === "g") { setParam("layout", "grid"); }
-			else if (e.key === "l") { setParam("layout", "list"); }
-			/* Escape must clear the filter even when focus has left the box — the in-input branch above
-			   only ever fires while it is focused, which is why Escape looked dead after clicking a row.
-			   Both dialogs return before this point, so their own Escape handling is untouched. */
-			else if (e.key === "Escape") { if (clearFilter()) e.preventDefault(); }
-		});
-		}) ();
+			/* "touch" is the only special pointer type: it has no hover and no cursor, so it gets the
+			   tap-toggle and the drag. Everything else — mouse, pen, and any synthetic event with an empty
+			   pointerType — keeps hover semantics, which is the safe default (controls stay reachable). */
+			track.addEventListener("pointerdown", function (e) {
+				lastPT = e.pointerType || "mouse";
+				if (lastPT !== "touch") return;
+				tActive = true;
+				if (drag) { dragEnd(drag, false); drag = null; return; }/* a second finger: it is a pinch, not a drag */
+				if (!e.isPrimary || !dlg.open) return;
+				var s = $('.v-slide[data-i="' + idx + '"]', track);
+				if (!s || s.classList.contains("scrolls")) return;/* scrollable content owns its own vertical axis */
+				if (window.visualViewport && visualViewport.scale > 1.01) return;/* pinched in: let them pan it */
+				var el = s.querySelector("img,video");
+				if (!el) return;/* never transform the slide itself — it is the snap area */
+				el.classList.remove("v-drag");
+				drag = { el: el, s: s, x: e.clientX, y: e.clientY, t: Date.now(), dy: 0, on: false };
+			}, { passive: true });
+			track.addEventListener("pointermove", function (e) {
+				if (!drag || !e.isPrimary) return;
+				var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+				if (!drag.on) {
+					/* first movement past the threshold locks the axis for the whole gesture, so a sloppy
+					   diagonal flick can never both page and dismiss */
+					if (Math.abs(dx) > DRAG_MIN && Math.abs(dx) >= Math.abs(dy)) { drag = null; return; }
+					if (Math.abs(dy) < DRAG_MIN) return;
+					drag.on = true;
+					hideUI();/* the gesture is confirmed: nothing should sit over the media while it moves */
+					drag.s.style.overflow = "hidden";/* the translated child must not become scrollable overflow */
+				}
+				drag.dy = dy;
+				var k = Math.min(1, Math.abs(dy) / (innerHeight * .5));
+				drag.el.style.transform = "translate3d(0," + dy + "px,0) scale(" + (1 - k * .12).toFixed(3) + ")";
+				drag.el.style.opacity = (1 - k * .65).toFixed(3);
+			}, { passive: true });
+			track.addEventListener("pointerup", function () {
+				tActive = false;
+				if (!drag) return;
+				var d = drag; drag = null;
+				if (!d.on) return;/* it was a tap: leave it to the click handler */
+				eatClick = true;
+				var dt = Math.max(1, Date.now() - d.t);
+				/* distance OR velocity, so a short fast flick dismisses as readily as a long slow pull */
+				dragEnd(d, Math.abs(d.dy) > Math.max(80, innerHeight * .18) || (Math.abs(d.dy) / dt > .5 && Math.abs(d.dy) > 40));
+			});
+			track.addEventListener("pointercancel", function () {
+				tActive = false;
+				if (!drag) return;
+				var d = drag; drag = null;
+				if (d.on) { eatClick = true; dragEnd(d, false); }
+			});
+			vPrev.addEventListener("click", function () { go(-1); });
+			vNext.addEventListener("click", function () { go(1); });
+			$(".v-close", dlg).addEventListener("click", closeViewer);
+			/* ── interface visibility: idle auto-hide + expanded mode (no Fullscreen API) ──
+			   One timer drives both. Expanded ("imm") only removes padding/frames and shortens the
+			   idle delay, so a pointer move always brings the controls back — the single mechanism
+			   means there is no state where the UI is hidden with no way to reveal it. */
+			var vFs = $(".v-fs", dlg), bar = $(".v-bar", dlg), UI_IDLE = 2500, uiT = 0, imm = false, barHot = false;
+			function hideUI() { if (uiT) { clearTimeout(uiT); uiT = 0; } dlg.classList.add("hide-ui"); }
+			function showUI() {
+				dlg.classList.remove("hide-ui");
+				if (uiT) { clearTimeout(uiT); uiT = 0; }
+				if (!barHot && dlg.open) uiT = setTimeout(hideUI, imm ? 1200 : UI_IDLE);
+			}
+			function setImm(on) {
+				imm = !!on;
+				dlg.classList.toggle("imm", imm);
+				vFs.classList.toggle("on", imm);
+				vFs.setAttribute("aria-pressed", imm ? "true" : "false");
+				vFs.setAttribute("title", imm ? "Restore interface (f)" : "Expand — hide interface (f)");
+				if (imm) hideUI(); else showUI();
+			}
+			vFs.addEventListener("click", function () { setImm(!imm); });
+			/* hovering the bar pins it; leaving restarts the idle countdown */
+			bar.addEventListener("pointerenter", function () { barHot = true; if (uiT) { clearTimeout(uiT); uiT = 0; } });
+			bar.addEventListener("pointerleave", function () { barHot = false; showUI(); });
+			/* Mouse only. A touch pointerdown/pointermove is the START of a swipe, so revealing on it made
+			   the bar flash in over the media on every single page — the exact annoyance this avoids. On
+			   touch the reveal is the tap (see the track click handler); touching a control still keeps the
+			   bar alive, so reaching for a second button never races the idle timer. */
+			dlg.addEventListener("pointermove", function (e) { if (e.pointerType !== "touch" && !barHot) showUI(); });
+			dlg.addEventListener("pointerdown", function (e) { if (e.pointerType !== "touch") showUI(); });
+			bar.addEventListener("pointerdown", function () { showUI(); });
+			/* Esc: while expanded the first press only restores the interface (cancel is cancelable),
+			   so one keypress never loses your place in a long gallery. A second press closes. */
+			dlg.addEventListener("cancel", function (e) {
+				if (imm) { e.preventDefault(); setImm(false); return; }
+				teardown(); items = []; slots = [];
+			});
+			dlg.addEventListener("close", function () { if (dlg.open) return; teardown(); items = []; slots = []; });
+			var rTimer = 0;
+			addEventListener("resize", function () {
+				if (!dlg.open) return;
+				clearTimeout(rTimer);
+				rTimer = setTimeout(function () {
+					freeze();
+					track.scrollLeft = slots.indexOf(idx) * track.clientWidth;
+					thawSoon();
+				}, 100);
+			});
+
+			/* ── audio dock ─────────────────────────────────────────────────────── */
+			var dock = $(".dock"), dAudio = $(".d-audio", dock), dTitle = $(".dock-title", dock),
+				list = [], cur = -1, marked = null;
+			function mark(a) {
+				if (marked) {
+					marked.classList.remove("now");
+					var pr = marked.closest ? marked.closest("tr,.entry") : null;
+					if (pr) pr.classList.remove("now");
+				}
+				marked = a || null;
+				if (a) {
+					a.classList.add("now");
+					var r = a.closest ? a.closest("tr,.entry") : null;
+					if (r) r.classList.add("now");
+				}
+			}
+			function playAt(i) {
+				if (i < 0 || i >= list.length) return;
+				cur = i;
+				var it = list[i];
+				dTitle.textContent = it.name; dTitle.title = it.name;
+				dAudio.src = it.href;
+				dock.hidden = false; document.body.classList.add("has-dock");
+				mark(it.a);
+				dAudio.play().catch(function () { });
+				try {
+					if ("mediaSession" in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: it.name });
+				} catch (e) { }
+			}
+			function step(d) {
+				var t = cur + d;
+				if (t < 0 || t >= list.length) return;
+				playAt(t);
+			}
+			dAudio.addEventListener("ended", function () { step(1); });
+			$(".d-prev", dock).addEventListener("click", function () { step(-1); });
+			$(".d-next", dock).addEventListener("click", function () { step(1); });
+			$(".d-close", dock).addEventListener("click", function () {
+				try { dAudio.pause(); } catch (e) { }
+				dAudio.removeAttribute("src");
+				try { dAudio.load(); } catch (e) { }
+				dock.hidden = true; document.body.classList.remove("has-dock"); mark(null); cur = -1; list = [];
+			});
+
+			/* ── one delegated click handler ────────────────────────────────────── */
+			document.addEventListener("click", function (e) {
+				var a = e.target.closest ? e.target.closest("a[href]") : null;
+				if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+				if (a.closest("#viewer,#keys,.dock")) return;
+				var href = a.getAttribute("href");
+				if (!href || href.charAt(0) === "#") return;
+				if (a.closest(".listing") && !a.dataset.dir && !a.closest(".up")) {
+					var k = kindOf(href);
+					if (k === "audio") {
+						e.preventDefault();
+						list = collect(["audio"]);
+						for (var i = 0; i < list.length; i++)if (list[i].href === href) { playAt(i); return; }
+						return;
+					}
+					if (k && VIEW.indexOf(k) >= 0) { e.preventDefault(); openAt(href); return; }
+				}
+				var u = merge(a.href);
+				if (u) { e.preventDefault(); location.href = u; }
+			});
+
+			/* ── video seek bounds ──────────────────────────────────────────────── */
+			var SEEK_EPS = .25;
+			function seekEnd(v, t) { var d = v.duration; return isFinite(d) && d > 0 ? Math.min(t, d) : t; }
+			function atEnd(v) { var d = v.duration; return v.ended || (isFinite(d) && d > 0 && v.currentTime >= d - SEEK_EPS); }
+
+			/* ── keyboard ───────────────────────────────────────────────────────── */
+			var keys = $("#keys");
+			$("#help").addEventListener("click", function () { keys.showModal(); });
+			$("#keys .chip").addEventListener("click", function () { keys.close(); });
+			addEventListener("keydown", function (e) {
+				if (e.ctrlKey || e.metaKey || e.altKey) return;
+				var t = e.target;
+				if (t && t.closest && t.closest("input,textarea,select,[contenteditable=true]")) {
+					if (e.key === "Escape" && t === fInput) { clearFilter(); fInput.blur(); e.preventDefault(); }
+					return;
+				}
+				if (keys.open) return;
+				if (dlg.open) {
+					var v = $('.v-slide[data-i="' + idx + '"] video', track), sc = scroller(), pg = sc ? Math.max(80, sc.clientHeight * .9) : 0;
+					if (e.key !== "Escape") showUI();/* any key counts as activity */
+					switch (e.key) {
+						/* On a video the arrows seek, but only while there is time left to seek into:
+						   at t=0 Left pages back and at the end (or after `ended`) Right pages forward,
+						   so a finished video is never a dead end. SEEK_EPS absorbs float drift and the
+						   fact that browsers rarely land exactly on `duration`; a non-finite duration
+						   (live/streaming) can only be seeked backwards. */
+						case "ArrowLeft": if (v && !e.shiftKey && v.currentTime > SEEK_EPS) v.currentTime = Math.max(0, v.currentTime - 5); else go(-1); e.preventDefault(); break;
+						case "ArrowRight": if (v && !e.shiftKey && !atEnd(v)) v.currentTime = seekEnd(v, v.currentTime + 5); else go(1); e.preventDefault(); break;
+						case "ArrowUp": if (sc) vscroll(sc, -64); else go(-1); e.preventDefault(); break;
+						case "ArrowDown": if (sc) vscroll(sc, 64); else go(1); e.preventDefault(); break;
+						case "PageUp": if (sc) vscroll(sc, -pg); else go(-1); e.preventDefault(); break;
+						case "PageDown": if (sc) vscroll(sc, pg); else go(1); e.preventDefault(); break;
+						case "Home": if (sc) sc.scrollTop = 0; else if (items.length) { idx = 0; render(); } e.preventDefault(); break;
+						case "End": if (sc) sc.scrollTop = sc.scrollHeight; else if (items.length) { idx = items.length - 1; render(); } e.preventDefault(); break;
+						case " ": if (v) { v.paused ? v.play().catch(function () { }) : v.pause(); e.preventDefault(); }
+						else if (sc) { vscroll(sc, e.shiftKey ? -pg : pg); e.preventDefault(); } break;
+						case "f": case "F": $(".v-fs", dlg).click(); e.preventDefault(); break;
+					}
+					return;
+				}
+				if (e.key === "/") { if (fInput) { fInput.focus(); fInput.select(); e.preventDefault(); } }
+				else if (e.key === "?") { keys.showModal(); e.preventDefault(); }
+				else if (e.key === "g") { setParam("layout", "grid"); }
+				else if (e.key === "l") { setParam("layout", "list"); }
+				/* Escape must clear the filter even when focus has left the box — the in-input branch above
+				   only ever fires while it is focused, which is why Escape looked dead after clicking a row.
+				   Both dialogs return before this point, so their own Escape handling is untouched. */
+				else if (e.key === "Escape") { if (clearFilter()) e.preventDefault(); }
+			});
+		})();
 	</script>
 </body>
 

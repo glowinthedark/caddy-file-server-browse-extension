@@ -5,7 +5,8 @@ Single-artifact project: a **drop-in replacement for Caddy's `file_server browse
 
 ```
 browse.html                  THE product: Go html/template + inline CSS + inline JS + SVG sprite
-css/atelier-estuary-light.css  LEGACY, unused since the rewrite (no CDN/sidecar assets remain)
+css/atelier-estuary-light.css  LEGACY, unused since the rewrite (no CDN assets remain)
+sidecar/heic.js  heic.worker.js  OPTIONAL, never loaded unless installed under the site root (see HEIC sidecar)
 img/*.png                    README screenshots only
 README.md  LICENSE(Apache-2.0)  .claude/CLAUDE.md(engineering rules)
 ```
@@ -220,6 +221,51 @@ it send folders to the bottom.
   `mailto:`); `.html` files render in `<iframe sandbox="">`; SRT is converted to a VTT blob track.
 - **Inline tokenizer** replaces highlight.js: `HL` regex fragments composed via `.source`,
   classes `c/s/n/k`, bailing over `HL_MAX=300000` chars.
+- **Optional HEIC sidecar** (`sidecar/heic.js`, not loaded unless installed). Gate at the top of the
+  template: `$heicJS` = the URL the browser fetches, `$heicFile` = that file's path **under the site
+  root** (they differ only where the site rewrites URLs — `fileExists` resolves against
+  `browse.go:194 Root: http.Dir(root)`, never against the template's own directory), and
+  `$heic := and (ne $heicJS "") (fileExists $heicFile)`. When the file is absent the whole feature
+  costs **one stat per listing**: `var HEIC_JS = ""` short-circuits every call site, no markup, no
+  request, and the CSP header is byte-identical (` blob:` on `img-src` and ` 'wasm-unsafe-eval'` on
+  `script-src` are appended through `$imgx`/`$scrx` only when the gate is true).
+  - **Activation is error-driven, so Safari pays nothing**: the slide always emits a normal
+    `<img src=HEIC>`; only its `onerror` sets `data-heic="1"` and calls `heicSwap()`. `chrome()`
+    re-runs `heicSwap` for the current index so a neighbour that failed while off-screen decodes when
+    it becomes active. States: `1` failed-native → `2` decoded → `3` no preview.
+  - The adapter contract is exactly `window.CFSHeic.decode(url) -> Promise<Blob>`; `heic.js` pulls
+    `libheif-bundle.js` (libheif-js, LGPL, **not** vendored here) from its own directory. The
+    injected `<script>` carries `el.nonce = NONCE`, read once from `document.currentScript.nonce`
+    — the **property**, not `getAttribute("nonce")`, which returns `""` under nonce hiding. A nonce
+    authorizes an external `src` with no host allowlist; dynamic `import()` would not honor it.
+  - **Decoding runs in a Worker (`sidecar/heic.worker.js`) — that is the whole performance story.**
+    Measured on a 12 MP iPhone frame (4032×3024, headless, no GPU): fetch 2 ms, libheif container
+    parse 5 ms, **`display()` (wasm decode + YUV→RGBA) 606 ms**, `putImageData` 14 ms, JPEG encode
+    91 ms at full size / 35 ms scaled. The bundle already *is* the wasm build (md5-identical to
+    `libheif-js/wasm-bundle`, wasm embedded as base64, `WebAssembly.Instance`) — there is no asm.js
+    fallback to blame and no faster libheif build in that package, so the only lever is *where* the
+    600 ms runs. On the main thread it froze scrolling, swiping and the close button; in the worker
+    the page keeps a **9 ms max frame gap** through the whole decode.
+    - `worker-src 'self'` (`$wrkx`) is the one extra CSP token this costs. **`script-src` needs no
+      `'self'`**: a worker created from a *same-origin URL* does not inherit the document policy
+      (only `blob:`/`data:` workers do), so `importScripts("libheif-bundle.js")` is unrestricted
+      inside it. Verified live — adding `'self'` to `script-src` would let any uploaded `.js` under
+      the site root be script-loaded, which on a file server is a real weakening. Don't.
+    - `decode()` **resolves the URL against `location.href` before posting it** — the worker's base
+      is its own directory, so a relative item href fetched there 404s (this was the failure).
+    - Output is capped at `min(4096, max(2048, longestDevicePx × 2))` and encoded at q .85: 990 KB
+      instead of 4.2 MB for detail no pixel receives, with 2× headroom left for zoom.
+    - `Worker`/`OffscreenCanvas` missing, or the worker erroring, falls back to the identical inline
+      pipeline (nonce'd `<script>` + `<canvas>`); verified by deleting `window.Worker`.
+  - Output is a **blob URL assigned to the same `<img>`**, so zoom, drag-dismiss, `.zoom`/`.scrolls`
+    and every `img` selector keep working untouched; the blob is revoked in `teardown()` via
+    `img._blob`. Decodes are serialized on one promise chain with a 4-entry cache keyed by href — a
+    12 MP frame is ~48 MB of RGBA and parallel decodes OOM the wasm heap.
+  - **Popup only.** Grid thumbnails deliberately do not decode.
+- **Video arrows are seek-with-bounds**: in the viewer, Left/Right seek ±5 s on a `<video>`, but
+  Right at the end (`ended` or within `SEEK_EPS=.25` s of `duration`) and Left at the start page to
+  the next/previous item instead — otherwise the key is a dead end at both extremes. Shift bypasses
+  seeking. `duration` may be `NaN`/`Infinity` while metadata loads, hence the `isFinite` guards.
 - **Type routing still lives in two places that must agree**: the Go `icon` template's `HasExt`
   lists and the JS `KINDS`/`kindOf` map. Any extension change touches both.
 - **Perf**: `table-layout:fixed`, `content-visibility:auto` + `contain-intrinsic-size`, cached
@@ -261,6 +307,18 @@ Tabs for indentation, tabs inside `<style>`/`<script>` too. Go template actions 
 trimming. `{{html .X}}` for text and for `.URL`; `pathEscape` only for values built from `.Name`.
 Prefer `.URL` over `.Name` for hrefs/srcs. Keep the JS dependency-free, framework-free, ES5-shaped
 (`var`, no classes) inside one IIFE. **Never** add a `style=` attribute or inline handler (CSP).
+
+**Never run Prettier (or any HTML formatter) on `browse.html`** — `.prettierignore` now blocks it.
+Its HTML parser does not know `{{ … }}`, so it reflows attribute values and (a) breaks Go string
+literals across lines → `parsing browse template: … unterminated quoted string` at request time, and
+(b) injects whitespace *inside* literals — `{{if eq .Sort "name"}}` became `{{if eq .Sort " name"}}`,
+which parses fine and silently disables every sort chip and `aria-sort`, and
+`{{template "icon" .}}` became `{{template " icon" .}}`, a missing-template error. Commit `bd38f2a`
+shipped exactly this; `90725f9` was the last parseable revision and the repair was
+`git show 90725f9:browse.html` + a re-applied semantic diff. Verify any edit with a bare
+`text/template` parse (a 15-line Go program with a stub FuncMap) before reloading Caddy — the
+template is only parsed on a directory request, so a syntax error surfaces as a 500 in the log, not
+at load/reload time.
 
 ## Verification
 
